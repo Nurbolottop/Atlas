@@ -1,0 +1,64 @@
+{% load static %}<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ platform_name }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ platform_name }} — {{ platform_tagline|lower }}.{% endblock %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="{% static 'platform/platform.css' %}">
+  {% block head %}{% endblock %}
+  <script src="{% static 'platform/app.js' %}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span>{{ platform_name }}</span>
+      </a>
+      <nav class="main-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>Главная</a></li>
+          <li><a href="{% url 'home' %}#services">Сервисы</a></li>
+          {% for service in platform_services %}
+            {% with service_url=service.url %}
+            <li><a href="{{ service_url }}"{% if request.path == service_url %} aria-current="page"{% elif service_url in request.path %} class="is-section"{% endif %}>{{ service.title }}</a></li>
+            {% endwith %}
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="{% url 'home' %}"><span class="brand__mark" aria-hidden="true"></span><span>{{ platform_name }}</span></a>
+        <p class="site-footer__about">{{ platform_tagline }}. Все визуальные примеры на платформе — учебные демонстрации, а не клиентские проекты.</p>
+      </div>
+      <nav aria-label="Сервисы">
+        <h2>Сервисы</h2>
+        <ul>
+          {% for service in platform_services %}<li><a href="{{ service.url }}">{{ service.title }}</a></li>{% endfor %}
+        </ul>
+      </nav>
+      <div>
+        <h2>Платформа</h2>
+        <ul>
+          <li><a href="{% url 'home' %}">Главная</a></li>
+          <li><a href="{% url 'home' %}#how">Как это работает</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

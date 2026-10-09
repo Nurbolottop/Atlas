@@ -1,0 +1,74 @@
+<aside class="tc-side">
+  <span class="tc-logo"><i class="tc-logo__mark"></i>АРГОН<em>/ops</em></span>
+  <p class="tc-mlabel tc-side__group">Наблюдение</p>
+  <ul class="tc-side__nav">
+    <li><b>01</b>Обзор</li>
+    <li class="is-active"><b>02</b>Трафик</li>
+    <li><b>03</b>Функции</li>
+    <li><b>04</b>Журналы</li>
+    <li><b>05</b>Тревоги <em>3</em></li>
+  </ul>
+  <p class="tc-mlabel tc-side__group">Управление</p>
+  <ul class="tc-side__nav">
+    <li><b>06</b>Узлы</li>
+    <li><b>07</b>Доступы</li>
+    <li><b>08</b>Счета</li>
+  </ul>
+  <div class="tc-side__foot"><span class="tc-status"><i></i>API 200 · 38 мс</span><p class="tc-mlabel">build 4.2.1-a7f3</p></div>
+</aside>
+
+<div class="tc-main">
+  <div class="tc-bg" aria-hidden="true"></div>
+  <header class="tc-top">
+    <span class="tc-path">argon://<b>prod</b>/eu-central/<b>traffic</b></span>
+    <span class="tc-cmd">Найти сервис, узел или команду <kbd>⌘K</kbd></span>
+    <span class="tc-avatar">ИК</span>
+  </header>
+
+  <div class="tc-titlebar">
+    <div><p class="tc-mlabel">[02] Наблюдение</p><h1>Трафик</h1></div>
+    <div class="tc-seg"><span>1ч</span><span class="is-active">24ч</span><span>7д</span><span>30д</span></div>
+    <span class="tc-btn tc-btn--ghost tc-btn--sm">Экспорт CSV</span>
+    <span class="tc-btn tc-btn--sm">Создать правило</span>
+  </div>
+
+  <section class="tc-kpis">
+    <div class="tc-panel"><span class="tc-mlabel">Запросов/с</span><b>1.24M</b><em class="tc-up">▲ 8.2%</em></div>
+    <div class="tc-panel"><span class="tc-mlabel">Задержка p95</span><b>4.1<small>мс</small></b><em class="tc-up">▼ 0.3 мс</em></div>
+    <div class="tc-panel"><span class="tc-mlabel">Ошибки 5xx</span><b>0.002<small>%</small></b><em>без изменений</em></div>
+    <div class="tc-panel"><span class="tc-mlabel">Исходящий трафик</span><b>18.6<small>ТБ</small></b><em class="tc-down">▲ 12% к плану</em></div>
+  </section>
+
+  <section class="tc-row">
+    <div class="tc-panel tc-bigchart">
+      <div class="tc-panel__head"><span class="tc-mlabel">[A1] Запросы по регионам · тыс/с</span><div class="tc-legend"><span><i class="tc-sw"></i>eu-central</span><span><i class="tc-sw tc-sw--b"></i>eu-north</span></div></div>
+      <svg viewBox="0 0 640 170" width="640" height="210" preserveAspectRatio="none" aria-hidden="true">
+        <g stroke="#1D2733"><line x1="0" y1="10" x2="640" y2="10"/><line x1="0" y1="60" x2="640" y2="60"/><line x1="0" y1="110" x2="640" y2="110"/><line x1="0" y1="169" x2="640" y2="169"/></g>
+        <path d="M0 120 C40 110 60 130 100 112 S160 80 200 92 S260 60 300 70 S360 40 400 52 S470 30 520 46 S600 26 640 34 L640 170 L0 170 Z" fill="#22D3EE" fill-opacity=".1"/>
+        <path class="tc-chart__line" d="M0 120 C40 110 60 130 100 112 S160 80 200 92 S260 60 300 70 S360 40 400 52 S470 30 520 46 S600 26 640 34" fill="none" stroke="#22D3EE" stroke-width="2"/>
+        <path d="M0 146 C40 140 80 150 120 138 S200 128 240 132 S320 112 360 120 S440 104 480 112 S580 96 640 100" fill="none" stroke="#A3E635" stroke-width="1.5" stroke-dasharray="5 4"/>
+      </svg>
+      <div class="tc-axis"><span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span></div>
+    </div>
+    <div class="tc-panel tc-alerts">
+      <div class="tc-panel__head"><span class="tc-mlabel">[!] Тревоги</span><span class="tc-mlabel">3 активные</span></div>
+      <ul>
+        <li class="is-crit"><em>CRIT</em><p>fra-2b · задержка 18 мс</p><time>2 мин</time></li>
+        <li class="is-warn"><em>WARN</em><p>ams-1 · диск 86%</p><time>14 мин</time></li>
+        <li class="is-warn"><em>WARN</em><p>Лимит API для ключа k_93</p><time>1 ч</time></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tc-panel tc-tablewrap">
+    <table class="tc-table">
+      <thead><tr><th>Сервис</th><th>Регион</th><th>Статус</th><th class="r">RPS</th><th class="r">p95, мс</th><th>Нагрузка</th></tr></thead>
+      <tbody>
+        <tr class="is-selected"><td>edge-router</td><td>eu-central</td><td><span class="tc-st tc-st--ok">в норме</span></td><td class="r">642 100</td><td class="r">3.8</td><td><span class="tc-meter"><i style="width:64%"></i></span></td></tr>
+        <tr><td>auth-fn</td><td>eu-central</td><td><span class="tc-st tc-st--ok">в норме</span></td><td class="r">118 420</td><td class="r">5.2</td><td><span class="tc-meter"><i style="width:38%"></i></span></td></tr>
+        <tr><td>img-resize</td><td>eu-north</td><td><span class="tc-st tc-st--warn">нагрузка</span></td><td class="r">96 870</td><td class="r">11.4</td><td><span class="tc-meter tc-meter--warn"><i style="width:86%"></i></span></td></tr>
+        <tr><td>cart-api</td><td>fra-2b</td><td><span class="tc-st tc-st--crit">деградация</span></td><td class="r">41 300</td><td class="r">18.0</td><td><span class="tc-meter tc-meter--crit"><i style="width:94%"></i></span></td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,66 @@
+<div class="br-sysbar"><span>печатня_404 / admin / очередь_печати</span><span>user: dima_r · смена до 23:00 · <span class="br-sysbar__link">[выйти]</span></span></div>
+<div class="br-shell">
+  <aside class="br-sidenav">
+    <p class="br-bar">МЕНЮ</p>
+    <ul>
+      <li class="is-active">&gt; очередь (17)</li>
+      <li>заказы</li><li>клиенты</li><li>склад_бумаги</li><li>краски</li><li>отчёты</li><li>настройки</li>
+    </ul>
+    <pre class="br-sidenav__sys">сервер ... [OK]
+ризограф_1 [OK]
+ризограф_2 [ПЕЧАТЬ]
+резак ..... [OK]</pre>
+  </aside>
+  <main class="br-work">
+    <header class="br-work__head">
+      <h1>ОЧЕРЕДЬ<br>ПЕЧАТИ</h1>
+      <div class="br-counters">
+        <div><span>В_РАБОТЕ</span><b>04</b></div>
+        <div><span>ЖДУТ</span><b>12</b></div>
+        <div class="is-error"><span>ОШИБКИ</span><b>01</b></div>
+      </div>
+    </header>
+    <div class="br-toolbar">
+      <span class="br-checks">[x] новые [x] в_печати [ ] готово</span>
+      <span class="br-field">поиск: <i>фамилия или #</i></span>
+      <span class="br-btn br-btn--signal">[ + НОВЫЙ ЗАКАЗ ]</span>
+    </div>
+    <table class="br-table br-table--grid">
+      <thead><tr><th>#</th><th>КЛИЕНТ</th><th>ЧТО</th><th class="r">ТИРАЖ</th><th>БУМАГА</th><th>СТАТУС</th><th>СРОК</th></tr></thead>
+      <tbody>
+        <tr><td>0417</td><td>Кол. «Шум»</td><td>зин A5, 24 стр.</td><td class="r">120</td><td>офсет 120</td><td><span class="br-st br-st--run">В ПЕЧАТИ</span></td><td>11.10 18:00</td></tr>
+        <tr><td>0418</td><td>Е. Лаптева</td><td>плакат A3</td><td class="r">40</td><td>крафт 200</td><td><span class="br-st">ЖДЁТ</span></td><td>12.10 12:00</td></tr>
+        <tr class="is-error"><td>0419</td><td>Бар «Отвёртка»</td><td>меню A4</td><td class="r">60</td><td>картон 300</td><td><span class="br-st br-st--err">ОШИБКА_ФАЙЛА</span></td><td>12.10 15:00</td></tr>
+        <tr><td>0420</td><td>Р. Хайруллин</td><td>открытки A6</td><td class="r">300</td><td>дизайн 250</td><td><span class="br-st">ЖДЁТ</span></td><td>13.10 11:00</td></tr>
+        <tr><td>0421</td><td>Школа «Литера»</td><td>буклет A5</td><td class="r">500</td><td>офсет 90</td><td><span class="br-st">ЖДЁТ</span></td><td>14.10 18:00</td></tr>
+        <tr><td>0422</td><td>А. Ким</td><td>визитки</td><td class="r">1000</td><td>дизайн 300</td><td><span class="br-st">ЖДЁТ</span></td><td>14.10 20:00</td></tr>
+        <tr><td>0423</td><td>Изд. «Полка»</td><td>обложки A5</td><td class="r">250</td><td>картон 270</td><td><span class="br-st">ЖДЁТ</span></td><td>15.10 12:00</td></tr>
+        <tr><td>0424</td><td>Т. Гусева</td><td>календарь A4</td><td class="r">80</td><td>офсет 160</td><td><span class="br-st">ЖДЁТ</span></td><td>15.10 18:00</td></tr>
+        <tr><td>0425</td><td>Кафе «Сито»</td><td>листовки A6</td><td class="r">600</td><td>офсет 120</td><td><span class="br-st">ЖДЁТ</span></td><td>16.10 10:00</td></tr>
+        <tr><td>0416</td><td>М. Орлова</td><td>стикеры</td><td class="r">200</td><td>самоклейка</td><td><span class="br-st br-st--done">ГОТОВО</span></td><td>10.10 20:00</td></tr>
+      </tbody>
+    </table>
+    <p class="br-pager">строк: 10 из 17 &nbsp;|&nbsp; стр. <b>[1]</b> <span class="br-link">2</span> <span class="br-link">3</span> &nbsp;|&nbsp; <span class="br-link">экспорт.csv</span></p>
+  </main>
+  <aside class="br-logpanel">
+    <p class="br-bar">ЛОГ_СОБЫТИЙ</p>
+    <ul>
+      <li><i>11:21</i> #0417 84/120</li>
+      <li><i>11:18</i> #0419 шрифты не встроены</li>
+      <li class="is-warn"><i>11:02</i> !! флуор-розовый &lt; 15%</li>
+      <li><i>10:58</i> #0417 мастер #2</li>
+      <li><i>10:40</i> новый заказ #0421</li>
+      <li><i>10:12</i> резак: смена ножа</li>
+      <li><i>09:40</i> #0417 макет [OK]</li>
+      <li><i>09:12</i> смена открыта</li>
+      <li class="is-sep">=== 08.10.2026 ===</li>
+      <li><i>22:58</i> смена закрыта</li>
+      <li><i>22:41</i> #0416 готово [OK]</li>
+      <li><i>21:15</i> бумага крафт 200: −40 л.</li>
+      <li><i>19:30</i> #0415 выдан клиенту</li>
+      <li><i>18:02</i> ризограф_1: замятие</li>
+      <li><i>17:44</i> #0414 отменён клиентом</li>
+    </ul>
+    <span class="br-link">полный_лог.txt -&gt;</span>
+  </aside>
+</div>

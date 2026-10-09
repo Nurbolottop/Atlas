@@ -1,0 +1,346 @@
+/* Демонстрация: Скевоморфизм. Все селекторы ограничены .dm-skeuomorphism.
+   Материалы: орех, кожа, латунь, шлифованный алюминий, бумага. Свет — сверху. */
+
+.dm-skeuomorphism {
+  --sk-ink: #2b2118;
+  --sk-paper: #f3e9d2;
+  --sk-cream: #f3e9d2;
+  --sk-red: #b33a2b;
+  --sk-amber: #f2a33a;
+  --sk-wood:
+    repeating-linear-gradient(91deg, rgba(0, 0, 0, .07) 0 2px, transparent 2px 11px),
+    repeating-linear-gradient(88deg, rgba(255, 220, 170, .05) 0 1px, transparent 1px 27px),
+    repeating-linear-gradient(93deg, rgba(0, 0, 0, .08) 0 6px, transparent 6px 61px),
+    linear-gradient(180deg, #5c3b22 0%, #4a2f1b 55%, #3c2414 100%);
+  --sk-brass: linear-gradient(180deg, #f6e19a 0%, #dcb860 42%, #bd9338 58%, #a07a2b 100%);
+  --sk-alu:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .14) 0 1px, rgba(0, 0, 0, .025) 1px 3px),
+    linear-gradient(180deg, #eef0f2 0%, #d5d9dd 50%, #c2c7cc 100%);
+  --sk-leather:
+    radial-gradient(rgba(255, 255, 255, .05) 1px, transparent 1.6px) 0 0 / 5px 5px,
+    radial-gradient(rgba(0, 0, 0, .18) 1px, transparent 1.6px) 2px 3px / 6px 6px,
+    linear-gradient(180deg, #4d3529 0%, #3b2a20 60%, #2f2119 100%);
+  background: var(--sk-wood);
+  color: var(--sk-ink);
+  font-family: "PT Sans", system-ui, sans-serif;
+}
+
+/* ----- Общие предметы ----- */
+.dm-skeuomorphism .sk-screw {
+  position: relative; display: inline-block; flex: none;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #b9bfc5 45%, #6b7178 100%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .5), inset 0 -1px 1px rgba(0, 0, 0, .3);
+}
+.dm-skeuomorphism .sk-screw::after { content: ""; position: absolute; left: 1px; right: 1px; top: 4px; height: 2px; background: rgba(40, 40, 40, .7); transform: rotate(35deg); }
+
+.dm-skeuomorphism .sk-plate {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 8px 14px; border-radius: 6px;
+  background: var(--sk-brass);
+  font-family: "PT Serif", Georgia, serif; font-weight: 700; font-size: 18px; letter-spacing: .22em;
+  color: #4a3510; text-shadow: 0 1px 0 rgba(255, 244, 205, .7);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 -2px 0 rgba(90, 60, 10, .4);
+}
+.dm-skeuomorphism .sk-plate--sm { font-size: 14px; padding: 6px 12px; gap: 10px; letter-spacing: .16em; }
+
+.dm-skeuomorphism .sk-key {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 50px; padding: 0 24px; border-radius: 10px;
+  background: linear-gradient(180deg, #fdf9ef 0%, #ebe1c8 100%);
+  color: var(--sk-ink); font-weight: 700; font-size: 16px; white-space: nowrap;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .8);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -2px 0 rgba(0, 0, 0, .1), 0 3px 0 #8f7a55, 0 7px 12px rgba(0, 0, 0, .4);
+}
+.dm-skeuomorphism .sk-key--brass { background: var(--sk-brass); color: #2b1d08; text-shadow: 0 1px 0 rgba(255, 240, 190, .7); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), inset 0 -2px 0 rgba(90, 60, 10, .35), 0 3px 0 #6e521b, 0 7px 12px rgba(0, 0, 0, .45); }
+.dm-skeuomorphism .sk-key--sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.dm-skeuomorphism .sk-actions { display: flex; gap: 16px; align-items: center; }
+
+.dm-skeuomorphism .sk-lamp {
+  display: inline-block; flex: none; width: 12px; height: 12px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #9a9fa4, #3d4146 70%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .6), 0 1px 0 rgba(255, 255, 255, .6);
+}
+.dm-skeuomorphism .sk-lamp--green { background: radial-gradient(circle at 35% 30%, #d6ffdc, #3fb950 50%, #1d6e2b); box-shadow: 0 0 8px 2px rgba(63, 185, 80, .65), 0 1px 0 rgba(255, 255, 255, .5); }
+.dm-skeuomorphism .sk-lamp--red { background: radial-gradient(circle at 35% 30%, #ffd2c8, #e0412f 50%, #8c1d12); box-shadow: 0 0 8px 2px rgba(224, 65, 47, .65), 0 1px 0 rgba(255, 255, 255, .3); }
+.dm-skeuomorphism .sk-lamp--amber { background: radial-gradient(circle at 35% 30%, #fff0c8, #f2a33a 50%, #9a5a0c); box-shadow: 0 0 8px 2px rgba(242, 163, 58, .65), 0 1px 0 rgba(255, 255, 255, .5); }
+
+/* Металлическая ручка с насечкой */
+.dm-skeuomorphism .sk-knob {
+  position: relative; flex: none; width: 124px; height: 124px; border-radius: 50%;
+  background: repeating-conic-gradient(#858c93 0 4deg, #e6e9ec 4deg 8deg);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, .45), 0 2px 3px rgba(0, 0, 0, .5), inset 0 0 0 1px rgba(0, 0, 0, .3);
+}
+.dm-skeuomorphism .sk-knob i {
+  position: absolute; inset: 12px; border-radius: 50%;
+  background: conic-gradient(from 20deg, #f7f8f9, #9ea5ac 25%, #eef0f2 50%, #8f969d 75%, #f7f8f9);
+  box-shadow: inset 0 2px 2px rgba(255, 255, 255, .8), inset 0 -2px 3px rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .25);
+}
+.dm-skeuomorphism .sk-knob::after {
+  content: ""; position: absolute; left: 50%; top: 22px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ff8a7a, var(--sk-red));
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .4);
+  transform-origin: 5px 40px; transform: rotate(48deg);
+}
+.dm-skeuomorphism .sk-knob--s { width: 64px; height: 64px; }
+.dm-skeuomorphism .sk-knob--s i { inset: 7px; }
+.dm-skeuomorphism .sk-knob--s::after { top: 12px; width: 7px; height: 7px; margin-left: -3.5px; transform-origin: 3.5px 20px; transform: rotate(-40deg); }
+
+/* Тумблер */
+.dm-skeuomorphism .sk-toggle {
+  position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #f8f9fa, #b0b6bc 55%, #6e747b);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .4), inset 0 -1px 2px rgba(0, 0, 0, .3);
+}
+.dm-skeuomorphism .sk-toggle::before { content: ""; position: absolute; inset: 13px; border-radius: 50%; background: #1d2024; box-shadow: inset 0 2px 3px rgba(0, 0, 0, .8); }
+.dm-skeuomorphism .sk-toggle i {
+  position: absolute; left: 50%; top: 50%; width: 12px; height: 36px; margin-left: -6px; border-radius: 6px;
+  background: linear-gradient(90deg, #858c93 0%, #f6f7f8 45%, #9aa1a8 100%);
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, .35);
+}
+.dm-skeuomorphism .sk-toggle i::after {
+  content: ""; position: absolute; left: -3px; bottom: -6px; width: 18px; height: 18px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ffffff, #b8bec4 55%, #7a8087);
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, .35);
+}
+.dm-skeuomorphism .sk-toggle.is-up i { top: auto; bottom: 50%; }
+.dm-skeuomorphism .sk-toggle.is-up i::after { bottom: auto; top: -6px; }
+.dm-skeuomorphism .sk-toggle--h i { width: 36px; height: 12px; margin: -6px 0 0; left: auto; right: 50%; }
+.dm-skeuomorphism .sk-toggle--h i::after { left: -6px; top: -3px; bottom: auto; }
+.dm-skeuomorphism .sk-toggle--h.is-up i { left: 50%; right: auto; top: 50%; bottom: auto; }
+.dm-skeuomorphism .sk-toggle--h.is-up i::after { left: auto; right: -6px; top: -3px; }
+
+/* ----- Сайт ----- */
+.dm-skeuomorphism.dm--site { display: flex; flex-direction: column; }
+.dm-skeuomorphism .sk-nav {
+  position: relative; display: flex; align-items: center; gap: 40px; height: 76px; padding: 0 40px; flex: none;
+  background: var(--sk-leather);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .55), inset 0 -1px 0 rgba(255, 255, 255, .08);
+}
+.dm-skeuomorphism .sk-nav::before { content: ""; position: absolute; inset: 7px 10px; border: 2px dashed rgba(243, 233, 210, .32); border-radius: 6px; pointer-events: none; }
+.dm-skeuomorphism .sk-links { display: flex; gap: 34px; margin-left: auto; font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--sk-cream); text-shadow: 0 -1px 0 rgba(0, 0, 0, .7); }
+.dm-skeuomorphism .sk-links li { position: relative; padding: 6px 0; }
+.dm-skeuomorphism .sk-links .is-active { color: #f0cf74; }
+.dm-skeuomorphism .sk-links .is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 3px; border-radius: 2px; background: var(--sk-brass); box-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+
+.dm-skeuomorphism .sk-hero { display: grid; grid-template-columns: 500px 1fr; gap: 52px; padding: 40px 48px 0; height: 506px; flex: none; }
+.dm-skeuomorphism .sk-paper {
+  position: relative; align-self: center; padding: 42px 40px 40px;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, .55), transparent 60%),
+    linear-gradient(180deg, #f8f0dc 0%, #efe3c6 100%);
+  border-radius: 3px; transform: rotate(-1.2deg);
+  box-shadow: 0 2px 0 #d9c9a3, 0 18px 34px rgba(0, 0, 0, .55), inset 0 0 40px rgba(160, 120, 60, .12);
+}
+.dm-skeuomorphism .sk-tape { position: absolute; top: -14px; width: 92px; height: 30px; background: rgba(255, 250, 225, .6); box-shadow: 0 1px 3px rgba(0, 0, 0, .2); }
+.dm-skeuomorphism .sk-tape--l { left: 26px; transform: rotate(-6deg); }
+.dm-skeuomorphism .sk-tape--r { right: 26px; transform: rotate(5deg); }
+.dm-skeuomorphism .sk-hand { display: inline-block; font-family: "Caveat", cursive; font-weight: 700; font-size: 24px; line-height: 1; color: var(--sk-red); transform: rotate(-2deg); }
+.dm-skeuomorphism .sk-paper h1 { font-family: "PT Serif", Georgia, serif; font-weight: 700; font-size: 46px; line-height: 1.08; letter-spacing: -.01em; margin: 14px 0 18px; text-shadow: 0 1px 0 rgba(255, 255, 255, .6); }
+.dm-skeuomorphism .sk-paper p { font-size: 17px; line-height: 1.55; color: #3d3127; margin-bottom: 30px; }
+
+.dm-skeuomorphism .sk-deck {
+  position: relative; align-self: center; height: 460px; border-radius: 16px;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, .06) 0 2px, transparent 2px 13px),
+    repeating-linear-gradient(87deg, rgba(255, 230, 190, .06) 0 1px, transparent 1px 31px),
+    linear-gradient(180deg, #a26a35 0%, #8b5a2b 50%, #744821 100%);
+  box-shadow: 0 26px 44px rgba(0, 0, 0, .6), 0 6px 0 #4f3017, inset 0 2px 0 rgba(255, 220, 170, .35), inset 0 -3px 6px rgba(0, 0, 0, .35);
+}
+.dm-skeuomorphism .sk-deck__plate { position: absolute; left: 28px; bottom: 16px; padding: 4px 12px; border-radius: 4px; background: var(--sk-brass); font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #3a2a0c; text-shadow: 0 1px 0 rgba(255, 244, 205, .7); box-shadow: 0 2px 3px rgba(0, 0, 0, .5); }
+.dm-skeuomorphism .sk-platter {
+  position: absolute; left: 30px; top: 40px; width: 370px; height: 370px; border-radius: 50%;
+  background: conic-gradient(from 30deg, #f4f5f6, #8e959c 20%, #e8eaec 45%, #7f868d 70%, #f4f5f6);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, .55), inset 0 0 0 2px rgba(0, 0, 0, .25);
+}
+.dm-skeuomorphism .sk-record {
+  position: absolute; inset: 10px; border-radius: 50%; display: grid; place-items: center;
+  background:
+    conic-gradient(from 40deg, transparent 0 8%, rgba(255, 255, 255, .13) 12%, transparent 18% 50%, rgba(255, 255, 255, .1) 62%, transparent 68%),
+    repeating-radial-gradient(circle, #151515 0 1.5px, #262626 1.5px 3px);
+  box-shadow: inset 0 0 0 6px #121212;
+}
+.dm-skeuomorphism .sk-label {
+  width: 118px; height: 118px; border-radius: 50%; display: grid; place-content: center; text-align: center;
+  background: radial-gradient(circle, #e8e8e8 0 5px, #2a2a2a 5px 7px, transparent 7px), radial-gradient(circle at 35% 30%, #d0533f, var(--sk-red) 60%, #7e2318);
+  color: var(--sk-cream); line-height: 1.2;
+}
+.dm-skeuomorphism .sk-label b { font-family: "PT Serif", Georgia, serif; font-size: 13px; letter-spacing: .18em; margin-bottom: 26px; }
+.dm-skeuomorphism .sk-label span { font-size: 11px; letter-spacing: .08em; }
+.dm-skeuomorphism .sk-arm__base { position: absolute; left: 418px; top: 52px; width: 68px; height: 68px; border-radius: 50%; background: conic-gradient(from 0deg, #f6f7f8, #9aa1a8 25%, #eceff1 50%, #8b9299 75%, #f6f7f8); box-shadow: 0 8px 14px rgba(0, 0, 0, .5), inset 0 0 0 6px rgba(0, 0, 0, .12); }
+.dm-skeuomorphism .sk-arm__bar { position: absolute; left: 446px; top: 86px; width: 12px; height: 250px; border-radius: 6px; background: linear-gradient(90deg, #7f868d, #f6f7f8 45%, #959ca3); transform-origin: 6px 0; transform: rotate(24deg); box-shadow: 6px 10px 10px rgba(0, 0, 0, .35); }
+.dm-skeuomorphism .sk-arm__head { position: absolute; left: 330px; top: 300px; width: 34px; height: 46px; border-radius: 6px; background: linear-gradient(90deg, #2a2a2a, #555 50%, #2a2a2a); transform: rotate(24deg); box-shadow: 4px 8px 8px rgba(0, 0, 0, .45); }
+.dm-skeuomorphism .sk-deck__ctrl { position: absolute; right: 30px; bottom: 32px; display: flex; align-items: center; gap: 22px; }
+.dm-skeuomorphism .sk-switch { display: grid; justify-items: center; gap: 8px; }
+.dm-skeuomorphism .sk-switch span { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--sk-cream); text-shadow: 0 -1px 0 rgba(0, 0, 0, .6); }
+
+.dm-skeuomorphism .sk-specs { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr) 210px; gap: 22px; align-items: center; padding: 0 48px; }
+.dm-skeuomorphism .sk-metal {
+  position: relative; display: grid; gap: 4px; padding: 22px 28px; border-radius: 8px;
+  background: var(--sk-alu);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .5), inset 0 1px 0 #fff, inset 0 -1px 0 rgba(0, 0, 0, .25);
+}
+.dm-skeuomorphism .sk-metal .sk-screw { position: absolute; }
+.dm-skeuomorphism .sk-metal .sk-screw:nth-child(1) { left: 8px; top: 8px; }
+.dm-skeuomorphism .sk-metal .sk-screw:nth-child(2) { right: 8px; top: 8px; }
+.dm-skeuomorphism .sk-metal .sk-screw:nth-child(3) { left: 8px; bottom: 8px; }
+.dm-skeuomorphism .sk-metal .sk-screw:nth-child(4) { right: 8px; bottom: 8px; }
+.dm-skeuomorphism .sk-metal span { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #464c53; text-shadow: 0 1px 0 rgba(255, 255, 255, .8); }
+.dm-skeuomorphism .sk-metal b { font-family: "PT Serif", Georgia, serif; font-size: 19px; color: #22262b; text-shadow: 0 1px 0 rgba(255, 255, 255, .7); }
+.dm-skeuomorphism .sk-tag {
+  position: relative; display: grid; gap: 0; padding: 16px 18px 16px 44px;
+  background: linear-gradient(180deg, #f8f0dc, #eadcbb); border-radius: 4px 14px 14px 4px;
+  transform: rotate(3deg); box-shadow: 0 10px 18px rgba(0, 0, 0, .5);
+}
+.dm-skeuomorphism .sk-tag__hole { position: absolute; left: 14px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: #4a2f1b; box-shadow: inset 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 3px #c9a44c; }
+.dm-skeuomorphism .sk-tag b { font-family: "Caveat", cursive; font-weight: 700; font-size: 26px; line-height: 1.05; color: var(--sk-red); }
+.dm-skeuomorphism .sk-tag span:last-child { font-family: "Caveat", cursive; font-weight: 500; font-size: 22px; line-height: 1.1; color: var(--sk-ink); }
+
+/* ----- Приложение ----- */
+.dm-skeuomorphism.dm--app { display: flex; flex-direction: column; background: var(--sk-alu); }
+.dm-skeuomorphism .sk-status { display: flex; justify-content: space-between; padding: 14px 28px 0; font-size: 14px; font-weight: 700; color: #22262b; }
+.dm-skeuomorphism .sk-status__icons { display: flex; gap: 4px; align-items: center; }
+.dm-skeuomorphism .sk-status__icons i { width: 16px; height: 10px; border-radius: 2px; background: #22262b; }
+.dm-skeuomorphism .sk-apphead { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px 12px; }
+.dm-skeuomorphism .sk-power { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #2f343a; text-shadow: 0 1px 0 rgba(255, 255, 255, .8); }
+
+.dm-skeuomorphism .sk-tuner { margin: 0 16px; padding: 6px; border-radius: 16px; background: linear-gradient(180deg, #9aa1a8, #eef0f2 70%); box-shadow: 0 6px 12px rgba(0, 0, 0, .35), inset 0 1px 0 #fff; }
+.dm-skeuomorphism .sk-scale {
+  position: relative; height: 122px; border-radius: 11px; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 120%, rgba(242, 163, 58, .22), transparent 70%), #16191c;
+  box-shadow: inset 0 4px 14px rgba(0, 0, 0, .9);
+}
+.dm-skeuomorphism .sk-scale::after { content: ""; position: absolute; inset: 0; background: linear-gradient(165deg, rgba(255, 255, 255, .2) 0%, rgba(255, 255, 255, .05) 38%, transparent 40%); pointer-events: none; }
+.dm-skeuomorphism .sk-scale__nums { display: flex; justify-content: space-between; padding: 16px 16px 0; font-size: 15px; font-weight: 700; color: var(--sk-amber); text-shadow: 0 0 6px rgba(242, 163, 58, .75); }
+.dm-skeuomorphism .sk-scale__ticks {
+  height: 26px; margin: 6px 22px 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(242, 163, 58, .75) 0 2px, transparent 2px 12.4px) 0 100% / 100% 12px no-repeat,
+    repeating-linear-gradient(90deg, var(--sk-amber) 0 2px, transparent 2px 62px) 0 0 / 100% 26px no-repeat;
+  filter: drop-shadow(0 0 3px rgba(242, 163, 58, .6));
+}
+.dm-skeuomorphism .sk-needle { position: absolute; left: 61%; top: 12px; bottom: 26px; width: 3px; border-radius: 2px; background: #ff4a33; box-shadow: 0 0 8px rgba(255, 74, 51, .9); }
+.dm-skeuomorphism .sk-band { position: absolute; left: 18px; bottom: 8px; font-size: 12px; font-weight: 700; letter-spacing: .12em; color: #d39445; }
+
+.dm-skeuomorphism .sk-station {
+  display: grid; gap: 2px; margin: 16px 20px 0; padding: 10px 16px;
+  background: linear-gradient(180deg, #f8f0dc, #eee2c4); border-radius: 3px; transform: rotate(-.6deg);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .3), inset 0 0 0 1px rgba(120, 90, 40, .12);
+}
+.dm-skeuomorphism .sk-station b { font-family: "PT Serif", Georgia, serif; font-size: 19px; }
+.dm-skeuomorphism .sk-station span { font-size: 13px; color: #554536; }
+
+.dm-skeuomorphism .sk-meters { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 22px 0; }
+.dm-skeuomorphism .sk-vu {
+  position: relative; padding: 8px 6px 4px; border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 110%, #fff6dc, #f0d9a2 80%);
+  box-shadow: 0 0 0 5px #2b2f35, 0 0 0 6px #8a9097, 0 8px 14px 4px rgba(0, 0, 0, .3), inset 0 3px 8px rgba(0, 0, 0, .35);
+}
+.dm-skeuomorphism .sk-vu svg { width: 100%; height: auto; }
+.dm-skeuomorphism .sk-vu span { position: absolute; left: 10px; bottom: 4px; font-family: "PT Serif", Georgia, serif; font-size: 13px; font-weight: 700; color: var(--sk-ink); }
+
+.dm-skeuomorphism .sk-controls { display: flex; justify-content: space-between; align-items: center; margin: 24px 26px 0; }
+.dm-skeuomorphism .sk-tgl-wrap { display: grid; justify-items: center; gap: 10px; width: 84px; }
+.dm-skeuomorphism .sk-tgl-wrap span, .dm-skeuomorphism .sk-vol span { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #2f343a; text-shadow: 0 1px 0 rgba(255, 255, 255, .8); }
+.dm-skeuomorphism .sk-vol { display: grid; justify-items: center; gap: 12px; }
+
+.dm-skeuomorphism .sk-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 22px 16px 0; }
+.dm-skeuomorphism .sk-pkey {
+  display: grid; justify-items: center; padding: 7px 0 8px; border-radius: 6px 6px 10px 10px;
+  background: linear-gradient(180deg, #fdfbf5, #e4ddcb); font-size: 12px; font-weight: 700; color: #3d3127;
+  box-shadow: inset 0 1px 0 #fff, 0 4px 0 #9b9179, 0 7px 9px rgba(0, 0, 0, .3);
+}
+.dm-skeuomorphism .sk-pkey b { font-family: "PT Serif", Georgia, serif; font-size: 17px; line-height: 1.2; }
+.dm-skeuomorphism .sk-pkey.is-down { transform: translateY(3px); background: linear-gradient(180deg, #e2dbc8, #efe9da); box-shadow: inset 0 3px 6px rgba(0, 0, 0, .28), 0 1px 0 #9b9179; color: var(--sk-red); }
+
+.dm-skeuomorphism .sk-tabbar {
+  display: flex; gap: 8px; margin-top: auto; padding: 12px 12px 26px;
+  background: linear-gradient(180deg, #3a3f45, #24282d); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 -4px 10px rgba(0, 0, 0, .25);
+}
+.dm-skeuomorphism .sk-tabbar span {
+  flex: 1; display: grid; place-items: center; height: 46px; border-radius: 8px;
+  background: linear-gradient(180deg, #5d636a, #3e4349); color: #eceef0; font-size: 13px; font-weight: 700;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, .6);
+  box-shadow: 0 3px 0 #131518, inset 0 1px 0 rgba(255, 255, 255, .22);
+}
+.dm-skeuomorphism .sk-tabbar .is-down { transform: translateY(2px); background: linear-gradient(180deg, #2c3035, #383d43); color: var(--sk-amber); text-shadow: 0 0 6px rgba(242, 163, 58, .6); box-shadow: inset 0 3px 6px rgba(0, 0, 0, .6), 0 1px 0 #131518; }
+
+/* ----- Веб-платформа ----- */
+.dm-skeuomorphism.dm--platform { display: grid; grid-template-columns: 250px 1fr; }
+.dm-skeuomorphism .sk-side {
+  position: relative; display: flex; flex-direction: column; padding: 30px 24px 28px;
+  background: var(--sk-leather); color: var(--sk-cream);
+  box-shadow: 8px 0 20px rgba(0, 0, 0, .55), inset -2px 0 0 rgba(255, 255, 255, .06);
+}
+.dm-skeuomorphism .sk-side::before { content: ""; position: absolute; inset: 10px; border: 2px dashed rgba(243, 233, 210, .3); border-radius: 10px; pointer-events: none; }
+.dm-skeuomorphism .sk-side .sk-plate { align-self: flex-start; }
+.dm-skeuomorphism .sk-side__cap { margin: 22px 0 10px 4px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #d9c7a3; }
+.dm-skeuomorphism .sk-sidenav { display: grid; gap: 6px; font-size: 16px; font-weight: 700; }
+.dm-skeuomorphism .sk-sidenav li { padding: 11px 14px; border-radius: 8px; text-shadow: 0 -1px 0 rgba(0, 0, 0, .7); }
+.dm-skeuomorphism .sk-sidenav .is-active { background: var(--sk-brass); color: #2b1d08; text-shadow: 0 1px 0 rgba(255, 240, 190, .7); box-shadow: 0 3px 6px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .7); }
+.dm-skeuomorphism .sk-sticky {
+  position: relative; margin-top: auto; padding: 20px 18px 24px;
+  background: linear-gradient(180deg, #fff5b0, #f4dc6a); transform: rotate(2.5deg);
+  box-shadow: 0 12px 18px rgba(0, 0, 0, .5);
+  font-family: "Caveat", cursive; font-weight: 700; font-size: 25px; line-height: 1.1; color: var(--sk-ink);
+}
+.dm-skeuomorphism .sk-sticky::after { content: ""; position: absolute; right: 0; bottom: 0; border-style: solid; border-width: 0 0 22px 22px; border-color: transparent transparent #4a3428 #d8bd4e; }
+
+.dm-skeuomorphism .sk-desk { display: flex; flex-direction: column; padding: 26px 32px 30px; min-width: 0; }
+.dm-skeuomorphism .sk-desk__head { display: flex; justify-content: space-between; align-items: flex-end; }
+.dm-skeuomorphism .sk-desk__sub { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #e8d6b0; text-shadow: 0 1px 2px rgba(0, 0, 0, .7); }
+.dm-skeuomorphism .sk-desk__head h1 { font-family: "PT Serif", Georgia, serif; font-weight: 700; font-size: 34px; line-height: 1.15; color: var(--sk-cream); text-shadow: 0 2px 3px rgba(0, 0, 0, .7); }
+.dm-skeuomorphism .sk-desk__tools { display: flex; align-items: center; gap: 24px; }
+.dm-skeuomorphism .sk-tgl-inline { display: flex; align-items: center; gap: 40px; font-size: 15px; font-weight: 700; color: var(--sk-cream); text-shadow: 0 1px 2px rgba(0, 0, 0, .7); }
+.dm-skeuomorphism .sk-desk__body { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 270px; gap: 26px; margin-top: 30px; }
+
+.dm-skeuomorphism .sk-ledger {
+  position: relative; padding: 48px 26px 0 0; border-radius: 4px;
+  background:
+    linear-gradient(90deg, transparent 58px, rgba(194, 75, 58, .55) 58px 60px, transparent 60px),
+    repeating-linear-gradient(180deg, transparent 0 47px, #ddd1b2 47px 48px),
+    linear-gradient(180deg, #fdf9ee, #f7efdc);
+  box-shadow: 3px 3px 0 #efe5cc, 6px 6px 0 #e0d3b4, 0 18px 34px rgba(0, 0, 0, .55);
+}
+.dm-skeuomorphism .sk-rings { position: absolute; left: 70px; right: 70px; top: -12px; display: flex; justify-content: space-between; }
+.dm-skeuomorphism .sk-rings i { width: 14px; height: 32px; border-radius: 7px; background: linear-gradient(90deg, #7f868d, #f6f7f8 45%, #959ca3); box-shadow: 0 3px 4px rgba(0, 0, 0, .45); }
+.dm-skeuomorphism .sk-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.dm-skeuomorphism .sk-table th, .dm-skeuomorphism .sk-table td { height: 48px; padding: 0 8px; white-space: nowrap; text-align: left; vertical-align: middle; }
+.dm-skeuomorphism .sk-table th:first-child, .dm-skeuomorphism .sk-table td:first-child { padding-left: 74px; width: 112px; }
+.dm-skeuomorphism .sk-table th { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #6b5a44; }
+.dm-skeuomorphism .sk-table td:first-child { font-family: "PT Serif", Georgia, serif; font-weight: 700; color: #6b5a44; }
+.dm-skeuomorphism .sk-table .r { text-align: right; font-weight: 700; }
+.dm-skeuomorphism .sk-stamp { display: inline-block; padding: 1px 8px; border: 2px solid currentColor; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; transform: rotate(-3deg); }
+.dm-skeuomorphism .sk-stamp--blue { color: #1f4e8c; }
+.dm-skeuomorphism .sk-stamp--green { color: #2e6b34; transform: rotate(2deg); }
+.dm-skeuomorphism .sk-stamp--red { color: #b3261e; }
+.dm-skeuomorphism .sk-ledger__sum { height: 48px; display: flex; align-items: center; padding-left: 74px; font-family: "Caveat", cursive; font-weight: 700; font-size: 27px; color: #1f4e8c; }
+
+.dm-skeuomorphism .sk-panel {
+  position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 22px;
+  border-radius: 14px; background: var(--sk-alu);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, .55), inset 0 1px 0 #fff, inset 0 -2px 0 rgba(0, 0, 0, .2);
+}
+.dm-skeuomorphism .sk-panel > .sk-screw { position: absolute; }
+.dm-skeuomorphism .sk-panel > .sk-screw:nth-child(1) { left: 10px; top: 10px; }
+.dm-skeuomorphism .sk-panel > .sk-screw:nth-child(2) { right: 10px; top: 10px; }
+.dm-skeuomorphism .sk-panel > .sk-screw:nth-child(3) { left: 10px; bottom: 10px; }
+.dm-skeuomorphism .sk-panel > .sk-screw:nth-child(4) { right: 10px; bottom: 10px; }
+.dm-skeuomorphism .sk-gauge { display: flex; align-items: center; gap: 16px; }
+.dm-skeuomorphism .sk-gauge__face {
+  flex: none; width: 124px; padding: 8px 4px 2px; border-radius: 62px 62px 10px 10px;
+  background: radial-gradient(ellipse at 50% 110%, #fff6dc, #f0d9a2 80%);
+  box-shadow: 0 0 0 5px #2b2f35, 0 0 0 6px #8a9097, 0 6px 12px 4px rgba(0, 0, 0, .3), inset 0 3px 8px rgba(0, 0, 0, .35);
+}
+.dm-skeuomorphism .sk-gauge__face svg { width: 100%; height: auto; }
+.dm-skeuomorphism .sk-gauge p { display: grid; }
+.dm-skeuomorphism .sk-gauge span { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #464c53; text-shadow: 0 1px 0 rgba(255, 255, 255, .8); }
+.dm-skeuomorphism .sk-gauge b { font-family: "PT Serif", Georgia, serif; font-size: 24px; white-space: nowrap; color: #22262b; }
+.dm-skeuomorphism .sk-leds { display: grid; gap: 8px; margin-top: 6px; }
+.dm-skeuomorphism .sk-leds li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; font-weight: 700; color: #22262b; background: rgba(0, 0, 0, .05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .22), 0 1px 0 rgba(255, 255, 255, .8); }
+.dm-skeuomorphism .sk-leds span { margin-left: auto; font-size: 13px; font-weight: 400; color: #464c53; }
+.dm-skeuomorphism .sk-estop { display: flex; align-items: center; gap: 16px; margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(0, 0, 0, .15); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7); }
+.dm-skeuomorphism .sk-estop__btn { flex: none; width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, transparent 25px, #f2c230 25px 33px, #8a6a10 33px 35px), radial-gradient(circle at 38% 30%, #ff9a8a, #d6352a 45%, #7a160f 100%); box-shadow: 0 6px 10px rgba(0, 0, 0, .45), inset 0 -3px 5px rgba(0, 0, 0, .35); }
+.dm-skeuomorphism .sk-estop p { display: grid; }
+.dm-skeuomorphism .sk-estop b { font-size: 15px; font-weight: 700; color: #22262b; }
+.dm-skeuomorphism .sk-estop span { font-size: 13px; color: #464c53; }

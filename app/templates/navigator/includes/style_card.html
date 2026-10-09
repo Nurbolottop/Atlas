@@ -1,0 +1,13 @@
+{% load navigator_tags %}
+<article class="style-card">
+  {% demo_stage style 'site' preview=True %}
+  <div class="style-card__body">
+    <div class="style-card__meta">
+      <span class="badge badge--{{ style.kind }}">{{ style.kind_info.short }}</span>
+      <span class="demo-flag">Демонстрация</span>
+    </div>
+    <h2><a href="{% url 'navigator:style' style.slug %}">{{ style.name_ru }}</a></h2>
+    <p class="style-card__en" lang="en">{{ style.name_en }}</p>
+    <p class="style-card__summary">{{ style.summary }}</p>
+  </div>
+</article>

@@ -1,0 +1,43 @@
+{% extends 'base/layout.html' %}
+{% load navigator_tags %}
+
+{% block title %}Использовать стиль «{{ style.name_ru }}» — {{ platform_name }}{% endblock %}
+{% block head %}{% demo_assets style %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li><a href="{% url 'navigator:catalog' %}">Навигатор дизайна</a></li>
+      <li><a href="{% url 'navigator:style' style.slug %}">{{ style.name_ru }}</a></li>
+      <li aria-current="page">Использовать</li>
+    </ol>
+  </nav>
+
+  <div class="flow">
+    <header class="page-head">
+      <span class="eyebrow">Шаг 1 из 2</span>
+      <h1>Как использовать стиль</h1>
+      <p class="lead">Выберите способ, которым хотите применить стиль «{{ style.name_ru }}» в своём проекте.</p>
+    </header>
+
+    {% include 'navigator/includes/flow_summary.html' %}
+
+    <ul class="method-list" role="list">
+      {% for item in methods %}
+      <li class="method">
+        <span class="method__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
+        </span>
+        <div>
+          <h2>{{ item.method.title }}</h2>
+          <p>{{ item.method.description }}</p>
+        </div>
+        <a class="btn btn--primary btn--lg" href="{{ item.url }}">{{ item.method.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

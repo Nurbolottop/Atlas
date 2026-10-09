@@ -1,0 +1,68 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}{{ platform_name }} — {{ platform_tagline|lower }}{% endblock %}
+
+{% block content %}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div>
+      <span class="eyebrow">{{ platform_name }} · {{ platform_tagline|lower }}</span>
+      <h1 id="hero-title">Практичные инструменты для тех, кто <em>создаёт цифровые продукты</em></h1>
+      <p class="lead">Платформа собирает сервисы, которые помогают на отдельных этапах работы над сайтом, приложением или веб-платформой. Каждый сервис решает одну понятную задачу и выдаёт результат, который можно сразу применить.</p>
+      {% with first=platform_services.0 %}{% if first %}
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--lg" href="{{ first.url }}">Открыть «{{ first.title }}»</a>
+        <a class="btn btn--lg" href="#services">Все сервисы</a>
+      </div>
+      {% endif %}{% endwith %}
+      <ul class="hero__points">
+        <li>Без регистрации: открыл сервис — получил результат.</li>
+        <li>Интерфейс и материалы на русском языке.</li>
+        <li>Результат можно скопировать или скачать файлом.</li>
+      </ul>
+    </div>
+    {% if hero_service %}
+      <div>{% include hero_service.hero_template with service=hero_service %}</div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section section--tight" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Сервисы</span>
+      <h2 id="services-title">Что доступно на платформе</h2>
+    </div>
+    <ul class="services-grid" role="list">
+      {% for service in platform_services %}
+      <li class="service-card{% if platform_services|length == 1 %} service-card--featured{% endif %}">
+        <div>
+          <span class="badge">Сервис</span>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+          <a class="btn btn--primary" href="{{ service.url }}" aria-label="{{ service.action_label }}: {{ service.title }}">{{ service.action_label }}</a>
+        </div>
+        {% if service.preview_template %}{% include service.preview_template with service=service %}{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% for service in platform_services %}{% if service.steps %}
+<section class="section section--tight"{% if forloop.first %} id="how"{% endif %} aria-labelledby="how-{{ service.slug }}">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">Как это работает</span>
+      <h2 id="how-{{ service.slug }}">Как работает «{{ service.title }}»</h2>
+      {% if service.how_text %}<p>{{ service.how_text }}</p>{% endif %}
+    </div>
+    <ol class="steps">
+      {% for title, text in service.steps %}
+      <li><h3>{{ title }}</h3><p>{{ text }}</p></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+{% endif %}{% endfor %}
+{% endblock %}

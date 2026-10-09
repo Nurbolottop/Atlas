@@ -1,0 +1,5 @@
+<div class="stage stage--{{ variant }}{% if preview %} stage--preview{% endif %}" data-stage style="--stage-w: {{ width }}; --stage-h: {{ height }}"{% if preview %} aria-hidden="true"{% else %} role="img" aria-label="{{ label|default:'Демонстрация' }}"{% endif %}>
+  <div class="stage__canvas" style="width: {{ width }}px; height: {{ height }}px" inert>
+    <div class="dm dm-{{ style.slug }} dm--{{ variant }}">{% include template %}</div>
+  </div>
+</div>

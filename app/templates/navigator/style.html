@@ -1,0 +1,210 @@
+{% extends 'base/layout.html' %}
+{% load navigator_tags %}
+
+{% block title %}{{ style.name_ru }} ({{ style.name_en }}) — Навигатор дизайна — {{ platform_name }}{% endblock %}
+{% block description %}{{ style.summary }}{% endblock %}
+{% block head %}{% demo_assets style combinations_styles %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li><a href="{% url 'navigator:catalog' %}">Навигатор дизайна</a></li>
+      <li aria-current="page">{{ style.name_ru }}</li>
+    </ol>
+  </nav>
+
+  <header class="style-hero">
+    <span class="badge badge--{{ style.kind }}">{{ style.kind_info.label }}</span>
+    <div class="style-hero__title">
+      <h1>{{ style.name_ru }}</h1>
+      <span class="style-hero__en" lang="en">{{ style.name_en }}</span>
+    </div>
+    <p class="lead">{{ style.summary }}</p>
+    <p class="style-hero__kind">{{ style.kind_info.description }} {{ kinds_note }}</p>
+    <div class="style-hero__actions">
+      <a class="btn btn--primary btn--lg" href="{% url 'navigator:use' style.slug %}">Использовать</a>
+      <a class="btn btn--ghost btn--lg" href="{% url 'navigator:catalog' %}">Все направления</a>
+    </div>
+  </header>
+
+  <section class="demo-panel" aria-labelledby="demo-title">
+    <div class="demo-panel__bar">
+      <h2 id="demo-title" class="visually-hidden">Демонстрации стиля</h2>
+      <div class="tabs" role="tablist" aria-label="Тип продукта для демонстрации" data-tabs>
+        {% for product in products %}
+        <a href="?demo={{ product.slug }}" role="tab" id="tab-{{ product.slug }}" data-variant="{{ product.slug }}"
+           aria-controls="panel-{{ product.slug }}" aria-selected="{% if product.slug == active_demo %}true{% else %}false{% endif %}"
+           {% if product.slug != active_demo %}tabindex="-1"{% endif %}>{{ product.label }}</a>
+        {% endfor %}
+      </div>
+      <span class="demo-flag">Учебная демонстрация</span>
+    </div>
+    {% for product in products %}
+    <figure id="panel-{{ product.slug }}" role="tabpanel" aria-labelledby="tab-{{ product.slug }}"{% if product.slug != active_demo %} hidden{% endif %}>
+      {% with label="Демонстрация: "|add:product.title|add:" в стиле «"|add:style.name_ru|add:"»" %}
+        {% demo_stage style product.slug label=label %}
+      {% endwith %}
+      <figcaption>Демонстрация, а не реальный проект: {{ product.title|lower }} в стиле «{{ style.name_ru }}». Тексты и данные вымышлены и показывают структуру, типографику и характер элементов.</figcaption>
+    </figure>
+    {% endfor %}
+  </section>
+
+  <nav class="toc" aria-label="Разделы страницы">
+    <ul>
+      <li><a href="#about">О стиле</a></li>
+      <li><a href="#features">Признаки</a></li>
+      <li><a href="#composition">Композиция</a></li>
+      <li><a href="#colors">Цвета</a></li>
+      <li><a href="#typography">Типографика</a></li>
+      <li><a href="#components">Компоненты</a></li>
+      <li><a href="#usage">Применение</a></li>
+      <li><a href="#limits">Ограничения</a></li>
+      <li><a href="#combinations">Сочетания</a></li>
+    </ul>
+  </nav>
+
+  <section class="style-section" id="about" aria-labelledby="about-title">
+    <h2 id="about-title">О стиле</h2>
+    <div class="prose">
+      {% for paragraph in style.description %}<p>{{ paragraph }}</p>{% endfor %}
+    </div>
+  </section>
+
+  <section class="style-section" id="features" aria-labelledby="features-title">
+    <h2 id="features-title">Основные признаки</h2>
+    <ul class="features">
+      {% for item in style.features %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  <section class="style-section" id="composition" aria-labelledby="composition-title">
+    <h2 id="composition-title">Композиция и визуальная иерархия</h2>
+    <div class="two-col">
+      <div class="panel">
+        <h3>Композиция</h3>
+        <ul class="list">{% for item in style.composition %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+      <div class="panel">
+        <h3>Визуальная иерархия</h3>
+        <ul class="list">{% for item in style.hierarchy %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="style-section" id="colors" aria-labelledby="colors-title">
+    <h2 id="colors-title">Цвета и примеры палитр</h2>
+    <ul class="list style-section__intro">{% for item in style.colors.principles %}<li>{{ item }}</li>{% endfor %}</ul>
+    <p class="help-text">Палитры — примеры, а не обязательный набор. Нажмите на цвет, чтобы скопировать HEX-код.</p>
+    <div class="palettes">
+      {% for palette in style.colors.palettes %}
+      <section class="palette" aria-label="Палитра «{{ palette.name }}»">
+        <div class="palette__strip" aria-hidden="true">
+          {% for color in palette.colors %}<span style="background: {{ color.hex }}"></span>{% endfor %}
+        </div>
+        <div class="palette__body">
+          <h3>{{ palette.name }}</h3>
+          {% if palette.note %}<p>{{ palette.note }}</p>{% endif %}
+          <ul class="palette__colors">
+            {% for color in palette.colors %}
+            <li>
+              <button type="button" class="swatch" data-copy="{{ color.hex }}" aria-label="Скопировать {{ color.hex }} — {{ color.role }}">
+                <span class="swatch__chip" style="background: {{ color.hex }}" aria-hidden="true"></span>
+                <span class="swatch__role">{{ color.role }}</span>
+                <span class="swatch__hex">{{ color.hex }}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+                </span>
+              </button>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="style-section" id="typography" aria-labelledby="typography-title">
+    <h2 id="typography-title">Типографика</h2>
+    <ul class="list style-section__intro">{% for item in style.typography.principles %}<li>{{ item }}</li>{% endfor %}</ul>
+    <p class="help-text">Все шрифты в примерах поддерживают кириллицу.</p>
+    <ul class="font-pairs">
+      {% for pair in style.typography.pairs %}
+      <li class="font-pair">
+        <p class="font-pair__sample-h" style="font-family: '{{ pair.heading }}', serif">Съешь же ещё этих мягких булок</p>
+        <p class="font-pair__sample-b" style="font-family: '{{ pair.body }}', sans-serif">Основной текст набран этим шрифтом. 0123456789</p>
+        <dl>
+          <dt>Заголовки</dt><dd>{{ pair.heading }}</dd>
+          <dt>Текст</dt><dd>{{ pair.body }}</dd>
+        </dl>
+        <p class="font-pair__note">{{ pair.note }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="style-section" id="components" aria-labelledby="components-title">
+    <h2 id="components-title">Кнопки, поля, карточки и навигация</h2>
+    <div class="components">
+      <div class="panel"><h3>Кнопки</h3><p>{{ style.components.buttons }}</p></div>
+      <div class="panel"><h3>Поля ввода</h3><p>{{ style.components.fields }}</p></div>
+      <div class="panel"><h3>Карточки</h3><p>{{ style.components.cards }}</p></div>
+      <div class="panel"><h3>Навигация</h3><p>{{ style.components.navigation }}</p></div>
+    </div>
+  </section>
+
+  <section class="style-section" id="usage" aria-labelledby="usage-title">
+    <h2 id="usage-title">Рекомендации по применению</h2>
+    <div class="two-col">
+      <div class="panel panel--good">
+        <h3>Где подходит</h3>
+        <ul class="list list--good">{% for item in style.recommendations.fits %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+      <div class="panel">
+        <h3>Как применять</h3>
+        <ul class="list">{% for item in style.recommendations.tips %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="style-section" id="limits" aria-labelledby="limits-title">
+    <h2 id="limits-title">Ограничения и типичные ошибки</h2>
+    <div class="two-col">
+      <div class="panel">
+        <h3>Ограничения</h3>
+        <ul class="list">{% for item in style.limitations %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+      <div class="panel panel--bad">
+        <h3>Типичные ошибки</h3>
+        <ul class="list list--bad">{% for item in style.mistakes %}<li>{{ item }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="style-section" id="combinations" aria-labelledby="combinations-title">
+    <h2 id="combinations-title">Сочетания с другими направлениями</h2>
+    <p class="style-section__intro">{{ kinds_note }}</p>
+    <ul class="combos">
+      {% for combo in combinations %}
+      <li class="combo">
+        {% demo_stage combo.style 'site' preview=True %}
+        <div>
+          <h3><a href="{% url 'navigator:style' combo.style.slug %}">{{ combo.style.name_ru }}</a></h3>
+          <p>{{ combo.note }}</p>
+          <span class="badge badge--{{ combo.style.kind }}">{{ combo.style.kind_info.short }}</span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="use-cta" aria-labelledby="use-title">
+    <div>
+      <h2 id="use-title">Применить стиль «{{ style.name_ru }}»</h2>
+      <p>Получите промпт для ИИ-разработчика: выберите тип продукта — и инструкция будет собрана с учётом стиля и особенностей сайта, приложения или веб-платформы.</p>
+    </div>
+    <a class="btn btn--primary btn--lg" href="{% url 'navigator:use' style.slug %}">Использовать</a>
+  </section>
+</div>
+{% endblock %}

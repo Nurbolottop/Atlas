@@ -1,0 +1,75 @@
+<aside class="rf-side">
+  <span class="rf-logo"><b>КОМЕТА</b></span>
+  <p class="rf-side__sub">Центр управления полётами</p>
+  <ul class="rf-side__nav">
+    <li class="is-active"><i></i>Флот на орбите</li>
+    <li><i></i>Расписание</li>
+    <li><i></i>Экипажи</li>
+    <li><i></i>Пассажиры</li>
+    <li><i></i>Станции</li>
+    <li><i></i>Телеметрия</li>
+  </ul>
+  <div class="rf-side__sys">
+    <span>Связь с орбитой</span>
+    <b><i></i>Стабильная</b>
+  </div>
+</aside>
+
+<main class="rf-ops">
+  <header class="rf-ops__head">
+    <div>
+      <p class="rf-kicker">Смена № 3 · дежурный Г. Лебедев</p>
+      <h1>Флот на орбите</h1>
+    </div>
+    <span class="rf-clock">Время борта <b>20:47:12</b></span>
+    <span class="rf-btn rf-btn--neon">Новый рейс</span>
+  </header>
+
+  <div class="rf-grid-ops">
+    <div class="rf-panel rf-kpi">
+      <span class="rf-panel__label">Модуль 01</span>
+      <p>Рейсов в полёте</p><b>12</b><span class="rf-kpi__note">+2 к вчерашнему вечеру</span>
+    </div>
+    <div class="rf-panel rf-kpi">
+      <span class="rf-panel__label">Модуль 02</span>
+      <p>Пассажиров на борту</p><b>1 846</b><span class="rf-kpi__note">загрузка лайнеров 87%</span>
+    </div>
+    <div class="rf-panel rf-kpi">
+      <span class="rf-panel__label">Модуль 03</span>
+      <p>Резерв топлива</p><b>78%</b><div class="rf-fuel"><i></i></div>
+    </div>
+
+    <div class="rf-panel rf-radar">
+      <span class="rf-panel__label">Радар · сектор Луна</span>
+      <div class="rf-radar__scope">
+        <i class="rf-blip" style="left:62%;top:30%"></i>
+        <i class="rf-blip rf-blip--pink" style="left:30%;top:58%"></i>
+        <i class="rf-blip" style="left:70%;top:68%"></i>
+      </div>
+      <ul class="rf-radar__legend"><li><i></i>КМ-207, 384 тыс. км</li><li><i class="pink"></i>КМ-118, сближение</li></ul>
+    </div>
+
+    <div class="rf-panel rf-chart">
+      <span class="rf-panel__label">Телеметрия · перегрузка, g</span>
+      <svg viewBox="0 0 720 120" width="100%" height="120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 90 C40 88 60 40 100 44 S170 96 210 80 S280 30 320 36 S400 90 440 70 S520 20 560 30 S650 76 720 60" fill="none" stroke="#2de2e6" stroke-width="2.5"/>
+        <path d="M0 104 C60 100 90 80 140 86 S230 104 280 96 S380 70 430 78 S540 100 600 92 S680 84 720 88" fill="none" stroke="#ff3ea5" stroke-width="2"/>
+      </svg>
+      <ul class="rf-chart__axis"><li>20:00</li><li>20:15</li><li>20:30</li><li>20:45</li></ul>
+    </div>
+
+    <div class="rf-panel rf-flights">
+      <table class="rf-table">
+        <thead><tr><th>Рейс</th><th>Маршрут</th><th>Командир</th><th class="r">Высота, км</th><th class="r">Прибытие</th><th>Статус</th></tr></thead>
+        <tbody>
+          <tr><td>КМ-207</td><td>Восток-3 → Море Спокойствия</td><td>А. Орлова</td><td class="r">384 120</td><td class="r">00:52</td><td><span class="rf-st rf-st--ok">Курс верный</span></td></tr>
+          <tr><td>КМ-118</td><td>Заря → Восток-3</td><td>П. Ким</td><td class="r">412</td><td class="r">21:05</td><td><span class="rf-st rf-st--go">Стыковка</span></td></tr>
+          <tr><td>КМ-450</td><td>Восток-3 → Олимп</td><td>Р. Байков</td><td class="r">—</td><td class="r">через 186 сут.</td><td><span class="rf-st rf-st--warn">Задержка</span></td></tr>
+          <tr><td>КМ-093</td><td>Море Спокойствия → Заря</td><td>Л. Шульц</td><td class="r">96 300</td><td class="r">23:18</td><td><span class="rf-st rf-st--ok">Курс верный</span></td></tr>
+          <tr><td>КМ-512</td><td>Восток-3 → Заря</td><td>Е. Миронова</td><td class="r">0</td><td class="r">22:15</td><td><span class="rf-st rf-st--go">Посадка</span></td></tr>
+        </tbody>
+      </table>
+      <p class="rf-flights__foot"><span>Показано 5 из 12 рейсов</span><b>Телеметрия обновлена 2 с назад</b></p>
+    </div>
+  </div>
+</main>

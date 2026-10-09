@@ -1,0 +1,11 @@
+{% load navigator_tags %}{% showcase 'hero' as items %}{% demo_assets items.styles %}
+<div class="mosaic">
+  {% for item in items.entries %}
+  <a class="mosaic__item mosaic__item--{{ item.slot }}" href="{% url 'navigator:style' item.style.slug %}">
+    {% demo_stage item.style item.variant preview=True %}
+    <span class="mosaic__label">{{ item.style.name_ru }}</span>
+    <span class="visually-hidden">: демонстрация стиля, открыть страницу стиля</span>
+  </a>
+  {% endfor %}
+</div>
+<p class="mosaic__caption">Учебные демонстрации из сервиса «{{ service.title }}».</p>

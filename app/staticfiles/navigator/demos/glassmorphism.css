@@ -1,0 +1,264 @@
+/* Демонстрация: Глассморфизм. Все селекторы ограничены .dm-glassmorphism */
+
+.dm-glassmorphism {
+  --bg: #f6eeff;
+  --ink: #1b1530;
+  --muted: #4a4360;
+  --accent: #6d28d9;
+  --glass: rgba(255, 255, 255, .55);
+  --glass-strong: rgba(255, 255, 255, .72);
+  --edge: rgba(255, 255, 255, .65);
+  --shadow: 0 16px 48px rgba(76, 40, 140, .16);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Geologica", system-ui, sans-serif;
+}
+.dm-glassmorphism.dm--app {
+  --bg: #0b1026;
+  --ink: #f5f7ff;
+  --muted: #c9d0ea;
+  --accent: #00c2ff;
+}
+.dm-glassmorphism.dm--platform {
+  --bg: #e9fbf5;
+  --ink: #0f2a2a;
+  --muted: #3f5f5c;
+  --accent: #0f766e;
+  --shadow: 0 16px 48px rgba(15, 80, 70, .14);
+}
+
+/* Сцена: цветные пятна под стеклом */
+.dm-glassmorphism .gl-scene { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.dm-glassmorphism .gl-blob { position: absolute; border-radius: 50%; filter: blur(30px); }
+.dm-glassmorphism .gl-blob--pink { width: 440px; height: 440px; right: -40px; top: 70px; background: radial-gradient(circle at 40% 40%, #ff6b9a, #ff6b9a 45%, rgba(255, 107, 154, 0) 72%); }
+.dm-glassmorphism .gl-blob--peach { width: 340px; height: 340px; right: 330px; top: 360px; background: radial-gradient(circle, #ffb86b, #ffb86b 40%, rgba(255, 184, 107, 0) 72%); }
+.dm-glassmorphism .gl-blob--violet { width: 420px; height: 420px; right: 120px; top: -150px; background: radial-gradient(circle, #7c5cff, #7c5cff 38%, rgba(124, 92, 255, 0) 72%); }
+.dm-glassmorphism .gl-blob--small { width: 220px; height: 220px; left: -80px; bottom: -40px; background: radial-gradient(circle, #b9a6ff, rgba(185, 166, 255, 0) 70%); }
+.dm-glassmorphism .gl-blob--cyan { width: 340px; height: 340px; left: -110px; top: 90px; background: radial-gradient(circle, #00c2ff, #00c2ff 35%, rgba(0, 194, 255, 0) 70%); }
+.dm-glassmorphism .gl-blob--indigo { width: 380px; height: 380px; right: -150px; top: 300px; background: radial-gradient(circle, #6a3dff, #6a3dff 38%, rgba(106, 61, 255, 0) 70%); }
+.dm-glassmorphism .gl-blob--magenta { width: 300px; height: 300px; left: 10px; bottom: 40px; background: radial-gradient(circle, #ff3d9a, #ff3d9a 30%, rgba(255, 61, 154, 0) 70%); }
+.dm-glassmorphism .gl-blob--teal { width: 520px; height: 520px; left: 120px; top: -160px; background: radial-gradient(circle, #2dd4bf, #2dd4bf 35%, rgba(45, 212, 191, 0) 70%); }
+.dm-glassmorphism .gl-blob--sky { width: 560px; height: 560px; right: -120px; top: 180px; background: radial-gradient(circle, #38bdf8, #38bdf8 32%, rgba(56, 189, 248, 0) 70%); }
+.dm-glassmorphism .gl-blob--lime { width: 400px; height: 400px; left: 360px; bottom: -180px; background: radial-gradient(circle, #a3e635, #a3e635 30%, rgba(163, 230, 53, 0) 70%); }
+.dm-glassmorphism > *:not(.gl-scene) { position: relative; }
+
+@keyframes gl-drift { 50% { transform: translate(-16px, 12px); } }
+.dm-glassmorphism .gl-blob--pink, .dm-glassmorphism .gl-blob--indigo, .dm-glassmorphism .gl-blob--sky { animation: gl-drift 24s ease-in-out infinite; }
+
+/* Материал стекла */
+.dm-glassmorphism .gl-glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--edge);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .75);
+}
+.dm-glassmorphism .gl-glass--dark {
+  background: rgba(20, 26, 58, .55);
+  border-color: rgba(255, 255, 255, .16);
+  box-shadow: 0 16px 40px rgba(2, 6, 24, .45), inset 0 1px 0 rgba(255, 255, 255, .14);
+}
+.dm-glassmorphism .gl-glass--dense { background: rgba(255, 255, 255, .84); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dm-glassmorphism .gl-glass { background: rgba(255, 255, 255, .9); }
+  .dm-glassmorphism .gl-glass--dark { background: rgba(20, 26, 58, .92); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .dm-glassmorphism .gl-glass { background: rgba(255, 255, 255, .92); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .dm-glassmorphism .gl-glass--dark { background: rgba(20, 26, 58, .94); }
+}
+
+/* Общие элементы */
+.dm-glassmorphism .gl-logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: -.01em; }
+.dm-glassmorphism .gl-logo i { width: 26px; height: 26px; border-radius: 50%; background: conic-gradient(from 200deg, #7c5cff, #ff6b9a, #ffb86b, #7c5cff); box-shadow: inset 0 0 0 6px rgba(255, 255, 255, .55); }
+.dm-glassmorphism.dm--platform .gl-logo i { background: conic-gradient(from 200deg, #0f766e, #38bdf8, #a3e635, #0f766e); }
+.dm-glassmorphism .gl-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 50px; padding: 0 26px; border-radius: 999px;
+  background: var(--accent); color: #fff; font-weight: 500; font-size: 15px;
+  box-shadow: 0 10px 24px rgba(109, 40, 217, .32);
+}
+.dm-glassmorphism .gl-btn--glass {
+  background: rgba(255, 255, 255, .45); color: var(--ink);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, .7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+.dm-glassmorphism .gl-btn--sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.dm-glassmorphism .gl-btn--block { display: flex; width: 100%; }
+.dm-glassmorphism .gl-btn--cyan { background: #0369a1; box-shadow: 0 10px 28px rgba(0, 194, 255, .35); }
+.dm-glassmorphism .gl-btn--teal { background: #0f766e; box-shadow: 0 10px 24px rgba(15, 118, 110, .3); }
+.dm-glassmorphism .gl-chip { display: inline-flex; align-items: center; gap: 10px; height: 34px; padding: 0 14px 0 5px; border-radius: 999px; font-size: 13px; color: var(--ink); }
+.dm-glassmorphism .gl-chip b { padding: 3px 10px; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 500; font-size: 12px; }
+.dm-glassmorphism .gl-pill { display: inline-flex; align-items: center; height: 28px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, .7); font-size: 12px; font-weight: 500; color: var(--ink); }
+.dm-glassmorphism .gl-muted { color: var(--muted); font-size: 13px; }
+.dm-glassmorphism .gl-card { border-radius: 24px; padding: 20px 22px; }
+.dm-glassmorphism .gl-card__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.dm-glassmorphism .gl-card__label { font-size: 13px; font-weight: 500; color: var(--muted); }
+.dm-glassmorphism .gl-card__title { font-size: 15px; font-weight: 600; }
+.dm-glassmorphism .gl-card__note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+.dm-glassmorphism .gl-toggle { position: relative; display: inline-block; width: 40px; height: 24px; border-radius: 999px; background: rgba(27, 21, 48, .18); border: 1px solid rgba(255, 255, 255, .6); flex: none; }
+.dm-glassmorphism .gl-toggle::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, .2); }
+.dm-glassmorphism .gl-toggle.is-on { background: var(--accent); }
+.dm-glassmorphism .gl-toggle.is-on::after { left: 18px; }
+.dm-glassmorphism .gl-ring { position: relative; display: grid; place-items: center; }
+.dm-glassmorphism .gl-ring > div { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.dm-glassmorphism .gl-ring b { font-size: 40px; font-weight: 600; letter-spacing: -.02em; line-height: 1; }
+.dm-glassmorphism .gl-ring span { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ----- Сайт ----- */
+.dm-glassmorphism.dm--site { padding: 20px 40px; }
+.dm-glassmorphism .gl-nav { display: flex; align-items: center; gap: 12px; height: 62px; padding: 0 11px 0 24px; border-radius: 999px; }
+.dm-glassmorphism .gl-links { display: flex; gap: 6px; margin: 0 auto; font-size: 15px; color: var(--muted); }
+.dm-glassmorphism .gl-links li { padding: 8px 16px; border-radius: 999px; }
+.dm-glassmorphism .gl-links .is-active { color: var(--ink); font-weight: 500; background: rgba(255, 255, 255, .75); box-shadow: 0 2px 10px rgba(76, 40, 140, .12); }
+
+.dm-glassmorphism .gl-hero { display: grid; grid-template-columns: 1fr 560px; gap: 36px; margin-top: 44px; }
+.dm-glassmorphism .gl-hero__text { padding-top: 14px; }
+.dm-glassmorphism .gl-hero h1 { font-size: 58px; line-height: 1.06; font-weight: 600; letter-spacing: -.025em; margin: 22px 0 20px; }
+.dm-glassmorphism .gl-lead { font-size: 18px; line-height: 1.55; color: var(--muted); max-width: 470px; margin-bottom: 30px; }
+.dm-glassmorphism .gl-actions { display: flex; gap: 12px; }
+.dm-glassmorphism .gl-proof { display: flex; align-items: center; gap: 14px; margin-top: 30px; font-size: 14px; color: var(--muted); }
+.dm-glassmorphism .gl-proof b { color: var(--ink); font-weight: 600; }
+.dm-glassmorphism .gl-faces { display: flex; }
+.dm-glassmorphism .gl-faces i { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #fff; margin-left: -10px; background: linear-gradient(135deg, #ffb86b, #ff6b9a); }
+.dm-glassmorphism .gl-faces i:first-child { margin-left: 0; background: linear-gradient(135deg, #b9a6ff, #7c5cff); }
+.dm-glassmorphism .gl-faces i:last-child { background: linear-gradient(135deg, #ffd8a8, #ffb86b); }
+
+.dm-glassmorphism .gl-stage { position: relative; height: 470px; }
+.dm-glassmorphism .gl-stage .gl-card { position: absolute; }
+.dm-glassmorphism .gl-thermo { left: 0; top: 10px; width: 290px; z-index: 1; }
+.dm-glassmorphism .gl-thermo .gl-card__head p { font-size: 16px; font-weight: 600; }
+.dm-glassmorphism .gl-thermo .gl-ring { margin: 12px auto 14px; }
+.dm-glassmorphism .gl-modes { display: flex; gap: 6px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, .45); font-size: 13px; }
+.dm-glassmorphism .gl-modes span { flex: 1; text-align: center; padding: 7px 0; border-radius: 999px; color: var(--muted); }
+.dm-glassmorphism .gl-modes .is-on { background: #fff; color: var(--ink); font-weight: 500; box-shadow: 0 2px 8px rgba(76, 40, 140, .15); }
+.dm-glassmorphism .gl-scenecard { right: 0; top: 64px; width: 270px; background: rgba(255, 255, 255, .5); }
+.dm-glassmorphism .gl-scenecard h3 { font-size: 20px; font-weight: 600; margin: 2px 0 12px; }
+.dm-glassmorphism .gl-scenecard li { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-top: 1px solid rgba(255, 255, 255, .7); font-size: 14px; }
+.dm-glassmorphism .gl-energy { left: 230px; top: 318px; width: 300px; z-index: 2; background: rgba(255, 255, 255, .62); }
+.dm-glassmorphism .gl-energy > b { display: block; font-size: 30px; font-weight: 600; letter-spacing: -.02em; margin-top: 2px; }
+.dm-glassmorphism .gl-energy small { font-size: 14px; font-weight: 400; color: var(--muted); }
+.dm-glassmorphism .gl-bars { position: absolute; right: 22px; top: 22px; display: flex; align-items: flex-end; gap: 5px; height: 52px; }
+.dm-glassmorphism .gl-bars i { width: 9px; border-radius: 5px; background: rgba(124, 92, 255, .45); }
+.dm-glassmorphism .gl-bars i:nth-child(6) { background: var(--accent); }
+
+.dm-glassmorphism .gl-strip { display: grid; grid-template-columns: repeat(3, 1fr) 230px; gap: 28px; align-items: center; margin-top: 18px; padding: 22px 28px; border-radius: 28px; background: rgba(255, 255, 255, .6); }
+.dm-glassmorphism .gl-strip h2 { font-size: 16px; font-weight: 600; margin: 10px 0 4px; }
+.dm-glassmorphism .gl-strip p { font-size: 13px; line-height: 1.45; color: var(--muted); }
+.dm-glassmorphism .gl-ico { display: block; width: 34px; height: 34px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .8); }
+.dm-glassmorphism .gl-ico--a { background: linear-gradient(135deg, #ff6b9a, #ffb86b); }
+.dm-glassmorphism .gl-ico--b { background: linear-gradient(135deg, #7c5cff, #ff6b9a); }
+.dm-glassmorphism .gl-ico--c { background: linear-gradient(135deg, #ffb86b, #7c5cff); }
+.dm-glassmorphism .gl-strip__price { padding-left: 28px; border-left: 1px solid rgba(255, 255, 255, .8); }
+.dm-glassmorphism .gl-strip__price b { display: block; font-size: 26px; font-weight: 600; letter-spacing: -.02em; margin-top: 2px; }
+
+/* ----- Приложение ----- */
+.dm-glassmorphism.dm--app { display: flex; flex-direction: column; gap: 14px; padding: 0 18px 18px; }
+.dm-glassmorphism .gl-sbar { display: flex; justify-content: space-between; padding: 14px 10px 0; font-size: 14px; font-weight: 600; }
+.dm-glassmorphism .gl-sbar__icons { display: flex; gap: 4px; align-items: center; }
+.dm-glassmorphism .gl-sbar__icons i { width: 15px; height: 10px; border-radius: 2px; background: var(--ink); }
+.dm-glassmorphism .gl-apphead { display: flex; justify-content: space-between; align-items: center; padding: 4px 2px; }
+.dm-glassmorphism .gl-apphead p { font-size: 14px; color: var(--muted); }
+.dm-glassmorphism .gl-apphead h1 { font-size: 26px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
+.dm-glassmorphism .gl-avatar { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; font-weight: 600; font-size: 15px; }
+.dm-glassmorphism.dm--app .gl-avatar { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .3); box-shadow: none; }
+.dm-glassmorphism .gl-appthermo { display: grid; grid-template-columns: 132px 1fr; gap: 18px; align-items: center; padding: 16px 18px; }
+.dm-glassmorphism .gl-ring--sm b { font-size: 28px; }
+.dm-glassmorphism .gl-ring--sm span { font-size: 12px; margin-top: 4px; }
+.dm-glassmorphism .gl-appthermo__mode { font-size: 19px; font-weight: 600; margin: 2px 0 2px; }
+.dm-glassmorphism .gl-stepper { display: inline-flex; align-items: center; gap: 16px; margin-top: 12px; height: 40px; padding: 0 14px; border-radius: 999px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .2); font-size: 18px; }
+.dm-glassmorphism .gl-stepper b { font-size: 15px; font-weight: 600; }
+.dm-glassmorphism .gl-rooms { display: flex; gap: 8px; font-size: 14px; }
+.dm-glassmorphism .gl-rooms span { padding: 8px 14px; border-radius: 999px; background: rgba(20, 26, 58, .5); border: 1px solid rgba(255, 255, 255, .16); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); color: var(--muted); }
+.dm-glassmorphism .gl-rooms .is-on { background: #f5f7ff; color: #0b1026; font-weight: 500; border-color: #f5f7ff; }
+.dm-glassmorphism .gl-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.dm-glassmorphism .gl-tile { position: relative; padding: 14px 16px; border-radius: 22px; }
+.dm-glassmorphism .gl-tile p { font-size: 16px; font-weight: 600; margin-top: 12px; }
+.dm-glassmorphism .gl-tile > span { font-size: 13px; color: var(--muted); }
+.dm-glassmorphism .gl-tile .gl-toggle { position: absolute; right: 14px; top: 14px; background: rgba(255, 255, 255, .18); border-color: rgba(255, 255, 255, .25); }
+.dm-glassmorphism .gl-tile .gl-toggle.is-on { background: #0369a1; }
+.dm-glassmorphism .gl-tile.is-on { background: rgba(255, 255, 255, .2); border-color: rgba(255, 255, 255, .34); }
+.dm-glassmorphism .gl-tico { display: block; width: 36px; height: 36px; border-radius: 12px; background: rgba(255, 255, 255, .14); position: relative; }
+.dm-glassmorphism .gl-tico::after { content: ""; position: absolute; inset: 11px; border: 2px solid currentColor; border-radius: 50%; }
+.dm-glassmorphism .is-on .gl-tico--lamp, .dm-glassmorphism .is-on .gl-tico--note { background: #f5f7ff; color: #0b1026; }
+.dm-glassmorphism .gl-tico--blind::after, .dm-glassmorphism .gl-tico--lock::after { border-radius: 3px; }
+.dm-glassmorphism .gl-tabbar { display: flex; justify-content: space-around; margin-top: auto; padding: 10px 8px; border-radius: 26px; font-size: 11px; color: var(--muted); }
+.dm-glassmorphism .gl-tabbar span { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 18px; }
+.dm-glassmorphism .gl-tabbar .gl-tico { width: 26px; height: 26px; background: none; }
+.dm-glassmorphism .gl-tabbar .gl-tico::after { inset: 5px; }
+.dm-glassmorphism .gl-tabbar .is-active { background: rgba(255, 255, 255, .2); color: var(--ink); font-weight: 500; }
+
+/* ----- Веб-платформа ----- */
+.dm-glassmorphism.dm--platform { display: grid; grid-template-columns: 236px 1fr; gap: 16px; padding: 16px; }
+.dm-glassmorphism .gl-side { display: flex; flex-direction: column; padding: 22px 14px 14px; border-radius: 26px; }
+.dm-glassmorphism .gl-side .gl-logo { padding-left: 8px; }
+.dm-glassmorphism .gl-side__obj { font-size: 13px; color: var(--muted); padding: 6px 8px 0 44px; }
+.dm-glassmorphism .gl-side__nav { display: grid; gap: 4px; margin-top: 28px; font-size: 15px; color: var(--muted); }
+.dm-glassmorphism .gl-side__nav li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; }
+.dm-glassmorphism .gl-side__nav em { margin-left: auto; font-style: normal; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #0f766e; color: #fff; }
+.dm-glassmorphism .gl-sico { width: 18px; height: 18px; border-radius: 6px; border: 1.5px solid currentColor; }
+.dm-glassmorphism .gl-side__nav .is-active { background: rgba(255, 255, 255, .85); color: var(--ink); font-weight: 600; box-shadow: 0 4px 14px rgba(15, 80, 70, .12); }
+.dm-glassmorphism .gl-side__nav .is-active .gl-sico { background: #0f766e; border-color: #0f766e; }
+.dm-glassmorphism .gl-side__card { margin-top: auto; padding: 16px; border-radius: 18px; background: rgba(255, 255, 255, .62); border: 1px solid rgba(255, 255, 255, .8); font-size: 13px; line-height: 1.45; }
+.dm-glassmorphism .gl-side__card span { display: inline-block; margin-top: 10px; font-weight: 600; color: #0f766e; }
+
+.dm-glassmorphism .gl-pmain { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.dm-glassmorphism .gl-ptop { display: flex; align-items: center; gap: 12px; height: 58px; padding: 0 9px 0 9px; border-radius: 20px; }
+.dm-glassmorphism .gl-search { flex: 1; max-width: 420px; height: 40px; display: flex; align-items: center; padding: 0 16px; border-radius: 14px; background: rgba(255, 255, 255, .72); border: 1px solid rgba(255, 255, 255, .9); font-size: 14px; color: var(--muted); }
+.dm-glassmorphism .gl-pill--date { margin-left: auto; height: 36px; font-size: 13px; }
+.dm-glassmorphism.dm--platform .gl-avatar { width: 40px; height: 40px; background: #0f766e; color: #fff; font-size: 13px; }
+.dm-glassmorphism .gl-ptitle { display: flex; align-items: flex-end; gap: 12px; padding: 2px 4px 0; }
+.dm-glassmorphism .gl-ptitle > div:first-child { margin-right: auto; }
+.dm-glassmorphism .gl-ptitle h1 { font-size: 30px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
+.dm-glassmorphism .gl-seg { display: flex; padding: 4px; border-radius: 999px; font-size: 13px; }
+.dm-glassmorphism .gl-seg span { padding: 7px 16px; border-radius: 999px; color: var(--muted); }
+.dm-glassmorphism .gl-seg .is-on { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 2px 8px rgba(15, 80, 70, .14); }
+
+.dm-glassmorphism .gl-pkpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.dm-glassmorphism .gl-pkpis .gl-card { padding: 16px 18px; border-radius: 20px; }
+.dm-glassmorphism .gl-pkpis b { display: block; font-size: 26px; font-weight: 600; letter-spacing: -.02em; margin: 4px 0 2px; }
+.dm-glassmorphism .gl-pkpis small { font-size: 13px; font-weight: 400; color: var(--muted); }
+.dm-glassmorphism .gl-delta { font-size: 12px; font-weight: 500; color: #0f766e; }
+.dm-glassmorphism .gl-delta--warn { color: #9a5b00; }
+
+.dm-glassmorphism .gl-prow { display: grid; grid-template-columns: 1fr 300px; gap: 14px; }
+.dm-glassmorphism .gl-chart { padding: 18px 20px 14px; }
+.dm-glassmorphism .gl-legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); }
+.dm-glassmorphism .gl-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dm-glassmorphism .gl-legend i { width: 10px; height: 10px; border-radius: 3px; background: #0f766e; }
+.dm-glassmorphism .gl-legend i.is-prev { background: rgba(15, 118, 110, .25); }
+.dm-glassmorphism .gl-chart__plot { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; height: 170px; margin-top: 14px; padding-bottom: 22px; background: repeating-linear-gradient(to top, rgba(15, 42, 42, .1) 0 1px, transparent 1px 37px) 0 0 / 100% calc(100% - 22px) no-repeat; }
+.dm-glassmorphism .gl-col { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 100%; }
+.dm-glassmorphism .gl-col i { width: 18px; border-radius: 6px 6px 2px 2px; background: #0f766e; }
+.dm-glassmorphism .gl-col i.is-prev { background: rgba(15, 118, 110, .25); }
+.dm-glassmorphism .gl-col span { position: absolute; bottom: -22px; font-size: 12px; color: var(--muted); }
+.dm-glassmorphism .gl-floors ul { margin-top: 10px; }
+.dm-glassmorphism .gl-floors li { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; padding: 9px 0; border-top: 1px solid rgba(255, 255, 255, .8); font-size: 14px; }
+.dm-glassmorphism .gl-floors li:first-child { border-top: 0; }
+.dm-glassmorphism .gl-floors b { font-weight: 600; }
+.dm-glassmorphism .gl-floors i { grid-column: span 2; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #0f766e var(--v), rgba(15, 42, 42, .12) var(--v)); }
+.dm-glassmorphism .gl-floors i.is-warm { background: linear-gradient(90deg, #b45309 var(--v), rgba(15, 42, 42, .12) var(--v)); }
+
+.dm-glassmorphism .gl-ptable { padding: 6px 20px; border-radius: 20px; }
+.dm-glassmorphism .gl-ptable table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.dm-glassmorphism .gl-ptable th { text-align: left; font-size: 12px; font-weight: 500; color: var(--muted); padding: 10px 0; border-bottom: 1px solid rgba(15, 42, 42, .12); }
+.dm-glassmorphism .gl-ptable td { padding: 10px 0; border-bottom: 1px solid rgba(15, 42, 42, .08); }
+.dm-glassmorphism .gl-ptable tr:last-child td { border-bottom: 0; }
+.dm-glassmorphism .gl-ptable .r { text-align: right; }
+.dm-glassmorphism .gl-st { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+.dm-glassmorphism .gl-st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #0f766e; }
+.dm-glassmorphism .gl-st--warn { color: #9a5b00; }
+.dm-glassmorphism .gl-st--warn::before { background: #d97706; }
+.dm-glassmorphism .gl-st--off { color: var(--muted); }
+.dm-glassmorphism .gl-st--off::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--muted); }
+
+/* Сайт: вертикальный ритм, чтобы полоса преимуществ помещалась в холст */
+.dm-glassmorphism .gl-hero { margin-top: 30px; }
+.dm-glassmorphism .gl-hero h1 { font-size: 54px; margin: 20px 0 18px; }
+.dm-glassmorphism .gl-lead { margin-bottom: 26px; }
+.dm-glassmorphism .gl-proof { margin-top: 24px; }
+.dm-glassmorphism .gl-stage { height: 440px; }
+.dm-glassmorphism .gl-energy { top: 300px; }
+.dm-glassmorphism .gl-strip { margin-top: 16px; padding: 18px 28px; }
+.dm-glassmorphism .gl-strip h2 { margin-top: 8px; }

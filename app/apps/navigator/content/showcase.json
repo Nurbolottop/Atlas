@@ -1,0 +1,13 @@
+{
+  "hero": [
+    {"slug": "neobrutalism", "variant": "site", "slot": "a"},
+    {"slug": "retrofuturism", "variant": "app", "slot": "b"},
+    {"slug": "swiss", "variant": "site", "slot": "c"},
+    {"slug": "glassmorphism", "variant": "site", "slot": "d"}
+  ],
+  "card": [
+    {"slug": "editorial", "variant": "site"},
+    {"slug": "bento", "variant": "site"},
+    {"slug": "premium", "variant": "site"}
+  ]
+}

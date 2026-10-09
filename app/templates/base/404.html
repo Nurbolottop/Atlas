@@ -1,0 +1,17 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}Страница не найдена — {{ platform_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="not-found">
+    <span class="not-found__code">Ошибка 404</span>
+    <h1>Страница не найдена</h1>
+    <p>{{ message|default:"Такой страницы нет. Возможно, адрес набран с ошибкой или страница была перемещена." }}</p>
+    <div class="hero__actions">
+      {% if show_catalog %}<a class="btn btn--primary" href="{% url 'navigator:catalog' %}">Открыть каталог стилей</a>{% endif %}
+      <a class="btn{% if not show_catalog %} btn--primary{% endif %}" href="{% url 'home' %}">На главную</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

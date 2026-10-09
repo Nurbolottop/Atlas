@@ -1,0 +1,4 @@
+{% load navigator_tags %}{% showcase 'card' as items %}{% demo_assets items.styles %}
+<div class="service-card__preview" aria-hidden="true">
+  {% for item in items.entries %}{% demo_stage item.style item.variant preview=True %}{% endfor %}
+</div>

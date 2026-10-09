@@ -1,0 +1,220 @@
+/* Демонстрация: Неоморфизм. Все селекторы ограничены .dm-neumorphism */
+
+.dm-neumorphism {
+  --bg: #e4e9f0;
+  --hi: #ffffff;
+  --lo: #a3b1c6;
+  --ink: #2b3445;
+  --muted: #5b6577;
+  --accent: #2f5bc4;
+  --out: -8px -8px 16px var(--hi), 8px 8px 16px var(--lo);
+  --out-sm: -4px -4px 9px var(--hi), 4px 4px 9px var(--lo);
+  --out-lg: -14px -14px 28px var(--hi), 14px 14px 28px var(--lo);
+  --in: inset 5px 5px 10px var(--lo), inset -5px -5px 10px var(--hi);
+  --in-sm: inset 3px 3px 6px var(--lo), inset -3px -3px 6px var(--hi);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "M PLUS Rounded 1c", system-ui, sans-serif;
+}
+
+/* Общие элементы */
+.dm-neumorphism .nu-logo { display: inline-flex; align-items: center; gap: 12px; font-weight: 800; font-size: 22px; letter-spacing: -.01em; }
+.dm-neumorphism .nu-logo i { width: 34px; height: 34px; border-radius: 50%; box-shadow: var(--out-sm); background: radial-gradient(circle, var(--accent) 0 5px, transparent 6px); }
+.dm-neumorphism .nu-logo em { font-style: normal; font-weight: 500; font-size: 14px; color: var(--muted); margin-left: -4px; }
+.dm-neumorphism .nu-label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.dm-neumorphism .nu-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 54px; padding: 0 28px; border-radius: 18px;
+  background: var(--bg); box-shadow: var(--out); font-weight: 700; font-size: 15px; color: var(--ink);
+}
+.dm-neumorphism .nu-btn--accent { background: var(--accent); color: #fff; box-shadow: -6px -6px 14px var(--hi), 6px 6px 14px rgba(47, 91, 196, .45); }
+.dm-neumorphism .nu-btn--sm { height: 46px; padding: 0 22px; border-radius: 15px; font-size: 14px; }
+.dm-neumorphism .nu-round {
+  display: grid; place-items: center; flex: none;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--bg); box-shadow: var(--out); color: var(--ink);
+}
+.dm-neumorphism .nu-round--sm { width: 46px; height: 46px; box-shadow: var(--out-sm); }
+.dm-neumorphism .nu-round--big { width: 84px; height: 84px; }
+.dm-neumorphism .nu-round.is-pressed { box-shadow: var(--in); color: var(--accent); }
+.dm-neumorphism .nu-round--accent { color: var(--accent); }
+.dm-neumorphism .nu-iconbtn { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px 0 14px; border-radius: 23px; box-shadow: var(--out-sm); font-size: 14px; font-weight: 500; }
+
+.dm-neumorphism .nu-seg { display: inline-flex; gap: 4px; padding: 5px; border-radius: 16px; box-shadow: var(--in); font-size: 14px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-seg span { padding: 9px 16px; border-radius: 12px; }
+.dm-neumorphism .nu-seg .is-on { background: var(--bg); box-shadow: var(--out-sm); color: var(--accent); font-weight: 700; }
+.dm-neumorphism .nu-seg--sm { font-size: 13px; padding: 4px; }
+.dm-neumorphism .nu-seg--sm span { padding: 6px 12px; }
+
+.dm-neumorphism .nu-switch { position: relative; display: inline-block; width: 50px; height: 28px; border-radius: 14px; box-shadow: var(--in-sm); vertical-align: middle; }
+.dm-neumorphism .nu-switch::after { content: ""; position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--bg); box-shadow: -2px -2px 4px var(--hi), 2px 2px 5px var(--lo); }
+.dm-neumorphism .nu-switch.is-on { background: var(--accent); box-shadow: inset 2px 2px 5px rgba(20, 40, 100, .45); }
+.dm-neumorphism .nu-switch.is-on::after { left: 26px; background: #fff; box-shadow: 1px 1px 3px rgba(20, 40, 100, .4); }
+.dm-neumorphism .nu-switch.is-disabled { box-shadow: none; border: 1px dashed var(--lo); }
+.dm-neumorphism .nu-switch.is-disabled::after { box-shadow: none; background: #cfd7e2; }
+
+.dm-neumorphism .nu-meter { display: block; height: 10px; border-radius: 5px; box-shadow: var(--in-sm); padding: 2px; }
+.dm-neumorphism .nu-meter i { display: block; height: 100%; border-radius: 4px; background: var(--accent); }
+
+/* Иконки из CSS */
+.dm-neumorphism .nu-ico { position: relative; display: block; width: 20px; height: 20px; color: inherit; }
+.dm-neumorphism .nu-ico--pause::before, .dm-neumorphism .nu-ico--pause::after { content: ""; position: absolute; top: 2px; width: 6px; height: 16px; border-radius: 2px; background: currentColor; }
+.dm-neumorphism .nu-ico--pause::before { left: 3px; }
+.dm-neumorphism .nu-ico--pause::after { right: 3px; }
+.dm-neumorphism .nu-ico--play::before { content: ""; position: absolute; left: 5px; top: 2px; border-style: solid; border-width: 8px 0 8px 13px; border-color: transparent transparent transparent currentColor; }
+.dm-neumorphism .nu-ico--next::before, .dm-neumorphism .nu-ico--prev::before { content: ""; position: absolute; top: 3px; border-style: solid; border-color: transparent; }
+.dm-neumorphism .nu-ico--next::before { left: 3px; border-width: 7px 0 7px 11px; border-left-color: currentColor; }
+.dm-neumorphism .nu-ico--prev::before { right: 3px; border-width: 7px 11px 7px 0; border-right-color: currentColor; }
+.dm-neumorphism .nu-ico--next::after, .dm-neumorphism .nu-ico--prev::after { content: ""; position: absolute; top: 3px; width: 3px; height: 14px; border-radius: 1px; background: currentColor; }
+.dm-neumorphism .nu-ico--next::after { right: 3px; }
+.dm-neumorphism .nu-ico--prev::after { left: 3px; }
+.dm-neumorphism .nu-ico--back::before { content: ""; position: absolute; left: 6px; top: 5px; width: 9px; height: 9px; border-left: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg); }
+.dm-neumorphism .nu-ico--dots { background: radial-gradient(circle, currentColor 2px, transparent 2.5px) 0 50% / 7px 7px repeat-x; }
+.dm-neumorphism .nu-ico--heart::before { content: ""; position: absolute; left: 4px; top: 4px; width: 12px; height: 12px; background: currentColor; transform: rotate(45deg); border-radius: 6px 0 2px 0; box-shadow: -5px 0 0 0 currentColor, 0 -5px 0 0 currentColor; clip-path: none; }
+.dm-neumorphism .nu-ico--heart { transform: scale(.8); }
+.dm-neumorphism .nu-ico--shuffle::before, .dm-neumorphism .nu-ico--shuffle::after { content: ""; position: absolute; left: 2px; right: 2px; top: 9px; height: 2px; background: currentColor; transform: rotate(30deg); }
+.dm-neumorphism .nu-ico--shuffle::after { transform: rotate(-30deg); }
+.dm-neumorphism .nu-ico--repeat::before { content: ""; position: absolute; inset: 3px; border: 2px solid currentColor; border-radius: 6px; border-right-color: transparent; }
+.dm-neumorphism .nu-ico--grid { background: linear-gradient(currentColor, currentColor) 2px 2px / 7px 7px no-repeat, linear-gradient(currentColor, currentColor) 11px 2px / 7px 7px no-repeat, linear-gradient(currentColor, currentColor) 2px 11px / 7px 7px no-repeat, linear-gradient(currentColor, currentColor) 11px 11px / 7px 7px no-repeat; border-radius: 2px; }
+.dm-neumorphism .nu-ico--list { background: linear-gradient(currentColor, currentColor) 2px 4px / 16px 2px no-repeat, linear-gradient(currentColor, currentColor) 2px 9px / 16px 2px no-repeat, linear-gradient(currentColor, currentColor) 2px 14px / 10px 2px no-repeat; }
+.dm-neumorphism .nu-ico--gear::before { content: ""; position: absolute; inset: 3px; border: 2.5px dotted currentColor; border-radius: 50%; }
+.dm-neumorphism .nu-ico--gear::after { content: ""; position: absolute; inset: 7px; border: 2px solid currentColor; border-radius: 50%; }
+.dm-neumorphism .nu-ico--speaker::before { content: ""; position: absolute; left: 4px; top: 1px; width: 12px; height: 18px; border: 2px solid currentColor; border-radius: 4px; }
+.dm-neumorphism .nu-ico--speaker::after { content: ""; position: absolute; left: 8px; top: 9px; width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+.dm-neumorphism .nu-ico--clock::before { content: ""; position: absolute; inset: 2px; border: 2px solid currentColor; border-radius: 50%; }
+.dm-neumorphism .nu-ico--clock::after { content: ""; position: absolute; left: 9px; top: 6px; width: 5px; height: 5px; border-left: 2px solid currentColor; border-bottom: 2px solid currentColor; }
+.dm-neumorphism .nu-ico--bell::before { content: ""; position: absolute; left: 4px; top: 2px; width: 12px; height: 13px; border: 2px solid currentColor; border-radius: 6px 6px 2px 2px; }
+.dm-neumorphism .nu-ico--bell::after { content: ""; position: absolute; left: 8px; bottom: 1px; width: 4px; height: 3px; border-radius: 0 0 2px 2px; background: currentColor; }
+.dm-neumorphism .nu-ico--bag::before { content: ""; position: absolute; left: 3px; top: 6px; width: 14px; height: 12px; border: 2px solid currentColor; border-radius: 3px; }
+.dm-neumorphism .nu-ico--bag::after { content: ""; position: absolute; left: 7px; top: 1px; width: 6px; height: 7px; border: 2px solid currentColor; border-bottom: 0; border-radius: 4px 4px 0 0; }
+
+/* ----- Сайт ----- */
+.dm-neumorphism.dm--site { padding: 28px 48px; }
+.dm-neumorphism .nu-nav { display: flex; align-items: center; gap: 28px; height: 64px; }
+.dm-neumorphism .nu-links { display: flex; gap: 6px; margin: 0 auto; padding: 6px; border-radius: 22px; box-shadow: var(--out-sm); font-size: 15px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-links li { padding: 10px 18px; border-radius: 16px; }
+.dm-neumorphism .nu-links .is-active { box-shadow: var(--in-sm); color: var(--accent); font-weight: 700; }
+
+.dm-neumorphism .nu-hero { display: grid; grid-template-columns: 350px 1fr 260px; gap: 40px; align-items: center; margin-top: 36px; }
+.dm-neumorphism .nu-kicker { display: inline-block; padding: 8px 14px; border-radius: 12px; box-shadow: var(--in-sm); font-size: 13px; font-weight: 700; color: var(--accent); }
+.dm-neumorphism .nu-hero h1 { font-size: 44px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; margin: 20px 0 18px; }
+.dm-neumorphism .nu-lead { font-size: 17px; line-height: 1.55; color: var(--muted); margin-bottom: 30px; }
+.dm-neumorphism .nu-actions { display: flex; gap: 20px; }
+.dm-neumorphism .nu-colors { display: flex; gap: 18px; margin-top: 30px; font-size: 13px; color: var(--muted); }
+.dm-neumorphism .nu-colors li { display: flex; align-items: center; gap: 8px; }
+.dm-neumorphism .nu-colors i { width: 22px; height: 22px; border-radius: 50%; box-shadow: var(--out-sm); }
+.dm-neumorphism .nu-colors .is-on { color: var(--ink); font-weight: 700; }
+.dm-neumorphism .nu-colors .is-on i { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent); }
+
+.dm-neumorphism .nu-device { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.dm-neumorphism .nu-dial { position: relative; width: 330px; height: 330px; border-radius: 50%; box-shadow: var(--out-lg); display: grid; place-items: center; }
+.dm-neumorphism .nu-dial__track { position: absolute; inset: 34px; border-radius: 50%; box-shadow: var(--in); background: conic-gradient(from 220deg, var(--accent) 0 118deg, transparent 118deg 280deg, transparent 280deg); -webkit-mask: radial-gradient(circle, transparent 0 calc(50% - 16px), #000 calc(50% - 15px)); mask: radial-gradient(circle, transparent 0 calc(50% - 16px), #000 calc(50% - 15px)); }
+.dm-neumorphism .nu-dial::before { content: ""; position: absolute; inset: 34px; border-radius: 50%; box-shadow: var(--in); }
+.dm-neumorphism .nu-dial__knob { position: relative; width: 196px; height: 196px; border-radius: 50%; background: linear-gradient(145deg, #eef2f7, #d6dde7); box-shadow: var(--out); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.dm-neumorphism .nu-dial__knob b { font-size: 56px; font-weight: 800; line-height: 1; }
+.dm-neumorphism .nu-dial__knob span { font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 6px; }
+.dm-neumorphism .nu-dial__knob::before { content: ""; position: absolute; top: 18px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.dm-neumorphism .nu-transport { display: flex; align-items: center; gap: 28px; }
+
+.dm-neumorphism .nu-specs { display: grid; gap: 22px; }
+.dm-neumorphism .nu-spec { padding: 18px 22px; border-radius: 22px; box-shadow: var(--out); }
+.dm-neumorphism .nu-spec p { font-size: 13px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-spec b { display: block; font-size: 28px; font-weight: 800; margin: 2px 0 10px; }
+
+.dm-neumorphism .nu-strip { display: grid; grid-template-columns: auto auto 1fr; gap: 48px; align-items: center; margin-top: 40px; padding: 22px 32px; border-radius: 28px; box-shadow: var(--out); }
+.dm-neumorphism .nu-strip__group { display: grid; gap: 10px; }
+.dm-neumorphism .nu-switches { display: flex; gap: 28px; }
+.dm-neumorphism .nu-switch-row { display: inline-flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; height: 48px; }
+.dm-neumorphism .nu-strip__note { justify-self: end; text-align: right; font-size: 13px; color: var(--muted); }
+.dm-neumorphism .nu-strip__note b { display: block; font-size: 17px; color: var(--ink); font-weight: 700; }
+
+/* ----- Приложение ----- */
+.dm-neumorphism.dm--app { display: flex; flex-direction: column; padding: 0 26px 22px; }
+.dm-neumorphism .nu-sbar { display: flex; justify-content: space-between; padding: 14px 6px 0; font-size: 14px; font-weight: 700; }
+.dm-neumorphism .nu-sbar__icons { display: flex; gap: 4px; align-items: center; }
+.dm-neumorphism .nu-sbar__icons i { width: 15px; height: 10px; border-radius: 2px; background: var(--ink); }
+.dm-neumorphism .nu-apptop { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; text-align: center; }
+.dm-neumorphism .nu-apptop__src { font-size: 14px; font-weight: 500; margin-top: 2px; }
+.dm-neumorphism .nu-disc { align-self: center; width: 236px; height: 236px; margin-top: 30px; border-radius: 50%; box-shadow: var(--out-lg); display: grid; place-items: center; }
+.dm-neumorphism .nu-disc__groove { width: 192px; height: 192px; border-radius: 50%; box-shadow: var(--in); display: grid; place-items: center; background: repeating-radial-gradient(circle, transparent 0 7px, rgba(163, 177, 198, .28) 7px 8px); }
+.dm-neumorphism .nu-disc__center { width: 74px; height: 74px; border-radius: 50%; box-shadow: var(--out-sm); background: radial-gradient(circle, var(--bg) 0 6px, var(--accent) 7px 22px, var(--bg) 23px); }
+.dm-neumorphism .nu-track { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+.dm-neumorphism .nu-track h1 { font-size: 24px; font-weight: 800; line-height: 1.2; }
+.dm-neumorphism .nu-track p { font-size: 15px; color: var(--muted); }
+.dm-neumorphism .nu-progress { margin-top: 22px; }
+.dm-neumorphism .nu-slider { position: relative; height: 12px; border-radius: 6px; box-shadow: var(--in-sm); padding: 3px; }
+.dm-neumorphism .nu-slider i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.dm-neumorphism .nu-slider b { position: absolute; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; background: var(--bg); box-shadow: var(--out-sm); }
+.dm-neumorphism .nu-slider b::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--accent); }
+.dm-neumorphism .nu-times { display: flex; justify-content: space-between; margin-top: 10px; font-size: 13px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
+.dm-neumorphism .nu-tabbar { display: flex; justify-content: space-between; margin-top: auto; padding: 8px; border-radius: 26px; box-shadow: var(--out); font-size: 11px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-tabbar span { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 74px; padding: 9px 0 7px; border-radius: 18px; }
+.dm-neumorphism .nu-tabbar .is-active { box-shadow: var(--in-sm); color: var(--accent); font-weight: 700; }
+
+/* ----- Веб-платформа ----- */
+.dm-neumorphism.dm--platform { display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 28px; }
+.dm-neumorphism .nu-side { display: flex; flex-direction: column; padding: 26px 18px 18px; border-radius: 28px; box-shadow: var(--out); }
+.dm-neumorphism .nu-side .nu-logo { padding-left: 6px; }
+.dm-neumorphism .nu-side__nav { display: grid; gap: 10px; margin-top: 36px; font-size: 15px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-side__nav li { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 16px; }
+.dm-neumorphism .nu-side__nav .is-active { box-shadow: var(--in-sm); color: var(--accent); font-weight: 700; }
+.dm-neumorphism .nu-side__nav .is-active::after { content: ""; position: absolute; right: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.dm-neumorphism .nu-side__status { margin-top: auto; display: flex; gap: 12px; padding: 16px; border-radius: 18px; box-shadow: var(--in-sm); }
+.dm-neumorphism .nu-side__status i { flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: #2f8a4f; }
+.dm-neumorphism .nu-side__status b { display: block; font-size: 14px; }
+.dm-neumorphism .nu-side__status span { font-size: 12px; color: var(--muted); }
+
+.dm-neumorphism .nu-pmain { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+.dm-neumorphism .nu-phead { display: flex; align-items: center; gap: 20px; }
+.dm-neumorphism .nu-phead > div:first-child { margin-right: auto; }
+.dm-neumorphism .nu-phead h1 { font-size: 34px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+.dm-neumorphism .nu-field { display: flex; align-items: center; width: 320px; height: 48px; padding: 0 18px; border-radius: 16px; box-shadow: var(--in-sm); border: 1px solid #b9c4d4; font-size: 14px; color: var(--muted); }
+
+.dm-neumorphism .nu-card { border-radius: 26px; box-shadow: var(--out); padding: 22px 26px; }
+.dm-neumorphism .nu-card__head { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.dm-neumorphism .nu-card h2 { font-size: 17px; font-weight: 700; }
+.dm-neumorphism .nu-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.dm-neumorphism .nu-kpi { display: flex; align-items: center; gap: 20px; padding: 20px 24px; }
+.dm-neumorphism .nu-kpi p { font-size: 13px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-kpi > div > b { display: block; font-size: 24px; font-weight: 800; line-height: 1.3; }
+.dm-neumorphism .nu-kpi span { font-size: 12px; color: var(--muted); }
+.dm-neumorphism .nu-ring { position: relative; flex: none; width: 76px; height: 76px; border-radius: 50%; box-shadow: var(--in-sm); background: conic-gradient(var(--accent) 0 var(--v), transparent var(--v)); display: grid; place-items: center; }
+.dm-neumorphism .nu-ring::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: var(--bg); box-shadow: var(--out-sm); }
+.dm-neumorphism .nu-ring b { position: relative; font-size: 18px; font-weight: 800; }
+.dm-neumorphism .nu-ring--time { background: conic-gradient(#7a5af0 0 var(--v), transparent var(--v)); }
+
+.dm-neumorphism .nu-prow { display: grid; grid-template-columns: 360px 1fr; gap: 28px; flex: 1; min-height: 0; }
+.dm-neumorphism .nu-eq__bands { display: flex; justify-content: space-between; margin-top: 26px; padding: 0 6px; }
+.dm-neumorphism .nu-eq__bands > div { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.dm-neumorphism .nu-eq__bands p { font-size: 12px; font-weight: 500; color: var(--muted); }
+.dm-neumorphism .nu-vslider { position: relative; display: block; width: 14px; height: 250px; border-radius: 7px; box-shadow: var(--in-sm); }
+.dm-neumorphism .nu-vslider i { position: absolute; left: 3px; right: 3px; bottom: 3px; border-radius: 5px; background: var(--accent); }
+.dm-neumorphism .nu-vslider b { position: absolute; left: 50%; width: 30px; height: 30px; margin: 0 0 -15px -15px; border-radius: 50%; background: var(--bg); box-shadow: var(--out-sm); }
+.dm-neumorphism .nu-vslider b::after { content: ""; position: absolute; inset: 11px; border-radius: 50%; background: var(--accent); }
+
+.dm-neumorphism .nu-list table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+.dm-neumorphism .nu-list th { text-align: left; font-size: 12px; font-weight: 700; color: var(--muted); padding: 10px 0; border-bottom: 1px solid #c7d0dc; }
+.dm-neumorphism .nu-list td { padding: 11px 0; border-bottom: 1px solid #d3dae4; }
+.dm-neumorphism .nu-list tr:last-child td { border-bottom: 0; }
+.dm-neumorphism .nu-list td:first-child { font-weight: 700; }
+.dm-neumorphism .nu-list .r { text-align: right; }
+.dm-neumorphism .nu-st { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.dm-neumorphism .nu-st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--muted); }
+.dm-neumorphism .nu-st--on { color: #23703f; font-weight: 500; }
+.dm-neumorphism .nu-st--on::before { background: #2f8a4f; box-shadow: none; }
+.dm-neumorphism .nu-st--err { color: #b3262d; font-weight: 500; }
+.dm-neumorphism .nu-st--err::before { background: #c0262d; box-shadow: none; border-radius: 2px; }
+
+/* Доработки раскладки */
+.dm-neumorphism .nu-ico--heart { transform: none; }
+.dm-neumorphism .nu-ico--heart::before, .dm-neumorphism .nu-ico--heart::after { content: ""; position: absolute; top: 3px; width: 10px; height: 15px; border-radius: 5px 5px 0 0; background: currentColor; box-shadow: none; }
+.dm-neumorphism .nu-ico--heart::before { left: 5px; transform: rotate(-45deg); transform-origin: 0 100%; }
+.dm-neumorphism .nu-ico--heart::after { left: -5px; transform: rotate(45deg); transform-origin: 100% 100%; }
+.dm-neumorphism .nu-volume { display: grid; grid-template-columns: 20px 1fr 40px; gap: 16px; align-items: center; margin-top: 30px; padding: 16px 18px; border-radius: 20px; box-shadow: var(--out-sm); color: var(--muted); font-size: 13px; font-weight: 700; text-align: right; }
+.dm-neumorphism .nu-volume .nu-slider { height: 10px; }
+.dm-neumorphism .nu-volume .nu-slider b { width: 20px; height: 20px; margin: -10px 0 0 -10px; }
+.dm-neumorphism .nu-volume .nu-slider b::after { inset: 7px; }
+.dm-neumorphism .nu-card__head h2 { line-height: 1.3; }
+.dm-neumorphism .nu-vslider { height: 300px; }
+.dm-neumorphism .nu-list td { padding: 10px 0; }

@@ -1,0 +1,63 @@
+<div class="tc-bg" aria-hidden="true"></div>
+<header class="tc-nav">
+  <span class="tc-logo"><i class="tc-logo__mark"></i>АРГОН<em>/edge</em></span>
+  <ul class="tc-links">
+    <li class="is-active"><b>01</b>Платформа</li>
+    <li><b>02</b>Сеть узлов</li>
+    <li><b>03</b>Тарифы</li>
+    <li><b>04</b>Документация</li>
+  </ul>
+  <span class="tc-status"><i></i>Все узлы в норме</span>
+  <span class="tc-btn tc-btn--ghost tc-btn--sm">Консоль <kbd>⌘K</kbd></span>
+</header>
+
+<section class="tc-hero">
+  <div class="tc-hero__text">
+    <p class="tc-code">// выпуск 4.2 · октябрь 2026</p>
+    <h1>Код ближе к&nbsp;пользователю. Ответ за&nbsp;<span class="tc-glow">4&nbsp;мс</span></h1>
+    <p class="tc-lead">Запускайте функции в 212 точках присутствия. Аргон сам выбирает ближайший узел и переносит нагрузку при сбое — без ручной настройки.</p>
+    <div class="tc-actions">
+      <span class="tc-btn">Развернуть узел <kbd>⏎</kbd></span>
+      <span class="tc-btn tc-btn--ghost">Читать спецификацию</span>
+    </div>
+    <div class="tc-term">
+      <p><span class="tc-c">$</span> argon deploy ./edge --region auto</p>
+      <p><span class="tc-ok">✓</span> сборка 1.8 с · 212 узлов · <span class="tc-ok">online</span></p>
+    </div>
+  </div>
+
+  <div class="tc-panel tc-hud">
+    <div class="tc-panel__head">
+      <span class="tc-mlabel">[A1] Задержка p95 · мс</span>
+      <span class="tc-live"><i></i>В эфире</span>
+    </div>
+    <svg class="tc-chart" viewBox="0 0 480 220" width="480" height="220" aria-hidden="true">
+      <g stroke="#1D2733" stroke-width="1">
+        <line x1="0" y1="20" x2="480" y2="20"/><line x1="0" y1="70" x2="480" y2="70"/>
+        <line x1="0" y1="120" x2="480" y2="120"/><line x1="0" y1="170" x2="480" y2="170"/>
+        <line x1="0" y1="219" x2="480" y2="219"/>
+        <line x1="120" y1="0" x2="120" y2="220"/><line x1="240" y1="0" x2="240" y2="220"/><line x1="360" y1="0" x2="360" y2="220"/>
+      </g>
+      <path d="M0 150 L30 140 L60 146 L90 120 L120 128 L150 104 L180 112 L210 92 L240 98 L270 70 L300 84 L330 76 L360 60 L390 72 L420 58 L450 64 L480 52 L480 220 L0 220 Z" fill="#22D3EE" fill-opacity=".12"/>
+      <path class="tc-chart__line" d="M0 150 L30 140 L60 146 L90 120 L120 128 L150 104 L180 112 L210 92 L240 98 L270 70 L300 84 L330 76 L360 60 L390 72 L420 58 L450 64 L480 52" fill="none" stroke="#22D3EE" stroke-width="2"/>
+      <path d="M0 176 L60 172 L120 178 L180 166 L240 170 L300 158 L360 162 L420 150 L480 154" fill="none" stroke="#8B98A9" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <line x1="360" y1="0" x2="360" y2="220" stroke="#22D3EE" stroke-opacity=".6" stroke-dasharray="2 3"/>
+      <circle cx="360" cy="60" r="5" fill="#07090D" stroke="#22D3EE" stroke-width="2"/>
+    </svg>
+    <span class="tc-tip">14:32:07 · 3.9 мс</span>
+    <div class="tc-axis"><span>14:00</span><span>14:10</span><span>14:20</span><span>14:30</span><span>14:40</span></div>
+    <div class="tc-legend"><span><i class="tc-sw"></i>Аргон</span><span><i class="tc-sw tc-sw--dash"></i>Центральный ЦОД</span></div>
+    <div class="tc-readouts">
+      <div><p>Запросов/с</p><b>1.24M</b></div>
+      <div><p>Ошибки</p><b>0.002%</b></div>
+      <div><p>Узлы</p><b>212<small>/212</small></b></div>
+    </div>
+  </div>
+</section>
+
+<section class="tc-metrics">
+  <div><span class="tc-mlabel">[02] Точки присутствия</span><b>212</b><p>в 64 странах, до ближайшей — меньше 50 км</p></div>
+  <div><span class="tc-mlabel">[03] Холодный старт</span><b>0.8<small>мс</small></b><p>изоляция на уровне процесса, без контейнеров</p></div>
+  <div><span class="tc-mlabel">[04] Доступность</span><b>99.998<small>%</small></b><p>автоматический перенос при отказе узла</p></div>
+  <div class="tc-bars" aria-hidden="true"><i style="height:30%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:70%"></i><i style="height:62%"></i><i style="height:88%"></i><i style="height:76%"></i><i style="height:96%"></i></div>
+</section>

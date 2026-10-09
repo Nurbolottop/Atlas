@@ -1,0 +1,48 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}Промпт: {{ style.name_ru }} — {{ product.title|lower }} — {{ platform_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li><a href="{% url 'navigator:catalog' %}">Навигатор дизайна</a></li>
+      <li><a href="{% url 'navigator:style' style.slug %}">{{ style.name_ru }}</a></li>
+      <li><a href="{% url 'navigator:prompt_type' style.slug %}?current={{ product.slug }}">Промпт для ИИ</a></li>
+      <li aria-current="page">{{ product.title }}</li>
+    </ol>
+  </nav>
+
+  <header class="page-head">
+    <span class="eyebrow">Готово</span>
+    <h1>Промпт для ИИ-разработчика</h1>
+    <p class="lead">Скопируйте или скачайте инструкцию и передайте её своему ИИ вместе с задачей проекта.</p>
+  </header>
+
+  <dl class="result-meta">
+    <div><dt>Стиль</dt><dd>{{ style.name_ru }} <span class="flow-summary__en" lang="en">{{ style.name_en }}</span></dd></div>
+    <div><dt>Тип продукта</dt><dd>{{ product.title }}</dd></div>
+  </dl>
+
+  <div class="result-toolbar">
+    <button class="btn btn--primary btn--lg" type="button" data-copy-prompt="prompt-text">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+      <span data-label>Скопировать</span>
+    </button>
+    <a class="btn btn--lg" href="{% url 'navigator:prompt_download' style.slug product.slug %}" download="{{ filename }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+      Скачать .txt
+    </a>
+    <span class="result-toolbar__spacer"></span>
+    <a class="btn btn--ghost btn--lg" href="{% url 'navigator:prompt_type' style.slug %}?current={{ product.slug }}">Изменить тип продукта</a>
+  </div>
+  <p class="copy-status" data-copy-status role="status" aria-live="polite"></p>
+
+  <div class="prompt-box">
+    <label for="prompt-text">Текст промпта</label>
+    <textarea class="prompt-text" id="prompt-text" readonly spellcheck="false" aria-describedby="prompt-help">{{ prompt }}</textarea>
+    <p class="help-text" id="prompt-help">Текст можно выделить и скопировать вручную: щёлкните в поле и нажмите Ctrl+A, затем Ctrl+C (⌘+A и ⌘+C на Mac).</p>
+  </div>
+</div>
+{% endblock %}

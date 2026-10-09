@@ -1,0 +1,50 @@
+<div class="tc-bg" aria-hidden="true"></div>
+<div class="tc-sbar"><span>09:41</span><span class="tc-sbar__icons">5G <i></i><i></i></span></div>
+
+<header class="tc-apphead">
+  <div>
+    <p class="tc-mlabel">argon://prod</p>
+    <h1>Кластер fra-2</h1>
+  </div>
+  <span class="tc-live"><i></i>Норма</span>
+</header>
+
+<section class="tc-panel tc-gauge">
+  <svg viewBox="0 0 140 140" width="132" height="132" aria-hidden="true">
+    <circle cx="70" cy="70" r="58" fill="none" stroke="#1D2733" stroke-width="8"/>
+    <circle class="tc-gauge__arc" cx="70" cy="70" r="58" fill="none" stroke="#22D3EE" stroke-width="8" stroke-linecap="round" stroke-dasharray="262 364" transform="rotate(-90 70 70)"/>
+    <g stroke="#8B98A9" stroke-width="1"><line x1="70" y1="2" x2="70" y2="8"/><line x1="138" y1="70" x2="132" y2="70"/><line x1="70" y1="138" x2="70" y2="132"/><line x1="2" y1="70" x2="8" y2="70"/></g>
+  </svg>
+  <div class="tc-gauge__val"><b>72<small>%</small></b><span>нагрузка CPU</span></div>
+  <ul class="tc-gauge__list">
+    <li><span>Память</span><b>58%</b></li>
+    <li><span>Сеть</span><b>3.1 Гбит/с</b></li>
+    <li><span>Диск</span><b>41%</b></li>
+    <li><span>Аптайм</span><b>36 д</b></li>
+  </ul>
+</section>
+
+<section class="tc-quad">
+  <div class="tc-panel"><span class="tc-mlabel">RPS</span><b>18.4k</b><svg viewBox="0 0 100 24" aria-hidden="true"><path d="M0 18 L12 16 L24 17 L36 11 L48 13 L60 8 L72 10 L84 5 L100 6" fill="none" stroke="#22D3EE" stroke-width="1.5"/></svg></div>
+  <div class="tc-panel"><span class="tc-mlabel">p95</span><b>4.2<small>мс</small></b><svg viewBox="0 0 100 24" aria-hidden="true"><path d="M0 10 L12 12 L24 9 L36 13 L48 11 L60 12 L72 10 L84 11 L100 9" fill="none" stroke="#22D3EE" stroke-width="1.5"/></svg></div>
+  <div class="tc-panel"><span class="tc-mlabel">Ошибки</span><b>0.01<small>%</small></b><svg viewBox="0 0 100 24" aria-hidden="true"><path d="M0 20 L12 20 L24 19 L36 20 L48 14 L60 19 L72 20 L84 20 L100 19" fill="none" stroke="#A3E635" stroke-width="1.5"/></svg></div>
+  <div class="tc-panel"><span class="tc-mlabel">Узлы</span><b>36<small>/36</small></b><div class="tc-pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<section class="tc-panel tc-log">
+  <div class="tc-panel__head"><span class="tc-mlabel">[LOG] События</span><span class="tc-mlabel">24 ч</span></div>
+  <ul>
+    <li><time>14:32</time><span>Релиз v4.2.1 развёрнут</span><em class="tc-ok">OK</em></li>
+    <li><time>14:29</time><span>Масштабирование 32 → 36 узлов</span><em class="tc-ok">OK</em></li>
+    <li><time>13:58</time><span>Задержка fra-2b выше 12 мс</span><em class="tc-warn">WARN</em></li>
+  </ul>
+</section>
+
+<span class="tc-btn tc-btn--block">Открыть журнал релизов</span>
+
+<nav class="tc-tabbar">
+  <span class="is-active"><i class="tc-ico tc-ico--grid"></i>Обзор</span>
+  <span><i class="tc-ico tc-ico--wave"></i>Метрики</span>
+  <span><i class="tc-ico tc-ico--bell"></i>Тревоги</span>
+  <span><i class="tc-ico tc-ico--term"></i>Консоль</span>
+</nav>
