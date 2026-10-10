@@ -1,0 +1,84 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}Отзыв о платформе — {{ platform_name }}{% endblock %}
+{% block description %}Расскажите, что понравилось на платформе, что улучшить или что работает не так.{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li aria-current="page">Отзыв</li>
+    </ol>
+  </nav>
+
+  <div class="flow">
+    <header class="page-head page-head--compact">
+      <h1>Как вам платформа?</h1>
+      <p class="lead">Расскажите, что понравилось, что улучшить или что сломалось. Мы читаем каждый отзыв.</p>
+    </header>
+
+    <form class="feedback-form" method="post" action="{% url 'feedback' %}" novalidate>
+      {% csrf_token %}
+      <input type="hidden" name="from" value="{{ back }}">
+      {% if form.non_field_errors %}<div class="alert alert--error" role="alert">{{ form.non_field_errors.0 }}</div>{% endif %}
+
+      <fieldset class="choice-group">
+        <legend>О чём отзыв?</legend>
+        <div class="choices choices--compact">
+          {% for value, label in form.fields.kind.choices %}{% if value %}
+          <div class="choice">
+            <input type="radio" name="kind" id="kind-{{ value }}" value="{{ value }}"{% if form.kind.value == value %} checked{% endif %}>
+            <label for="kind-{{ value }}">
+              <span class="choice__top">
+                <span class="choice__icon" aria-hidden="true">{% if value == 'thanks' %}💚{% elif value == 'idea' %}💡{% else %}🐞{% endif %}</span>
+                <span class="choice__radio" aria-hidden="true"></span>
+              </span>
+              <span class="choice__title">{{ label }}</span>
+              <span class="choice__desc">{% if value == 'thanks' %}Что понравилось и помогло{% elif value == 'idea' %}Что добавить или улучшить{% else %}Что-то не работает или мешает{% endif %}</span>
+            </label>
+          </div>
+          {% endif %}{% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="rating">
+        <legend>Оценка платформы <span>(необязательно)</span></legend>
+        <div class="rating__stars">
+          {% for n in "54321" %}
+          <input type="radio" name="rating" id="rating-{{ n }}" value="{{ n }}"{% if form.rating.value|stringformat:"s" == n %} checked{% endif %}>
+          <label for="rating-{{ n }}" title="{{ n }} из 5"><span class="visually-hidden">{{ n }} из 5</span>★</label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <div class="field{% if form.message.errors %} field--error{% endif %}">
+        <label for="id_message">Ваш отзыв</label>
+        <textarea id="id_message" name="message" rows="6" maxlength="3000" required placeholder="Например: «Уроки по ООП очень понятные, но хотелось бы больше практики»"{% if form.message.errors %} aria-invalid="true" aria-describedby="message-error"{% endif %}>{{ form.message.value|default:"" }}</textarea>
+        {% if form.message.errors %}<p class="field__error" id="message-error">{{ form.message.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="id_name">Имя <span>(необязательно)</span></label>
+          <input id="id_name" name="name" type="text" maxlength="100" autocomplete="name" value="{{ form.name.value|default:"" }}">
+        </div>
+        <div class="field">
+          <label for="id_contact">Telegram или email <span>(если ждёте ответа)</span></label>
+          <input id="id_contact" name="contact" type="text" maxlength="150" placeholder="@username" value="{{ form.contact.value|default:"" }}">
+        </div>
+      </div>
+
+      <div class="field field--trap" aria-hidden="true">
+        <label for="id_website">Не заполняйте это поле</label>
+        <input id="id_website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--primary btn--lg" type="submit">Отправить отзыв</button>
+        {% if back %}<a class="btn btn--ghost btn--lg" href="{{ back }}">Вернуться</a>{% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

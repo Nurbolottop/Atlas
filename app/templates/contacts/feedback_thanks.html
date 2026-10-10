@@ -1,0 +1,21 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}Спасибо за отзыв — {{ platform_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="feedback-thanks">
+    <span class="feedback-thanks__icon" aria-hidden="true">{% if kind == 'idea' %}💡{% elif kind == 'problem' %}🛠️{% else %}💚{% endif %}</span>
+    <h1>Спасибо!</h1>
+    <p class="lead">
+      {% if kind == 'idea' %}Отличная мысль — обязательно обсудим её в команде.
+      {% elif kind == 'problem' %}Спасибо, что сообщили. Разберёмся и починим.
+      {% else %}Нам очень приятно. Такие слова дают силы делать платформу лучше.{% endif %}
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="{{ back|default:'/' }}">{% if back %}Вернуться назад{% else %}На главную{% endif %}</a>
+      <a class="btn btn--ghost" href="{% url 'feedback' %}{% if back %}?from={{ back|urlencode }}{% endif %}">Написать ещё</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

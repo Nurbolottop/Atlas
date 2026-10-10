@@ -103,6 +103,11 @@ TEMPLATES = [
 PLATFORM_NAME = os.getenv('PLATFORM_NAME', 'Атлас')
 PLATFORM_TAGLINE = 'Обучение и инструменты для создания цифровых продуктов'
 
+# Уведомления о новых отзывах в Telegram. Оба значения пустые — отзывы
+# просто сохраняются в базу и видны в админке.
+FEEDBACK_TELEGRAM_TOKEN = os.getenv('FEEDBACK_TELEGRAM_TOKEN', '')
+FEEDBACK_TELEGRAM_CHAT_ID = os.getenv('FEEDBACK_TELEGRAM_CHAT_ID', '')
+
 # =============================================================================
 # DATABASE (БАЗА ДАННЫХ)
 # =============================================================================
