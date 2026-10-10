@@ -1,0 +1,266 @@
+/* Демонстрация: Киберпанк. Все селекторы ограничены .dm-cyberpunk, классы с префиксом cp- */
+
+.dm-cyberpunk {
+  --void: #07070b;
+  --panel: #101018;
+  --panel2: #181822;
+  --text: #ececf1;
+  --muted: #9d9db5;
+  --acid: #f3e600;
+  --pink: #ff2a6d;
+  --cyan: #05d9e8;
+  --line: rgba(5, 217, 232, .32);
+  --line2: rgba(236, 236, 241, .14);
+  --cut: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  --cut-sm: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  --hazard: repeating-linear-gradient(-45deg, var(--acid) 0 9px, #0b0b0b 9px 18px);
+  box-sizing: border-box;
+  background: var(--void);
+  color: var(--text);
+  font-family: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif;
+  font-weight: 600;
+}
+
+/* ----- Общие детали ----- */
+.dm-cyberpunk .cp-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; }
+.dm-cyberpunk .cp-scan {
+  position: absolute; inset: 0; z-index: 20; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 3px);
+}
+.dm-cyberpunk .cp-grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(rgba(5, 217, 232, .06) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(5, 217, 232, .06) 1px, transparent 1px) 0 0 / 40px 40px,
+    radial-gradient(ellipse 50% 60% at 85% 30%, rgba(255, 42, 109, .16), transparent 70%);
+}
+.dm-cyberpunk .cp-bar { position: absolute; z-index: 5; height: 3px; pointer-events: none; }
+.dm-cyberpunk .cp-glitch { position: relative; display: inline-block; }
+.dm-cyberpunk .cp-glitch::before, .dm-cyberpunk .cp-glitch::after {
+  content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; pointer-events: none;
+}
+.dm-cyberpunk .cp-glitch::before { color: var(--pink); transform: translateX(-4px); clip-path: inset(20% 0 66% 0); animation: cp-shift 4.2s steps(1) infinite; }
+.dm-cyberpunk .cp-glitch::after { color: var(--cyan); transform: translateX(4px); clip-path: inset(72% 0 16% 0); }
+@keyframes cp-shift {
+  0%, 92% { transform: translateX(-4px); clip-path: inset(20% 0 66% 0); }
+  94% { transform: translateX(6px); clip-path: inset(40% 0 38% 0); }
+  97% { transform: translateX(-2px); clip-path: inset(70% 0 4% 0); }
+}
+@keyframes cp-blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: .25; } }
+.dm-cyberpunk .cp-tag {
+  display: inline-block; padding: 1px 6px; background: var(--acid); color: #0b0b0b;
+  font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; letter-spacing: .04em;
+}
+.dm-cyberpunk .cp-tag--pink { background: var(--pink); color: #0b0b0b; }
+.dm-cyberpunk .cp-tag--line { background: transparent; color: var(--cyan); box-shadow: inset 0 0 0 1px var(--cyan); }
+.dm-cyberpunk .cp-kana { font-family: "Dela Gothic One", sans-serif; font-weight: 400; }
+.dm-cyberpunk .cp-hazard { display: block; background: var(--hazard); }
+.dm-cyberpunk .cp-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 42px; padding: 0 22px; background: var(--acid); color: #0b0b0b;
+  font-size: 17px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  box-shadow: inset -4px 0 0 var(--pink);
+}
+.dm-cyberpunk .cp-btn--ghost {
+  background: transparent; color: var(--cyan); clip-path: none; box-shadow: inset 0 0 0 1px var(--cyan), inset 3px 0 0 var(--cyan);
+}
+.dm-cyberpunk .cp-barcode {
+  display: block; height: 26px;
+  background: linear-gradient(90deg, var(--text) 0 2px, transparent 2px 4px, var(--text) 4px 5px, transparent 5px 8px, var(--text) 8px 11px, transparent 11px 12px, var(--text) 12px 13px, transparent 13px 16px, var(--text) 16px 17px, transparent 17px 19px, var(--text) 19px 22px, transparent 22px 24px) 0 0 / 24px 100%;
+}
+.dm-cyberpunk .cp-signal { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.dm-cyberpunk .cp-signal i { width: 4px; background: var(--cyan); }
+.dm-cyberpunk .cp-signal i:nth-child(1) { height: 4px; }
+.dm-cyberpunk .cp-signal i:nth-child(2) { height: 7px; }
+.dm-cyberpunk .cp-signal i:nth-child(3) { height: 10px; }
+.dm-cyberpunk .cp-signal i:nth-child(4) { height: 14px; }
+.dm-cyberpunk .cp-signal i.is-off { background: var(--line2); }
+.dm-cyberpunk .cp-signal--low i { background: var(--pink); }
+
+/* ----- Сайт ----- */
+.dm-cyberpunk .cp-ticker {
+  position: relative; z-index: 2; display: flex; align-items: center; height: 30px; background: var(--acid); color: #0b0b0b;
+  font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden;
+}
+.dm-cyberpunk .cp-ticker .cp-hazard { width: 90px; height: 100%; flex: none; background: repeating-linear-gradient(-45deg, #0b0b0b 0 9px, var(--acid) 9px 18px); }
+.dm-cyberpunk .cp-ticker__txt { padding: 0 18px; flex: 1; overflow: hidden; }
+.dm-cyberpunk .cp-ticker__id { flex: none; height: 100%; display: flex; align-items: center; padding: 0 16px; background: #0b0b0b; color: var(--acid); }
+
+.dm-cyberpunk .cp-nav { position: relative; z-index: 2; display: flex; align-items: center; gap: 30px; height: 70px; padding: 0 36px; border-bottom: 1px solid var(--line); }
+.dm-cyberpunk .cp-logo { display: flex; align-items: baseline; gap: 10px; }
+.dm-cyberpunk .cp-logo b { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1; color: var(--text); letter-spacing: .02em; }
+.dm-cyberpunk .cp-logo i { font-style: normal; font-family: "Dela Gothic One", sans-serif; font-size: 13px; color: var(--pink); }
+.dm-cyberpunk .cp-menu { display: flex; gap: 26px; margin-left: 22px; font-size: 19px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.dm-cyberpunk .cp-menu em { font-style: normal; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500; color: var(--cyan); margin-right: 5px; vertical-align: 6px; }
+.dm-cyberpunk .cp-menu .is-active { color: var(--acid); box-shadow: 0 25px 0 -22px var(--acid); }
+.dm-cyberpunk .cp-nav .cp-btn--ghost { margin-left: auto; }
+
+.dm-cyberpunk .cp-hero { position: relative; z-index: 2; display: grid; grid-template-columns: 54px 1fr 340px; gap: 30px; height: 468px; padding: 26px 36px 0 0; }
+.dm-cyberpunk .cp-kana-col {
+  writing-mode: vertical-rl; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 0 22px; background: var(--pink); color: #0b0b0b;
+  font-family: "Dela Gothic One", sans-serif; font-size: 22px; letter-spacing: .12em;
+}
+.dm-cyberpunk .cp-kana-col small { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; letter-spacing: .1em; padding-top: 14px; }
+.dm-cyberpunk .cp-kicker { display: flex; align-items: center; gap: 10px; font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500; color: var(--cyan); }
+.dm-cyberpunk .cp-h1 {
+  margin-top: 14px; font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 76px; line-height: .98; letter-spacing: -.01em; text-transform: uppercase; color: var(--text);
+}
+.dm-cyberpunk .cp-h1 mark { background: var(--acid); color: #0b0b0b; padding: 0 10px; box-shadow: 6px 6px 0 var(--pink); }
+.dm-cyberpunk .cp-lead { margin-top: 20px; max-width: 560px; font-size: 21px; font-weight: 500; line-height: 1.3; color: #c9c9d6; }
+.dm-cyberpunk .cp-actions { display: flex; gap: 14px; margin-top: 22px; }
+.dm-cyberpunk .cp-btn--big { height: 52px; padding: 0 28px; font-size: 20px; }
+.dm-cyberpunk .cp-actions .cp-btn--ghost { height: 52px; font-size: 18px; }
+.dm-cyberpunk .cp-stats { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; margin-top: 26px; border-top: 1px solid var(--line); }
+.dm-cyberpunk .cp-stats div { padding: 10px 28px 0 0; margin-right: 28px; border-right: 1px dashed var(--line2); }
+.dm-cyberpunk .cp-stats div:last-child { border-right: 0; }
+.dm-cyberpunk .cp-stats b { display: block; font-size: 38px; font-weight: 900; line-height: 1; color: var(--acid); }
+.dm-cyberpunk .cp-stats span { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500; color: var(--muted); }
+
+.dm-cyberpunk .cp-id { position: relative; align-self: start; background: var(--cyan); clip-path: var(--cut); padding: 1px; }
+.dm-cyberpunk .cp-id__in { clip-path: var(--cut); background: var(--panel); padding: 0 0 14px; }
+.dm-cyberpunk .cp-id__head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: var(--cyan); color: #0b0b0b; font-family: "IBM Plex Mono", monospace; font-size: 12px; font-weight: 700; }
+.dm-cyberpunk .cp-live { display: inline-flex; align-items: center; gap: 6px; }
+.dm-cyberpunk .cp-live::before { content: ""; width: 8px; height: 8px; background: var(--pink); animation: cp-blink 1.6s steps(1) infinite; }
+.dm-cyberpunk .cp-id__body { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 14px; }
+.dm-cyberpunk .cp-avatar { position: relative; height: 128px; background: #0b0b12; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+.dm-cyberpunk .cp-avatar::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(5, 217, 232, .14) 0 1px, transparent 1px 4px); }
+.dm-cyberpunk .cp-avatar svg { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
+.dm-cyberpunk .cp-id__name { font-family: "Dela Gothic One", sans-serif; font-size: 24px; line-height: 1.05; color: var(--acid); }
+.dm-cyberpunk .cp-id__name small { display: block; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); margin-top: 4px; }
+.dm-cyberpunk .cp-kv { margin-top: 8px; display: grid; gap: 3px; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.dm-cyberpunk .cp-kv li { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--line2); padding-bottom: 2px; }
+.dm-cyberpunk .cp-kv li span { color: var(--muted); }
+.dm-cyberpunk .cp-id__foot { display: flex; gap: 12px; align-items: center; padding: 0 14px; }
+.dm-cyberpunk .cp-id__foot .cp-barcode { flex: 1; }
+.dm-cyberpunk .cp-id__strip { margin: 12px 14px 0; display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: var(--hazard); }
+.dm-cyberpunk .cp-id__strip span { background: #0b0b0b; color: var(--acid); padding: 1px 8px; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+.dm-cyberpunk .cp-id-meta { margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); line-height: 1.6; }
+.dm-cyberpunk .cp-id-meta b { color: var(--pink); font-weight: 700; }
+
+.dm-cyberpunk .cp-sectors { position: relative; z-index: 2; padding: 0 36px; }
+.dm-cyberpunk .cp-sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; font-size: 22px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+.dm-cyberpunk .cp-sec-head i { flex: 1; height: 1px; background: var(--line); }
+.dm-cyberpunk .cp-sec-head span { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.dm-cyberpunk .cp-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.dm-cyberpunk .cp-card { background: var(--panel2); clip-path: var(--cut-sm); border-top: 3px solid var(--cyan); padding: 12px 14px 14px; }
+.dm-cyberpunk .cp-card__top { display: flex; justify-content: space-between; align-items: center; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+.dm-cyberpunk .cp-card h3 { margin-top: 6px; font-size: 26px; font-weight: 900; line-height: 1; text-transform: uppercase; }
+.dm-cyberpunk .cp-card h3 small { font-family: "Dela Gothic One", sans-serif; font-size: 14px; font-weight: 400; color: var(--pink); margin-left: 6px; vertical-align: 4px; }
+.dm-cyberpunk .cp-card__eta { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
+.dm-cyberpunk .cp-card__eta b { font-family: "IBM Plex Mono", monospace; font-size: 30px; font-weight: 700; line-height: 1; color: var(--cyan); }
+.dm-cyberpunk .cp-card__eta span { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+.dm-cyberpunk .cp-meter { margin-top: 10px; height: 8px; background: repeating-linear-gradient(90deg, var(--line2) 0 6px, transparent 6px 8px); }
+.dm-cyberpunk .cp-meter i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--cyan) 0 6px, transparent 6px 8px); }
+.dm-cyberpunk .cp-card--warn { border-top-color: var(--pink); }
+.dm-cyberpunk .cp-card--warn .cp-card__eta b { color: var(--pink); }
+.dm-cyberpunk .cp-card--warn .cp-meter i { background: repeating-linear-gradient(90deg, var(--pink) 0 6px, transparent 6px 8px); }
+.dm-cyberpunk .cp-card--hot { border-top-color: var(--acid); }
+.dm-cyberpunk .cp-card--hot .cp-card__eta b { color: var(--acid); }
+.dm-cyberpunk .cp-card--hot .cp-meter i { background: repeating-linear-gradient(90deg, var(--acid) 0 6px, transparent 6px 8px); }
+.dm-cyberpunk .cp-card__foot { margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+.dm-cyberpunk .cp-card__foot b { color: var(--text); font-weight: 700; }
+
+/* ----- Приложение ----- */
+.dm-cyberpunk.dm--app { display: flex; flex-direction: column; }
+.dm-cyberpunk.dm--app > *:not(.cp-scan):not(.cp-grid-bg):not(.cp-bar) { position: relative; z-index: 2; }
+.dm-cyberpunk .cp-status { display: flex; justify-content: space-between; align-items: center; padding: 14px 22px 0; font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 700; }
+.dm-cyberpunk .cp-status span:last-child { display: flex; gap: 8px; align-items: center; color: var(--cyan); }
+.dm-cyberpunk .cp-appbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 10px; }
+.dm-cyberpunk .cp-appbar .cp-logo b { font-size: 24px; }
+.dm-cyberpunk .cp-alert { display: flex; align-items: stretch; margin: 0 18px; background: #0b0b0b; box-shadow: inset 0 0 0 1px var(--acid); }
+.dm-cyberpunk .cp-alert .cp-hazard { width: 34px; flex: none; }
+.dm-cyberpunk .cp-alert p { padding: 7px 10px; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500; line-height: 1.4; color: var(--acid); }
+.dm-cyberpunk .cp-map { position: relative; margin: 12px 18px 0; height: 240px; background: #0b0b12; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; clip-path: var(--cut); }
+.dm-cyberpunk .cp-map svg { position: absolute; inset: 0; }
+.dm-cyberpunk .cp-map__eta { position: absolute; left: 12px; bottom: 12px; padding: 6px 10px 4px; background: var(--acid); color: #0b0b0b; }
+.dm-cyberpunk .cp-map__eta span { display: block; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+.dm-cyberpunk .cp-map__eta b { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1; }
+.dm-cyberpunk .cp-map__coord { position: absolute; right: 22px; top: 10px; text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--cyan); line-height: 1.4; }
+.dm-cyberpunk .cp-courier { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; margin: 12px 18px 0; padding: 10px 12px; background: var(--panel2); border-left: 3px solid var(--pink); }
+.dm-cyberpunk .cp-courier__ava { position: relative; width: 52px; height: 52px; background: #0b0b12; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+.dm-cyberpunk .cp-courier__ava svg { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
+.dm-cyberpunk .cp-courier b { display: block; font-size: 22px; font-weight: 900; line-height: 1; text-transform: uppercase; }
+.dm-cyberpunk .cp-courier small { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+.dm-cyberpunk .cp-courier__act { display: flex; gap: 6px; }
+.dm-cyberpunk .cp-courier__act span { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 1px var(--cyan); color: var(--cyan); font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; }
+.dm-cyberpunk .cp-steps { margin: 12px 18px 0; display: grid; gap: 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.dm-cyberpunk .cp-steps li { display: grid; grid-template-columns: 44px 16px 1fr auto; gap: 8px; align-items: center; padding: 7px 0; border-bottom: 1px dotted var(--line2); color: var(--muted); }
+.dm-cyberpunk .cp-steps li i { width: 9px; height: 9px; box-shadow: inset 0 0 0 1px var(--muted); }
+.dm-cyberpunk .cp-steps li.is-done { color: var(--text); }
+.dm-cyberpunk .cp-steps li.is-done i { background: var(--cyan); box-shadow: none; }
+.dm-cyberpunk .cp-steps li.is-now { color: var(--acid); }
+.dm-cyberpunk .cp-steps li.is-now i { background: var(--acid); box-shadow: 0 0 0 3px rgba(243, 230, 0, .25); }
+.dm-cyberpunk .cp-steps li em { font-style: normal; font-size: 11px; }
+.dm-cyberpunk .cp-app-cta { margin: 14px 18px 0; }
+.dm-cyberpunk .cp-app-cta .cp-btn { display: flex; width: 100%; height: 52px; font-size: 20px; }
+.dm-cyberpunk .cp-tabbar { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 10px 12px 22px; background: #0b0b0b; border-top: 1px solid var(--line); }
+.dm-cyberpunk .cp-tabbar span { display: flex; flex-direction: column; align-items: center; padding: 6px 0 4px; font-size: 16px; font-weight: 800; text-transform: uppercase; color: var(--muted); transform: skewX(-12deg); }
+.dm-cyberpunk .cp-tabbar span i { font-style: normal; font-family: "Dela Gothic One", sans-serif; font-size: 12px; font-weight: 400; color: var(--muted); }
+.dm-cyberpunk .cp-tabbar .is-active { background: var(--acid); color: #0b0b0b; }
+.dm-cyberpunk .cp-tabbar .is-active i { color: #0b0b0b; }
+
+/* ----- Веб-платформа ----- */
+.dm-cyberpunk.dm--platform { display: grid; grid-template-columns: 74px 1fr; }
+.dm-cyberpunk .cp-rail { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 0; background: #0b0b0b; border-right: 1px solid var(--line); }
+.dm-cyberpunk .cp-rail__logo { writing-mode: vertical-rl; transform: rotate(180deg); font-family: "Dela Gothic One", sans-serif; font-size: 22px; color: var(--acid); margin-bottom: 14px; }
+.dm-cyberpunk .cp-rail li { width: 56px; height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; color: var(--muted); }
+.dm-cyberpunk .cp-rail li span { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 14px; }
+.dm-cyberpunk .cp-rail li.is-active { background: var(--acid); color: #0b0b0b; clip-path: var(--cut-sm); }
+.dm-cyberpunk .cp-rail__foot { margin-top: auto; width: 40px; height: 120px; }
+
+.dm-cyberpunk .cp-desk { position: relative; z-index: 2; display: flex; flex-direction: column; padding: 0 22px 18px; min-width: 0; }
+.dm-cyberpunk .cp-top { display: flex; align-items: center; gap: 18px; height: 62px; border-bottom: 1px solid var(--line); }
+.dm-cyberpunk .cp-top h1 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 26px; line-height: 1; text-transform: uppercase; }
+.dm-cyberpunk .cp-top h1 small { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--cyan); margin-left: 8px; vertical-align: 4px; }
+.dm-cyberpunk .cp-top__alert { margin-left: auto; display: flex; align-items: center; gap: 8px; padding: 0 10px; height: 30px; background: rgba(255, 42, 109, .12); box-shadow: inset 0 0 0 1px var(--pink); font-family: "IBM Plex Mono", monospace; font-size: 12px; color: #ff7fa4; }
+.dm-cyberpunk .cp-top__user { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); text-align: right; line-height: 1.3; }
+.dm-cyberpunk .cp-top__user b { color: var(--acid); }
+
+.dm-cyberpunk .cp-kpis { display: grid; grid-template-columns: repeat(4, 1fr) 1.3fr; gap: 10px; margin-top: 14px; }
+.dm-cyberpunk .cp-kpi { position: relative; background: var(--panel); clip-path: var(--cut-sm); padding: 10px 14px 10px; border-left: 3px solid var(--cyan); }
+.dm-cyberpunk .cp-kpi span { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+.dm-cyberpunk .cp-kpi b { display: block; font-size: 46px; font-weight: 900; line-height: .95; margin-top: 2px; }
+.dm-cyberpunk .cp-kpi small { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--cyan); }
+.dm-cyberpunk .cp-kpi--acid b { color: var(--acid); }
+.dm-cyberpunk .cp-kpi--alarm { border-left: 0; padding-left: 26px; background: linear-gradient(90deg, transparent 0 12px, var(--panel) 12px), var(--hazard); }
+.dm-cyberpunk .cp-kpi--alarm b, .dm-cyberpunk .cp-kpi--alarm small { color: var(--pink); }
+.dm-cyberpunk .cp-spark { display: flex; align-items: flex-end; gap: 3px; height: 54px; margin-top: 6px; }
+.dm-cyberpunk .cp-spark i { flex: 1; background: var(--cyan); opacity: .85; }
+.dm-cyberpunk .cp-spark i.is-hot { background: var(--pink); opacity: 1; }
+
+.dm-cyberpunk .cp-filters { display: flex; align-items: center; gap: 6px; margin-top: 14px; }
+.dm-cyberpunk .cp-filters span { padding: 4px 12px; font-size: 16px; font-weight: 800; text-transform: uppercase; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line2); }
+.dm-cyberpunk .cp-filters span.is-on { background: var(--cyan); color: #0b0b0b; box-shadow: none; }
+.dm-cyberpunk .cp-filters em { margin-left: auto; font-style: normal; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+
+.dm-cyberpunk .cp-main { flex: 1; display: grid; grid-template-columns: 1fr 340px; gap: 14px; margin-top: 10px; min-height: 0; }
+.dm-cyberpunk .cp-panel { background: var(--panel); box-shadow: inset 0 0 0 1px var(--line2); padding: 10px 14px; min-height: 0; overflow: hidden; }
+.dm-cyberpunk .cp-panel__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 19px; font-weight: 900; text-transform: uppercase; letter-spacing: .03em; }
+.dm-cyberpunk .cp-panel__head span { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0; text-transform: none; }
+.dm-cyberpunk .cp-table { width: 100%; border-collapse: collapse; font-family: "IBM Plex Mono", monospace; font-size: 12px; }
+.dm-cyberpunk .cp-table th { padding: 5px 8px 5px 0; text-align: left; font-size: 11px; font-weight: 500; color: var(--cyan); border-bottom: 1px solid var(--line); }
+.dm-cyberpunk .cp-table td { padding: 6px 8px 6px 0; border-bottom: 1px dotted var(--line2); white-space: nowrap; }
+.dm-cyberpunk .cp-table td:nth-child(2) { font-family: "Sofia Sans Extra Condensed", sans-serif; font-size: 17px; font-weight: 800; text-transform: uppercase; }
+.dm-cyberpunk .cp-table tr.is-alarm td { background: rgba(255, 42, 109, .1); }
+.dm-cyberpunk .cp-table tr.is-alarm td:first-child { box-shadow: inset 3px 0 0 var(--pink); padding-left: 6px; }
+.dm-cyberpunk .cp-st { display: inline-block; padding: 0 6px; font-size: 11px; font-weight: 700; }
+.dm-cyberpunk .cp-st--go { background: var(--cyan); color: #0b0b0b; }
+.dm-cyberpunk .cp-st--idle { box-shadow: inset 0 0 0 1px var(--muted); color: var(--muted); }
+.dm-cyberpunk .cp-st--alarm { background: var(--pink); color: #0b0b0b; }
+.dm-cyberpunk .cp-st--load { background: var(--acid); color: #0b0b0b; }
+
+.dm-cyberpunk .cp-side { display: grid; grid-template-rows: auto 1fr; gap: 14px; min-height: 0; }
+.dm-cyberpunk .cp-heat { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; }
+.dm-cyberpunk .cp-heat i { height: 34px; display: flex; align-items: center; justify-content: center; font-style: normal; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 700; color: #0b0b0b; }
+.dm-cyberpunk .cp-heat .h0 { background: #1d1d2a; color: var(--muted); }
+.dm-cyberpunk .cp-heat .h1 { background: #0b5b63; color: var(--text); }
+.dm-cyberpunk .cp-heat .h2 { background: var(--cyan); }
+.dm-cyberpunk .cp-heat .h3 { background: var(--acid); }
+.dm-cyberpunk .cp-heat .h4 { background: var(--pink); }
+.dm-cyberpunk .cp-log { font-family: "IBM Plex Mono", monospace; font-size: 11px; line-height: 1.75; color: var(--muted); }
+.dm-cyberpunk .cp-log li b { color: var(--cyan); font-weight: 500; }
+.dm-cyberpunk .cp-log li.is-warn { color: #ff7fa4; }
+.dm-cyberpunk .cp-log li.is-ok { color: var(--text); }
+.dm-cyberpunk .cp-log li.is-cursor::after { content: "_"; color: var(--acid); animation: cp-blink 1s steps(1) infinite; }

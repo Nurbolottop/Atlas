@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from .assets import css_bundle
 from .content import DEMO_VARIANTS, get_product, get_products, get_style, get_styles, get_taxonomy
 from .prompt import build_prompt, prompt_filename
 from .usage import USAGE_METHODS
@@ -17,15 +18,36 @@ def _not_found(request):
 def catalog(request):
     query = request.GET.get('q', '').strip()[:100]
     styles = get_styles()
-    matched = [s for s in styles if s.matches(query)] if query else styles
     taxonomy = get_taxonomy()
+    kind = request.GET.get('kind', '')
+    if kind not in taxonomy['kinds']:
+        kind = ''
+    matched = [s for s in styles if (not query or s.matches(query)) and (not kind or s['kind'] == kind)]
+
+    kind_filters = [{'key': '', 'label': 'Все', 'count': len(styles), 'description': ''}]
+    for key, info in taxonomy['kinds'].items():
+        kind_filters.append({
+            'key': key, 'label': info['plural'], 'description': info['description'],
+            'count': sum(1 for s in styles if s['kind'] == key),
+        })
+
+    fonts = {spec.split(':')[0] for s in styles for spec in s['demo_fonts']}
+    fonts |= {name for s in styles for p in s['typography']['pairs'] for name in (p['heading'], p['body'])}
+    stats = [
+        {'value': len(styles), 'forms': 'стиль,стиля,стилей'},
+        {'value': len(styles) * len(DEMO_VARIANTS), 'forms': 'демо,демо,демо'},
+        {'value': len(fonts), 'forms': 'шрифт с кириллицей,шрифта с кириллицей,шрифтов с кириллицей'},
+        {'value': len(get_products()), 'forms': 'тип продукта,типа продукта,типов продукта'},
+    ]
     return render(request, 'navigator/catalog.html', {
         'styles': styles,
         'matched_slugs': {s['slug'] for s in matched},
         'matched_count': len(matched),
         'query': query,
-        'kinds': taxonomy['kinds'],
+        'kind': kind,
+        'kind_filters': kind_filters,
         'kinds_note': taxonomy['note'],
+        'stats': stats,
     })
 
 
@@ -109,4 +131,15 @@ def prompt_download(request, slug, product):
         return _not_found(request)
     response = HttpResponse(build_prompt(style, product_data), content_type='text/plain; charset=utf-8')
     response['Content-Disposition'] = f'attachment; filename="{prompt_filename(style, product_data)}"'
+    return response
+
+
+def demo_bundle(request):
+    version, text = css_bundle(get_styles())
+    response = HttpResponse(text, content_type='text/css; charset=utf-8')
+    if request.GET.get('v') == version:
+        response['Cache-Control'] = 'public, max-age=31536000, immutable'
+    else:
+        response['Cache-Control'] = 'no-cache'
+    response['ETag'] = f'"{version}"'
     return response

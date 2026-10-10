@@ -6,19 +6,18 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero__grid">
     <div>
-      <span class="eyebrow">{{ platform_name }} · {{ platform_tagline|lower }}</span>
-      <h1 id="hero-title">Практичные инструменты для тех, кто <em>создаёт цифровые продукты</em></h1>
-      <p class="lead">Платформа собирает сервисы, которые помогают на отдельных этапах работы над сайтом, приложением или веб-платформой. Каждый сервис решает одну понятную задачу и выдаёт результат, который можно сразу применить.</p>
+      <h1 id="hero-title">Инструменты для <em>цифровых продуктов</em></h1>
+      <p class="lead">Одна задача — готовый результат.</p>
       {% with first=platform_services.0 %}{% if first %}
       <div class="hero__actions">
         <a class="btn btn--primary btn--lg" href="{{ first.url }}">Открыть «{{ first.title }}»</a>
-        <a class="btn btn--lg" href="#services">Все сервисы</a>
+        <a class="btn btn--ghost btn--lg" href="#services">Все сервисы</a>
       </div>
       {% endif %}{% endwith %}
-      <ul class="hero__points">
-        <li>Без регистрации: открыл сервис — получил результат.</li>
-        <li>Интерфейс и материалы на русском языке.</li>
-        <li>Результат можно скопировать или скачать файлом.</li>
+      <ul class="facts" role="list">
+        <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/><path d="M3 3l18 18"/></svg><span>Без регистрации</span></li>
+        <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16M4 12h10M4 19h7"/></svg><span>На русском</span></li>
+        <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Копировать или скачать</span></li>
       </ul>
     </div>
     {% if hero_service %}
@@ -30,19 +29,17 @@
 <section class="section section--tight" id="services" aria-labelledby="services-title">
   <div class="container">
     <div class="section__head">
-      <span class="eyebrow">Сервисы</span>
-      <h2 id="services-title">Что доступно на платформе</h2>
+      <h2 id="services-title">Сервисы</h2>
     </div>
     <ul class="services-grid" role="list">
       {% for service in platform_services %}
-      <li class="service-card{% if platform_services|length == 1 %} service-card--featured{% endif %}">
-        <div>
-          <span class="badge">Сервис</span>
-          <h3>{{ service.title }}</h3>
-          <p>{{ service.description }}</p>
-          <a class="btn btn--primary" href="{{ service.url }}" aria-label="{{ service.action_label }}: {{ service.title }}">{{ service.action_label }}</a>
+      <li class="service-card">
+        {% if service.preview_template %}<div class="service-card__media">{% include service.preview_template with service=service %}</div>{% endif %}
+        <div class="service-card__body">
+          <h3><a href="{{ service.url }}">{{ service.title }}</a></h3>
+          <p>{{ service.summary }}</p>
+          <span class="btn btn--primary" aria-hidden="true">{{ service.action_label }}</span>
         </div>
-        {% if service.preview_template %}{% include service.preview_template with service=service %}{% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -53,13 +50,11 @@
 <section class="section section--tight"{% if forloop.first %} id="how"{% endif %} aria-labelledby="how-{{ service.slug }}">
   <div class="container">
     <div class="section__head">
-      <span class="eyebrow">Как это работает</span>
-      <h2 id="how-{{ service.slug }}">Как работает «{{ service.title }}»</h2>
-      {% if service.how_text %}<p>{{ service.how_text }}</p>{% endif %}
+      <h2 id="how-{{ service.slug }}">Как это работает</h2>
     </div>
     <ol class="steps">
       {% for title, text in service.steps %}
-      <li><h3>{{ title }}</h3><p>{{ text }}</p></li>
+      <li><h3>{{ title }}</h3></li>
       {% endfor %}
     </ol>
   </div>

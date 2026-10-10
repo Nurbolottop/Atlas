@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0c0e">
   <title>{% block title %}{{ platform_name }}{% endblock %}</title>
   <meta name="description" content="{% block description %}{{ platform_name }} — {{ platform_tagline|lower }}.{% endblock %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="{% static 'platform/platform.css' %}">
   {% block head %}{% endblock %}
   <script src="{% static 'platform/app.js' %}" defer></script>
@@ -43,7 +44,7 @@
     <div class="container site-footer__inner">
       <div>
         <a class="brand" href="{% url 'home' %}"><span class="brand__mark" aria-hidden="true"></span><span>{{ platform_name }}</span></a>
-        <p class="site-footer__about">{{ platform_tagline }}. Все визуальные примеры на платформе — учебные демонстрации, а не клиентские проекты.</p>
+        <p class="site-footer__about">Примеры — учебные демонстрации.</p>
       </div>
       <nav aria-label="Сервисы">
         <h2>Сервисы</h2>

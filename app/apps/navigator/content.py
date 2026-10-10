@@ -205,30 +205,6 @@ def get_showcase():
     return store()['showcase']
 
 
-def font_requests(styles):
-    """
-    Группы семейств для Google Fonts. У каждого стиля — своя группа из
-    `demo_fonts` (начертания разных стилей для одного семейства не конфликтуют),
-    плюс общая группа шрифтов из пар типографики, которых нет в `demo_fonts`
-    (их показываем только в образцах, базовым начертанием).
-    """
-    groups, covered = [], set()
-    for style in styles:
-        specs = style.get('demo_fonts', [])
-        if specs and specs not in groups:
-            groups.append(specs)
-        covered.update(spec.split(':')[0] for spec in specs)
-    extra = []
-    for style in styles:
-        for pair in style.get('typography', {}).get('pairs', []):
-            for name in (pair.get('heading'), pair.get('body')):
-                if name and name not in covered and name not in extra:
-                    extra.append(name)
-    if extra:
-        groups.append(extra)
-    return groups
-
-
 def validate():
     """
     Проверяет контент. Возвращает (errors, warnings).
@@ -245,7 +221,7 @@ def validate():
     slugs = set(data['styles'])
 
     for product in data['products'].values():
-        for key in ('slug', 'title', 'label', 'description', 'prompt_label', 'prompt'):
+        for key in ('slug', 'title', 'label', 'short', 'description', 'prompt_label', 'prompt'):
             if key not in product:
                 errors.append(f'product_types.json: у «{product.get("slug")}» нет поля «{key}»')
 

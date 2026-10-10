@@ -33,7 +33,6 @@ class Service:
     url_name: str
     action_label: str = 'Открыть'
     steps: tuple = field(default_factory=tuple)  # ((заголовок, пояснение), ...)
-    how_text: str = ''
     order: int = 100
     # Необязательные шаблоны сервиса для главной: визуал первого экрана
     # (берётся у первого сервиса, где он задан) и превью в карточке.

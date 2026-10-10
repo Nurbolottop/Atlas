@@ -111,51 +111,59 @@
     return (text || '').toLowerCase().replace(/ё/g, 'е').replace(/\s+/g, ' ').trim();
   }
 
-  function plural(n, one, few, many) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return one;
-    if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
-    return many;
-  }
-
   function initSearch() {
     var form = document.querySelector('[data-search-form]');
     if (!form) return;
     var input = form.querySelector('input[type="search"]');
+    var hiddenKind = form.querySelector('[data-kind-input]');
+    if (hiddenKind) hiddenKind.remove();
     var items = Array.prototype.slice.call(document.querySelectorAll('[data-search-item]'));
+    var filters = Array.prototype.slice.call(document.querySelectorAll('[data-filters] [data-kind]'));
     var status = document.querySelector('[data-search-status]');
+    var note = status.textContent.split(' · ').slice(1).join(' · ');
     var empty = document.querySelector('[data-search-empty]');
-    var emptyQuery = document.querySelector('[data-search-query]');
     var reset = document.querySelectorAll('[data-search-reset]');
+    var current = filters.filter(function (f) { return f.getAttribute('aria-current') === 'true'; })[0];
+    var kind = current ? current.getAttribute('data-kind') : '';
 
     function apply() {
       var words = normalize(input.value).split(' ').filter(Boolean);
       var count = 0;
       items.forEach(function (item) {
         var text = item.getAttribute('data-search-item');
-        var match = words.every(function (w) { return text.indexOf(w) !== -1; });
+        var match = words.every(function (w) { return text.indexOf(w) !== -1; }) &&
+          (!kind || item.getAttribute('data-kind') === kind);
         item.hidden = !match;
         if (match) count++;
       });
-      if (!words.length) {
-        status.textContent = 'В каталоге ' + items.length + ' ' + plural(items.length, 'направление', 'направления', 'направлений');
-      } else {
-        status.textContent = 'Найдено: ' + count + ' ' + plural(count, 'направление', 'направления', 'направлений');
-      }
+      filters.forEach(function (f) {
+        if (f.getAttribute('data-kind') === kind) f.setAttribute('aria-current', 'true');
+        else f.removeAttribute('aria-current');
+      });
+      status.textContent = 'Показано: ' + count + ' из ' + items.length + (note ? ' · ' + note : '');
       empty.hidden = count !== 0;
-      if (emptyQuery) emptyQuery.textContent = input.value.trim();
       var url = new URL(window.location.href);
       if (words.length) url.searchParams.set('q', input.value.trim());
       else url.searchParams.delete('q');
+      if (kind) url.searchParams.set('kind', kind);
+      else url.searchParams.delete('kind');
       history.replaceState(history.state, '', url);
     }
 
     input.addEventListener('input', apply);
     form.addEventListener('submit', function (e) { e.preventDefault(); apply(); });
+    filters.forEach(function (f) {
+      f.addEventListener('click', function (e) {
+        e.preventDefault();
+        kind = f.getAttribute('data-kind');
+        apply();
+      });
+    });
     reset.forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
         input.value = '';
+        kind = '';
         apply();
         input.focus();
       });

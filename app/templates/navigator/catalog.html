@@ -14,40 +14,38 @@
     </ol>
   </nav>
 
-  <header class="page-head">
-    <span class="eyebrow">Сервис</span>
+  <header class="page-head page-head--compact">
     <h1>Навигатор дизайна</h1>
-    <p class="lead">Выберите визуальное направление, изучите его особенности и примеры, а затем получите промпт, который объяснит ИИ-разработчику, как реализовать стиль в вашем сайте, приложении или веб-платформе.</p>
+    <p class="lead">Стиль → тип продукта → промпт для ИИ.</p>
   </header>
 
-  <section class="kinds-legend" aria-label="Типы подходов">
-    {% for key, kind in kinds.items %}
-    <div class="kinds-legend__item">
-      <span class="badge badge--{{ key }}">{{ kind.label }}</span>
-      <p>{{ kind.description }}</p>
-    </div>
+  <ul class="stats" role="list">
+    {% for stat in stats %}
+    <li class="stat"><b>{{ stat.value }}</b><span>{{ stat.value|ru_plural:stat.forms }}</span></li>
     {% endfor %}
-    <p class="kinds-legend__note">{{ kinds_note }}</p>
-  </section>
+  </ul>
 
   <div class="catalog-tools">
     <form class="search" action="{% url 'navigator:catalog' %}" method="get" role="search" data-search-form>
-      <label for="search-input">Поиск по стилям</label>
+      <label for="search-input" class="visually-hidden">Поиск по стилям: название, описание или тег</label>
       <div class="search__field">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="search-input" type="search" name="q" value="{{ query }}" placeholder="Например: минимализм, swiss, стекло, ретро" autocomplete="off" aria-describedby="search-hint search-status">
+        <input id="search-input" type="search" name="q" value="{{ query }}" placeholder="Поиск: минимализм, swiss, стекло…" autocomplete="off" aria-describedby="search-status">
       </div>
-      <p class="search__hint" id="search-hint">Ищет по русскому и английскому названию, описанию и тегам.</p>
+      {% if kind %}<input type="hidden" name="kind" value="{{ kind }}" data-kind-input>{% endif %}
       <noscript><button class="btn search__submit" type="submit">Найти</button></noscript>
     </form>
-    <p class="search-status" id="search-status" data-search-status role="status" aria-live="polite">
-      {% if query %}Найдено: {{ matched_count }} {{ matched_count|ru_plural:"направление,направления,направлений" }}{% else %}В каталоге {{ styles|length }} {{ styles|length|ru_plural:"направление,направления,направлений" }}{% endif %}
-    </p>
+    <nav class="filters" aria-label="Фильтр по типу подхода" data-filters>
+      {% for f in kind_filters %}
+      <a class="filter" href="?{% if f.key %}kind={{ f.key }}{% endif %}{% if query %}{% if f.key %}&amp;{% endif %}q={{ query|urlencode }}{% endif %}" data-kind="{{ f.key }}"{% if f.key == kind %} aria-current="true"{% endif %}{% if f.description %} title="{{ f.description }}"{% endif %}>{{ f.label }} <span>{{ f.count }}</span></a>
+      {% endfor %}
+    </nav>
   </div>
+  <p class="search-status" id="search-status" data-search-status role="status" aria-live="polite">Показано: {{ matched_count }} из {{ styles|length }} · {{ kinds_note }}</p>
 
   <ul class="style-grid" role="list">
     {% for style in styles %}
-    <li data-search-item="{{ style.search_text }}"{% if style.slug not in matched_slugs %} hidden{% endif %}>
+    <li data-search-item="{{ style.search_text }}" data-kind="{{ style.kind }}"{% if style.slug not in matched_slugs %} hidden{% endif %}>
       {% include 'navigator/includes/style_card.html' %}
     </li>
     {% endfor %}
@@ -55,8 +53,8 @@
 
   <div class="empty-state" data-search-empty{% if matched_count %} hidden{% endif %}>
     <h2>Ничего не найдено</h2>
-    <p>По запросу «<span data-search-query>{{ query }}</span>» нет подходящих направлений. Попробуйте другое слово — например, английское название стиля или характерный признак: «тень», «сетка», «градиент».</p>
-    <a class="btn" href="{% url 'navigator:catalog' %}" data-search-reset>Показать все направления</a>
+    <p>Попробуйте другое слово или сбросьте фильтр.</p>
+    <a class="btn" href="{% url 'navigator:catalog' %}" data-search-reset>Показать все</a>
   </div>
 </div>
 {% endblock %}

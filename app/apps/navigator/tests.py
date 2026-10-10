@@ -9,7 +9,8 @@ from .prompt import build_prompt
 REQUIRED_STYLES = {
     'minimalism', 'swiss', 'editorial', 'brutalism', 'neobrutalism', 'retro', 'retrofuturism',
     'organic', 'playful', 'premium', 'tech', 'glassmorphism', 'neumorphism', 'flat',
-    'skeuomorphism', 'bento',
+    'skeuomorphism', 'bento', 'y2k', 'memphis', 'art-deco', 'cyberpunk', 'material',
+    'hand-drawn', 'claymorphism', 'aurora',
 }
 
 
@@ -63,6 +64,16 @@ class PageTests(SimpleTestCase):
         self.assertEqual(response.context['matched_count'], 0)
         self.assertContains(response, 'Ничего не найдено')
 
+    def test_kind_filter_and_stats(self):
+        response = self.client.get(reverse('navigator:catalog'), {'kind': 'technique'})
+        techniques = {s['slug'] for s in get_styles() if s['kind'] == 'technique'}
+        self.assertEqual(response.context['matched_slugs'], techniques)
+        self.assertContains(response, 'aria-current="true"')
+        self.assertEqual(response.context['stats'][0]['value'], len(get_styles()))
+
+        response = self.client.get(reverse('navigator:catalog'), {'kind': 'unknown'})
+        self.assertEqual(response.context['matched_count'], len(get_styles()))
+
     def test_every_style_page_and_demo(self):
         for style in get_styles():
             for variant in DEMO_VARIANTS:
@@ -106,3 +117,24 @@ class PageTests(SimpleTestCase):
     def test_unknown_product_redirects_to_choice(self):
         response = self.client.get(reverse('navigator:prompt_result', args=['minimalism', 'tv']))
         self.assertRedirects(response, reverse('navigator:prompt_type', args=['minimalism']))
+
+
+class AssetTests(SimpleTestCase):
+    def test_demo_bundle_contains_every_style_and_is_cacheable(self):
+        from .assets import css_bundle
+        version, _ = css_bundle(get_styles())
+        response = self.client.get(reverse('navigator:demo_bundle'), {'v': version})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('immutable', response['Cache-Control'])
+        text = response.content.decode()
+        for style in get_styles():
+            self.assertIn(f'.dm-{style["slug"]}', text)
+
+    def test_fonts_merge_weights_of_same_family(self):
+        from .assets import font_urls
+        a = {'demo_fonts': ['Exo 2:wght@400;700']}
+        b = {'demo_fonts': ['Exo 2:wght@500', 'Russo One']}
+        urls = font_urls([a, b])
+        self.assertEqual(len(urls), 1)
+        self.assertIn('Exo+2:wght@400;500;700', urls[0])
+        self.assertIn('family=Russo+One', urls[0])

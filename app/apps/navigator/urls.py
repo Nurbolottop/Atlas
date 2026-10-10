@@ -6,6 +6,7 @@ app_name = 'navigator'
 
 urlpatterns = [
     path('', views.catalog, name='catalog'),
+    path('demos.css', views.demo_bundle, name='demo_bundle'),
     path('<slug:slug>/', views.style_detail, name='style'),
     path('<slug:slug>/use/', views.style_use, name='use'),
     path('<slug:slug>/prompt/', views.prompt_type, name='prompt_type'),

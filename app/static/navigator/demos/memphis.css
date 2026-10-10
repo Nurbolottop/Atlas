@@ -1,0 +1,252 @@
+/* Демонстрация: Мемфис. Все селекторы ограничены .dm-memphis, классы с префиксом mf-.
+   Приёмы: геометрические фигуры (круги, треугольники, зигзаги, сквиглы),
+   точечные и штриховые паттерны, «несочетаемые» плоские цвета, асимметрия,
+   смещённые подложки из паттерна вместо теней. */
+
+.dm-memphis {
+  --mf-bg: #fffaf0;
+  --mf-ink: #141414;
+  --mf-muted: #45413a;
+  --mf-pink: #ff6fb1;
+  --mf-yellow: #ffdd3c;
+  --mf-teal: #1fc8b4;
+  --mf-blue: #2f55ff;
+  --mf-red: #ff5a36;
+  --mf-lilac: #b39dff;
+  --mf-dots: radial-gradient(circle, var(--mf-ink) 1.6px, transparent 2.1px) 0 0 / 11px 11px;
+  --mf-stripes: repeating-linear-gradient(-45deg, var(--mf-ink) 0 2.5px, transparent 2.5px 9px);
+  --mf-grid: linear-gradient(var(--mf-ink) 1.5px, transparent 1.5px) 0 0 / 14px 14px, linear-gradient(90deg, var(--mf-ink) 1.5px, transparent 1.5px) 0 0 / 14px 14px;
+  background: var(--mf-bg);
+  color: var(--mf-ink);
+  font-family: "Jost", "Futura", "Trebuchet MS", sans-serif;
+  font-weight: 500;
+}
+
+/* ----- Общие детали ----- */
+.dm-memphis .mf-display { font-family: "Dela Gothic One", "Arial Black", sans-serif; font-weight: 400; }
+.dm-memphis .mf-deco { position: absolute; pointer-events: none; }
+
+.dm-memphis .mf-logo { display: inline-flex; align-items: center; gap: 10px; font-family: "Dela Gothic One", sans-serif; font-size: 24px; letter-spacing: .02em; }
+.dm-memphis .mf-logo__mark { position: relative; width: 34px; height: 34px; flex: none; }
+.dm-memphis .mf-logo__mark::before { content: ""; position: absolute; left: 0; top: 4px; width: 26px; height: 26px; border-radius: 50%; background: var(--mf-teal); border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-logo__mark::after { content: ""; position: absolute; right: 0; top: 0; width: 0; height: 0; border-left: 11px solid transparent; border-right: 11px solid transparent; border-bottom: 20px solid var(--mf-pink); }
+
+/* кнопка: плоская заливка, линия 2 px и смещённая точечная подложка */
+.dm-memphis .mf-btn {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 50px; padding: 0 26px; white-space: nowrap;
+  font-weight: 700; font-size: 16px; color: var(--mf-ink);
+  --mf-fill: var(--mf-yellow);
+}
+/* заливка и линия — на ::before, смещённая паттерн-подложка — на ::after под ней */
+.dm-memphis .mf-btn::before { content: ""; position: absolute; z-index: -1; inset: 0; background: var(--mf-fill); border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-btn::after { content: ""; position: absolute; z-index: -2; left: 7px; top: 7px; right: -9px; bottom: -9px; background: var(--mf-dots); }
+.dm-memphis .mf-btn--pink { --mf-fill: var(--mf-pink); }
+.dm-memphis .mf-btn--ink { --mf-fill: var(--mf-ink); color: #fff; }
+.dm-memphis .mf-btn--ink::after { background: var(--mf-stripes); }
+.dm-memphis .mf-btn--ghost { --mf-fill: #fff; }
+.dm-memphis .mf-btn--ghost::after { display: none; }
+
+.dm-memphis .mf-tag { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; font-size: 12px; font-weight: 800; border: 2px solid var(--mf-ink); background: #fff; }
+.dm-memphis .mf-shape { display: inline-block; flex: none; }
+.dm-memphis .mf-shape--circle { width: 14px; height: 14px; border-radius: 50%; background: var(--mf-teal); border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-shape--square { width: 13px; height: 13px; background: var(--mf-yellow); border: 2px solid var(--mf-ink); transform: rotate(12deg); }
+.dm-memphis .mf-shape--tri { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 14px solid var(--mf-pink); }
+.dm-memphis .mf-shape--half { width: 16px; height: 8px; border-radius: 16px 16px 0 0; background: var(--mf-blue); }
+
+@keyframes mf-wiggle { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+@keyframes mf-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* ===================== Сайт ===================== */
+.dm-memphis.dm--site { padding: 0 56px; }
+.dm-memphis .mf-nav { position: relative; z-index: 3; display: flex; align-items: center; gap: 34px; height: 92px; }
+.dm-memphis .mf-nav__links { display: flex; gap: 28px; margin-left: 40px; font-size: 15px; font-weight: 700; }
+.dm-memphis .mf-nav__links .is-active { position: relative; }
+.dm-memphis .mf-nav__links .is-active::after { content: ""; position: absolute; left: -4px; right: -4px; bottom: -10px; height: 8px;
+  background: linear-gradient(135deg, var(--mf-pink) 25%, transparent 25%) -4px 0 / 8px 8px, linear-gradient(225deg, var(--mf-pink) 25%, transparent 25%) -4px 0 / 8px 8px; }
+.dm-memphis .mf-nav .mf-btn { margin-left: auto; height: 46px; }
+
+.dm-memphis .mf-hero { position: relative; height: 482px; }
+.dm-memphis .mf-hero__text { position: relative; z-index: 2; width: 640px; padding-top: 22px; }
+.dm-memphis .mf-kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.dm-memphis .mf-hero h1 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 74px; line-height: 1; letter-spacing: -.01em; margin: 18px 0 30px; }
+.dm-memphis .mf-hero h1 span { display: block; }
+.dm-memphis .mf-hero h1 .mf-hl { display: inline-block; position: relative; isolation: isolate; padding: 4px 18px 10px; margin: 8px 0 0 48px; white-space: nowrap; transform: rotate(-3deg); }
+.dm-memphis .mf-hero h1 .mf-hl::before { content: ""; position: absolute; z-index: -1; inset: 0; background: var(--mf-pink); border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-hero h1 .mf-hl::after { content: ""; position: absolute; z-index: -2; inset: 12px -14px -14px 14px; background: var(--mf-stripes); }
+.dm-memphis .mf-lead { font-size: 18px; line-height: 1.55; max-width: 470px; color: var(--mf-muted); font-weight: 600; }
+.dm-memphis .mf-hero__row { display: flex; align-items: center; gap: 30px; margin-top: 28px; }
+.dm-memphis .mf-place { font-size: 14px; font-weight: 700; line-height: 1.4; }
+.dm-memphis .mf-place b { display: block; font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 20px; }
+
+.dm-memphis .mf-date { position: absolute; z-index: 3; left: 610px; top: 300px; width: 140px; height: 140px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  background: var(--mf-teal); border: 2px solid var(--mf-ink); transform: rotate(-8deg); }
+.dm-memphis .mf-date b { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 34px; line-height: 1; }
+.dm-memphis .mf-date span { font-size: 14px; font-weight: 800; letter-spacing: .1em; margin-top: 4px; }
+
+.dm-memphis .mf-scene { position: absolute; right: -10px; top: 0; width: 470px; height: 482px; }
+.dm-memphis .mf-sun { position: absolute; right: 30px; top: 14px; width: 300px; height: 300px; border-radius: 50%; background: var(--mf-blue); }
+.dm-memphis .mf-sun::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.9) 1.8px, transparent 2.3px) 0 0 / 14px 14px; clip-path: inset(0 0 50% 0); }
+.dm-memphis .mf-slab { position: absolute; left: 10px; bottom: 34px; width: 260px; height: 120px; background: var(--mf-grid); background-color: var(--mf-yellow); border: 2px solid var(--mf-ink); transform: skewX(-14deg); }
+
+/* предмет-фигура: этажерка из геометрических блоков */
+.dm-memphis .mf-totem { position: absolute; left: 150px; top: 60px; width: 250px; height: 400px; animation: mf-bob 6s ease-in-out infinite; }
+.dm-memphis .mf-totem i { position: absolute; display: block; border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-totem .t-post { left: 116px; top: 70px; width: 18px; height: 300px; background: var(--mf-ink); }
+.dm-memphis .mf-totem .t-arm-l { left: 6px; top: 150px; width: 128px; height: 20px; background: var(--mf-red); transform: rotate(-24deg); transform-origin: right center; }
+.dm-memphis .mf-totem .t-arm-r { left: 116px; top: 150px; width: 128px; height: 20px; background: var(--mf-red); transform: rotate(24deg); transform-origin: left center; }
+.dm-memphis .mf-totem .t-shelf { left: 30px; top: 240px; width: 190px; height: 22px; background: var(--mf-pink); }
+.dm-memphis .mf-totem .t-shelf2 { left: 56px; top: 300px; width: 138px; height: 22px; background: var(--mf-stripes); background-color: #fff; }
+.dm-memphis .mf-totem .t-ball { left: 85px; top: 0; width: 80px; height: 80px; border-radius: 50%; background: var(--mf-yellow); }
+.dm-memphis .mf-totem .t-ball::after { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: var(--mf-dots); }
+.dm-memphis .mf-totem .t-cube { left: 50px; top: 196px; width: 44px; height: 44px; background: var(--mf-teal); }
+.dm-memphis .mf-totem .t-cone { left: 160px; top: 196px; width: 0; height: 0; border: 0; border-left: 24px solid transparent; border-right: 24px solid transparent; border-bottom: 44px solid var(--mf-lilac); }
+.dm-memphis .mf-totem .t-foot { left: 66px; top: 366px; width: 118px; height: 26px; border-radius: 60px 60px 0 0; background: var(--mf-blue); }
+.dm-memphis .mf-caption { position: absolute; z-index: 3; right: 0; bottom: 30px; padding: 10px 14px; background: #fff; border: 2px solid var(--mf-ink); font-size: 13px; font-weight: 700; transform: rotate(3deg); }
+.dm-memphis .mf-caption b { display: block; font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 15px; }
+
+.dm-memphis .mf-sections { position: relative; z-index: 2; display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.1fr; gap: 22px; align-items: start; }
+.dm-memphis .mf-sec { position: relative; border: 2px solid var(--mf-ink); background: #fff; }
+.dm-memphis .mf-sec:nth-child(2) { margin-top: 24px; }
+.dm-memphis .mf-sec:nth-child(3) { margin-top: 8px; }
+.dm-memphis .mf-sec:nth-child(4) { margin-top: 30px; }
+.dm-memphis .mf-sec__head { height: 52px; border-bottom: 2px solid var(--mf-ink); position: relative; overflow: hidden; }
+.dm-memphis .mf-sec__head .mf-shape { position: absolute; right: 14px; top: 50%; transform: translateY(-50%) scale(1.8); }
+.dm-memphis .mf-sec__body { padding: 12px 16px 14px; }
+.dm-memphis .mf-sec h2 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 20px; }
+.dm-memphis .mf-sec p { font-size: 13px; font-weight: 600; color: var(--mf-muted); margin-top: 2px; }
+.dm-memphis .mf-pat--dots { background: var(--mf-dots); background-color: var(--mf-pink); }
+.dm-memphis .mf-pat--stripes { background: var(--mf-stripes); background-color: var(--mf-teal); }
+.dm-memphis .mf-pat--grid { background: var(--mf-grid); background-color: var(--mf-yellow); }
+.dm-memphis .mf-pat--wave { background-color: var(--mf-lilac); background-image: radial-gradient(circle at 50% 120%, transparent 6px, var(--mf-ink) 6px 8px, transparent 8.5px), radial-gradient(circle at 50% -20%, transparent 6px, var(--mf-ink) 6px 8px, transparent 8.5px); background-size: 20px 12px, 20px 12px; background-position: 0 0, 10px 6px; }
+
+/* ===================== Приложение ===================== */
+.dm-memphis.dm--app { display: flex; flex-direction: column; }
+.dm-memphis .mf-status { display: flex; justify-content: space-between; padding: 14px 26px 0; font-size: 14px; font-weight: 800; }
+.dm-memphis .mf-status__icons { display: flex; gap: 4px; align-items: center; }
+.dm-memphis .mf-status__icons i { width: 15px; height: 10px; background: var(--mf-ink); }
+.dm-memphis .mf-status__icons i:nth-child(2) { border-radius: 50%; width: 10px; }
+.dm-memphis .mf-apphead { position: relative; padding: 18px 22px 0; }
+.dm-memphis .mf-apphead p { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.dm-memphis .mf-apphead h1 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin-top: 4px; }
+.dm-memphis .mf-apphead svg { margin-top: 4px; }
+.dm-memphis .mf-apphead .mf-deco--tri { right: 70px; top: 22px; width: 0; height: 0; border-left: 22px solid transparent; border-right: 22px solid transparent; border-bottom: 38px solid var(--mf-yellow); animation: mf-wiggle 5s ease-in-out infinite; }
+.dm-memphis .mf-apphead .mf-deco--dot { right: 30px; top: 66px; width: 30px; height: 30px; border-radius: 50%; background: var(--mf-dots); background-color: var(--mf-teal); border: 2px solid var(--mf-ink); }
+
+.dm-memphis .mf-days { display: flex; gap: 12px; padding: 14px 22px 0; }
+.dm-memphis .mf-day { flex: 1; height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2px solid var(--mf-ink); background: #fff; font-size: 12px; font-weight: 700; line-height: 1.2; }
+.dm-memphis .mf-day b { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 22px; }
+.dm-memphis .mf-day.is-on { position: relative; background: var(--mf-pink); border-radius: 50% 50% 8px 8px; }
+.dm-memphis .mf-day.is-on::after { content: ""; position: absolute; z-index: -1; left: 6px; top: 6px; right: -8px; bottom: -8px; border-radius: 50% 50% 8px 8px; background: var(--mf-dots); }
+.dm-memphis .mf-days { isolation: isolate; }
+.dm-memphis .mf-day:nth-child(3) { border-radius: 8px 30px 8px 30px; }
+
+.dm-memphis .mf-timeline { flex: 1; display: grid; gap: 9px; align-content: start; padding: 18px 22px 0; }
+.dm-memphis .mf-ev { display: grid; grid-template-columns: 58px 1fr; gap: 10px; align-items: stretch; }
+.dm-memphis .mf-ev__time { font-family: "Dela Gothic One", sans-serif; font-size: 16px; padding-top: 10px; }
+.dm-memphis .mf-ev__time small { display: block; font-family: "Jost", sans-serif; font-size: 11px; font-weight: 700; color: var(--mf-muted); }
+.dm-memphis .mf-ev__card { position: relative; display: grid; grid-template-columns: 14px 1fr auto; gap: 12px; align-items: center; padding: 10px 12px 10px 0; border: 2px solid var(--mf-ink); background: #fff; overflow: hidden; }
+.dm-memphis .mf-ev__card > i { align-self: stretch; border-right: 2px solid var(--mf-ink); }
+.dm-memphis .mf-ev__card b { display: block; font-size: 15px; font-weight: 800; line-height: 1.25; }
+.dm-memphis .mf-ev__card span { font-size: 12px; font-weight: 600; color: var(--mf-muted); }
+.dm-memphis .mf-ev__card .mf-shape { transform: scale(1.3); }
+.dm-memphis .mf-ev--hot .mf-ev__card { background: var(--mf-yellow); padding: 14px 12px 14px 0; }
+.dm-memphis .mf-ev--hot .mf-ev__card b { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 17px; }
+.dm-memphis .mf-ev--hot .mf-ev__card span { color: var(--mf-ink); }
+.dm-memphis .mf-ev--hot .mf-ev__card svg { position: absolute; right: -6px; bottom: -4px; }
+.dm-memphis .mf-ev .mf-ev__card span.mf-ev__seat { white-space: nowrap; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; background: var(--mf-ink); color: #fff; }
+
+.dm-memphis .mf-cta { padding: 12px 22px 12px; }
+.dm-memphis .mf-cta .mf-btn { display: flex; width: calc(100% - 9px); height: 52px; }
+
+.dm-memphis .mf-tabbar { display: flex; justify-content: space-around; align-items: flex-end; padding: 12px 8px 22px; background: var(--mf-ink); color: #fff; font-size: 11px; font-weight: 700; }
+.dm-memphis .mf-tabbar span { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 64px; }
+.dm-memphis .mf-tabbar .mf-shape { border-color: #fff; }
+.dm-memphis .mf-tabbar .is-active { color: var(--mf-yellow); }
+.dm-memphis .mf-tabbar .is-active::after { content: ""; width: 26px; height: 4px; background: var(--mf-yellow); }
+
+/* ===================== Платформа ===================== */
+.dm-memphis.dm--platform { display: grid; grid-template-columns: 228px 1fr; grid-template-rows: 100%; }
+.dm-memphis .mf-side { position: relative; display: flex; flex-direction: column; padding: 28px 18px 22px; background: var(--mf-ink); color: #fff; overflow: hidden; }
+.dm-memphis .mf-side .mf-logo { color: #fff; }
+.dm-memphis .mf-side .mf-logo__mark::before { border-color: #fff; }
+.dm-memphis .mf-side__nav { display: grid; gap: 4px; margin-top: 36px; font-size: 15px; font-weight: 700; }
+.dm-memphis .mf-side__nav li { display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 12px; }
+.dm-memphis .mf-side__nav .mf-shape { border-color: #fff; }
+.dm-memphis .mf-side__nav .is-active { background: var(--mf-yellow); color: var(--mf-ink); transform: rotate(-2deg); }
+.dm-memphis .mf-side__nav .is-active .mf-shape { border-color: var(--mf-ink); }
+.dm-memphis .mf-side__nav em { margin-left: auto; font-style: normal; font-size: 12px; font-weight: 800; padding: 1px 7px; background: var(--mf-pink); color: var(--mf-ink); }
+.dm-memphis .mf-side__deco { position: absolute; left: -30px; bottom: 90px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.55) 1.6px, transparent 2.1px) 0 0 / 12px 12px; }
+.dm-memphis .mf-side__card { position: relative; margin-top: auto; padding: 14px; background: var(--mf-teal); color: var(--mf-ink); border: 2px solid #fff; font-size: 13px; font-weight: 700; }
+.dm-memphis .mf-side__card b { display: block; font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 22px; }
+
+.dm-memphis .mf-work { position: relative; padding: 26px 34px 0; min-width: 0; overflow: hidden; }
+.dm-memphis .mf-work__head { display: flex; align-items: flex-end; gap: 16px; }
+.dm-memphis .mf-work__head p { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.dm-memphis .mf-work__head h1 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin-top: 4px; }
+.dm-memphis .mf-work__head .mf-btn { height: 46px; }
+.dm-memphis .mf-work__head .mf-btn:first-of-type { margin-left: auto; }
+.dm-memphis .mf-work__head > div svg { margin-top: 2px; }
+
+.dm-memphis .mf-filters { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.dm-memphis .mf-filters .mf-tag { height: 32px; padding: 0 14px; font-size: 13px; }
+.dm-memphis .mf-filters .mf-tag.is-on { background: var(--mf-ink); color: #fff; }
+.dm-memphis .mf-filters .mf-tag.is-on .mf-shape { border-color: #fff; }
+.dm-memphis .mf-filters span:last-child { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--mf-muted); }
+
+.dm-memphis .mf-kpis { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 16px; margin-top: 18px; }
+.dm-memphis .mf-kpi { position: relative; padding: 14px 16px; border: 2px solid var(--mf-ink); overflow: hidden; }
+.dm-memphis .mf-kpi span { position: relative; font-size: 13px; font-weight: 700; }
+.dm-memphis .mf-kpi b { position: relative; display: block; font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 30px; line-height: 1.15; margin-top: 6px; }
+.dm-memphis .mf-kpi small { position: relative; font-size: 12px; font-weight: 800; }
+.dm-memphis .mf-kpi::before { content: ""; position: absolute; right: -18px; top: -18px; width: 74px; height: 74px; }
+.dm-memphis .mf-kpi--pink { background: var(--mf-pink); }
+.dm-memphis .mf-kpi--pink::before { border-radius: 50%; background: var(--mf-dots); background-color: #fff; border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-kpi--teal { background: var(--mf-teal); }
+.dm-memphis .mf-kpi--teal::before { background: var(--mf-stripes); background-color: var(--mf-yellow); border: 2px solid var(--mf-ink); transform: rotate(20deg); }
+.dm-memphis .mf-kpi--yellow { background: var(--mf-yellow); }
+.dm-memphis .mf-kpi--yellow::before { width: 0; height: 0; right: 10px; top: 10px; border-left: 22px solid transparent; border-right: 22px solid transparent; border-bottom: 38px solid var(--mf-blue); }
+.dm-memphis .mf-kpi--lilac { background: var(--mf-lilac); }
+.dm-memphis .mf-kpi--lilac::before { border-radius: 74px 74px 0 0; height: 37px; top: 8px; right: -10px; background: var(--mf-red); border: 2px solid var(--mf-ink); }
+
+.dm-memphis .mf-grid { display: grid; grid-template-columns: 1fr 330px; gap: 20px; margin-top: 20px; }
+.dm-memphis .mf-panel { position: relative; border: 2px solid var(--mf-ink); background: #fff; }
+.dm-memphis .mf-panel__head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 2px solid var(--mf-ink); }
+.dm-memphis .mf-panel__head h2 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 17px; }
+.dm-memphis .mf-panel__head span { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--mf-muted); }
+
+.dm-memphis .mf-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.dm-memphis .mf-table th { text-align: left; padding: 9px 16px; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; background: var(--mf-dots); background-color: #fff; border-bottom: 2px solid var(--mf-ink); }
+.dm-memphis .mf-table th span { background: #fff; padding: 0 4px; }
+.dm-memphis .mf-table td { padding: 0 16px; height: 44px; white-space: nowrap; border-bottom: 1.5px dashed var(--mf-ink); font-weight: 600; }
+.dm-memphis .mf-table tr:last-child td { border-bottom: 0; }
+.dm-memphis .mf-table td b { font-weight: 800; }
+.dm-memphis .mf-table .mf-cat { display: inline-flex; align-items: center; gap: 8px; }
+.dm-memphis .mf-table .mf-num { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 14px; text-align: right; }
+.dm-memphis .mf-status-tag { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; font-size: 12px; font-weight: 800; border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-status-tag--ok { background: var(--mf-teal); border-radius: 13px; }
+.dm-memphis .mf-status-tag--wait { background: var(--mf-yellow); transform: rotate(-2deg); }
+.dm-memphis .mf-status-tag--new { background: var(--mf-pink); clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); border: 0; padding: 0 16px; }
+
+.dm-memphis .mf-side-col { display: grid; gap: 20px; align-content: start; }
+.dm-memphis .mf-bars { display: flex; align-items: flex-end; gap: 12px; height: 132px; padding: 16px 16px 0; }
+.dm-memphis .mf-bars div { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; }
+.dm-memphis .mf-bars i { width: 100%; border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-bars div:nth-child(1) i { background: var(--mf-dots); background-color: var(--mf-pink); }
+.dm-memphis .mf-bars div:nth-child(2) i { background: var(--mf-stripes); background-color: var(--mf-teal); }
+.dm-memphis .mf-bars div:nth-child(3) i { background: var(--mf-grid); background-color: var(--mf-yellow); }
+.dm-memphis .mf-bars div:nth-child(4) i { background: var(--mf-lilac); border-radius: 40px 40px 0 0; }
+.dm-memphis .mf-bars-foot { display: flex; justify-content: space-between; padding: 8px 16px 12px; font-size: 12px; font-weight: 700; color: var(--mf-muted); }
+.dm-memphis .mf-bars-foot b { color: var(--mf-ink); }
+
+.dm-memphis .mf-map { position: relative; height: 128px; margin: 12px 14px 14px; background: var(--mf-bg); border: 2px dashed var(--mf-ink); }
+.dm-memphis .mf-map > span { position: absolute; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; border: 2px solid var(--mf-ink); }
+.dm-memphis .mf-map .m1 { left: 10px; top: 10px; width: 92px; height: 48px; background: var(--mf-pink); }
+.dm-memphis .mf-map .m2 { left: 114px; top: 8px; width: 56px; height: 56px; border-radius: 50%; background: var(--mf-teal); }
+.dm-memphis .mf-map .m3 { right: 10px; top: 10px; width: 96px; height: 62px; background: var(--mf-stripes); background-color: var(--mf-yellow); }
+.dm-memphis .mf-map .m3 em { font-style: normal; background: #fff; padding: 1px 4px; }
+.dm-memphis .mf-map .m4 { left: 16px; bottom: 10px; width: 140px; height: 42px; background: var(--mf-lilac); transform: skewX(-10deg); }
+.dm-memphis .mf-map .m5 { right: 10px; bottom: 10px; width: 110px; height: 34px; background: #fff; }
+.dm-memphis .mf-map .m6 { left: 172px; bottom: 14px; width: 26px; height: 26px; border-radius: 50%; background: var(--mf-red); }

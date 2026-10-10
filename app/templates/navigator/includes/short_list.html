@@ -1,0 +1,7 @@
+<ul class="list{% if variant %} list--{{ variant }}{% endif %}">{% for item in items|slice:":3" %}<li>{{ item }}</li>{% endfor %}</ul>
+{% if items|length > 3 %}
+<details class="more more--inline">
+  <summary>Ещё {{ items|slice:"3:"|length }}</summary>
+  <ul class="list{% if variant %} list--{{ variant }}{% endif %}">{% for item in items|slice:"3:" %}<li>{{ item }}</li>{% endfor %}</ul>
+</details>
+{% endif %}

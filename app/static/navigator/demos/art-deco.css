@@ -1,0 +1,236 @@
+/* Демонстрация: Ар-деко. Все селекторы ограничены .dm-art-deco, классы с префиксом ad- */
+
+.dm-art-deco {
+  --emerald: #0f2a24;
+  --emerald2: #163a32;
+  --emerald3: #1d4a40;
+  --black: #0b0b0a;
+  --ivory: #f2ead8;
+  --ivory2: #e8dcc6;
+  --muted: #bfb39a;
+  --gold: #c9a45c;
+  --gold2: #e3c887;
+  --bronze: #7a5c22;
+  --ink: #1b1a17;
+  --stone: #5e5543;
+  --line: rgba(201, 164, 92, .5);
+  --steps: polygon(0 36px, 18px 36px, 18px 18px, 36px 18px, 36px 0, calc(100% - 36px) 0, calc(100% - 36px) 18px, calc(100% - 18px) 18px, calc(100% - 18px) 36px, 100% 36px, 100% 100%, 0 100%);
+  --octa: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  box-sizing: border-box;
+  background: var(--emerald);
+  color: var(--ivory);
+  font-family: "Jost", "Futura", system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/* ----- Общие детали ----- */
+.dm-art-deco .ad-display { font-family: "Poiret One", "Jost", sans-serif; font-weight: 400; }
+.dm-art-deco .ad-serif { font-family: "Forum", "Times New Roman", serif; font-weight: 400; }
+.dm-art-deco .ad-label {
+  font-size: 11px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--gold);
+}
+.dm-art-deco .ad-rule { display: flex; align-items: center; gap: 12px; color: var(--gold); }
+.dm-art-deco .ad-rule i { flex: 1; height: 5px; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); }
+.dm-art-deco .ad-rule b { font-size: 11px; line-height: 1; }
+.dm-art-deco .ad-diamond {
+  display: inline-block; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); flex: none;
+}
+.dm-art-deco .ad-btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+  height: 50px; padding: 0 34px;
+  background: var(--gold); color: var(--black);
+  font-size: 13px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase;
+  clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0 50%);
+}
+.dm-art-deco .ad-btn--line {
+  background: transparent; color: var(--gold2); clip-path: none;
+  box-shadow: inset 0 0 0 1px var(--gold), inset 0 0 0 4px var(--emerald), inset 0 0 0 5px var(--line);
+}
+.dm-art-deco .ad-chev { display: inline-flex; gap: 2px; }
+.dm-art-deco .ad-chev i {
+  width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-top: 1.5px solid currentColor; transform: rotate(45deg);
+}
+
+/* Обводка ступенчатой формы: внешний слой — золото, внутренний — фон */
+.dm-art-deco .ad-stepcard { background: var(--gold); clip-path: var(--steps); padding: 1px; }
+.dm-art-deco .ad-stepcard__in { background: var(--emerald2); clip-path: var(--steps); height: 100%; }
+
+/* ----- Сайт ----- */
+.dm-art-deco.dm--site { padding: 28px 40px 0; }
+.dm-art-deco.dm--site::before {
+  content: ""; position: absolute; inset: 14px; pointer-events: none;
+  border: 1px solid var(--line); box-shadow: inset 0 0 0 5px var(--emerald), inset 0 0 0 6px var(--line);
+}
+.dm-art-deco .ad-rays {
+  position: absolute; left: 0; right: 0; top: 0; height: 500px; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 50% 100%, rgba(201, 164, 92, .16) 0deg 1.2deg, transparent 1.2deg 7.5deg);
+  -webkit-mask-image: radial-gradient(ellipse 60% 100% at 50% 100%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 60% 100% at 50% 100%, #000 30%, transparent 78%);
+}
+.dm-art-deco .ad-nav {
+  position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  height: 84px; padding: 0 36px; border-bottom: 1px solid var(--line);
+}
+.dm-art-deco .ad-nav__menu { display: flex; gap: 34px; font-size: 12px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-nav__menu--r { justify-content: flex-end; }
+.dm-art-deco .ad-nav__menu .is-active { color: var(--gold2); box-shadow: 0 9px 0 -7px var(--gold); }
+.dm-art-deco .ad-emblem { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.dm-art-deco .ad-emblem b { font-family: "Poiret One", sans-serif; font-weight: 400; font-size: 17px; letter-spacing: .5em; margin-right: -.5em; color: var(--gold2); }
+
+.dm-art-deco .ad-hero { position: relative; display: grid; grid-template-columns: 150px 1fr 150px; align-items: center; height: 380px; padding: 0 22px 14px; }
+.dm-art-deco .ad-pillar {
+  height: 290px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  padding: 50px 0 24px; text-align: center;
+  background: linear-gradient(90deg, transparent 0 46%, var(--line) 46% 47%, transparent 47% 53%, var(--line) 53% 54%, transparent 54%);
+}
+.dm-art-deco .ad-pillar__top { width: 74px; height: 38px; clip-path: polygon(0 100%, 0 66%, 16% 66%, 16% 33%, 32% 33%, 32% 0, 68% 0, 68% 33%, 84% 33%, 84% 66%, 100% 66%, 100% 100%); background: var(--gold); margin-top: -50px; }
+.dm-art-deco .ad-pillar__date { background: var(--emerald); padding: 10px 0; }
+.dm-art-deco .ad-pillar__date b { display: block; font-family: "Forum", serif; font-weight: 400; font-size: 44px; line-height: 1; color: var(--gold2); }
+.dm-art-deco .ad-pillar__date span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-hero__center { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.dm-art-deco .ad-hero__center .ad-label { margin-bottom: 22px; }
+.dm-art-deco .ad-title {
+  font-family: "Poiret One", sans-serif; font-weight: 400; font-size: 104px; line-height: 1; letter-spacing: .22em; margin-right: -.22em;
+  color: var(--gold2); text-shadow: 0 1px 0 var(--bronze);
+}
+.dm-art-deco .ad-sub { margin-top: 14px; font-family: "Forum", serif; font-size: 23px; line-height: 1.35; color: var(--ivory); max-width: 640px; }
+.dm-art-deco .ad-hero__center .ad-rule { width: 360px; margin: 24px 0 26px; }
+.dm-art-deco .ad-actions { display: flex; gap: 22px; }
+
+.dm-art-deco .ad-decks { position: relative; padding: 0 40px; }
+.dm-art-deco .ad-h2 { display: flex; align-items: center; gap: 20px; font-size: 13px; font-weight: 500; letter-spacing: .4em; text-transform: uppercase; color: var(--gold2); margin-bottom: 18px; }
+.dm-art-deco .ad-h2 i { flex: 1; height: 1px; background: var(--line); }
+.dm-art-deco .ad-cards { display: grid; grid-template-columns: 1fr 1.12fr 1fr; gap: 26px; align-items: end; }
+.dm-art-deco .ad-cards .ad-stepcard { height: 222px; }
+.dm-art-deco .ad-cards .ad-stepcard--main { height: 244px; }
+.dm-art-deco .ad-cards .ad-stepcard--main .ad-stepcard__in { background: var(--ivory); color: var(--ink); }
+.dm-art-deco .ad-deck { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 34px 26px 0; }
+.dm-art-deco .ad-deck svg { margin-bottom: 10px; }
+.dm-art-deco .ad-deck h3 { font-family: "Forum", serif; font-size: 27px; line-height: 1.1; }
+.dm-art-deco .ad-deck p { margin-top: 6px; font-size: 14px; line-height: 1.45; color: var(--muted); max-width: 260px; }
+.dm-art-deco .ad-stepcard--main .ad-deck p { color: var(--stone); }
+.dm-art-deco .ad-deck .ad-price { margin-top: 12px; font-size: 12px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+.dm-art-deco .ad-stepcard--main .ad-deck .ad-price { color: var(--bronze); }
+
+/* ----- Приложение ----- */
+.dm-art-deco.dm--app { display: flex; flex-direction: column; background: var(--emerald); }
+.dm-art-deco.dm--app .ad-rays { height: 330px; background: repeating-conic-gradient(from 0deg at 50% 100%, rgba(201, 164, 92, .14) 0deg 1.5deg, transparent 1.5deg 9deg); }
+.dm-art-deco.dm--app > *:not(.ad-rays) { position: relative; }
+.dm-art-deco .ad-status { display: flex; justify-content: space-between; padding: 14px 26px 0; font-size: 14px; font-weight: 500; letter-spacing: .06em; }
+.dm-art-deco .ad-status__icons { display: flex; gap: 4px; align-items: center; }
+.dm-art-deco .ad-status__icons i { width: 15px; height: 9px; background: var(--ivory); }
+.dm-art-deco .ad-appbar { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; padding: 14px 20px 6px; }
+.dm-art-deco .ad-appbar__icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; color: var(--gold); border: 1px solid var(--line); transform: rotate(45deg) scale(.82); font-size: 15px; }
+.dm-art-deco .ad-appbar__icon span { transform: rotate(-45deg); }
+.dm-art-deco .ad-appbar__title { text-align: center; font-family: "Poiret One", sans-serif; font-size: 19px; letter-spacing: .44em; margin-right: -.44em; color: var(--gold2); }
+.dm-art-deco .ad-ticket { margin: 14px 20px 0; height: 214px; }
+.dm-art-deco .ad-ticket .ad-stepcard__in { display: flex; flex-direction: column; align-items: center; padding: 42px 20px 0; text-align: center; background: #0c211c; }
+.dm-art-deco .ad-ticket h1 { font-family: "Forum", serif; font-size: 26px; line-height: 1.12; margin-top: 8px; }
+.dm-art-deco .ad-ticket h1 em { font-style: normal; color: var(--gold); font-size: 18px; vertical-align: 3px; padding: 0 4px; }
+.dm-art-deco .ad-dates { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; width: 100%; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.dm-art-deco .ad-dates div b { display: block; font-family: "Forum", serif; font-size: 28px; line-height: 1; color: var(--gold2); }
+.dm-art-deco .ad-dates div span { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-dates .ad-fan { width: 64px; height: 32px; border-radius: 64px 64px 0 0; border: 1px solid var(--gold); border-bottom: 0;
+  background: repeating-conic-gradient(from 270deg at 50% 100%, var(--gold) 0deg 1deg, transparent 1deg 15deg); }
+.dm-art-deco .ad-section { padding: 22px 20px 0; }
+.dm-art-deco .ad-section .ad-label { display: block; text-align: center; margin-bottom: 12px; }
+.dm-art-deco .ad-seg { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--gold); }
+.dm-art-deco .ad-seg span { padding: 11px 0; text-align: center; font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-seg span + span { border-left: 1px solid var(--line); }
+.dm-art-deco .ad-seg .is-on { background: var(--gold); color: var(--black); font-weight: 600; }
+.dm-art-deco .ad-cabins { margin-top: 14px; }
+.dm-art-deco .ad-cabin { display: grid; grid-template-columns: 18px 1fr auto; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(201, 164, 92, .28); }
+.dm-art-deco .ad-cabin b { display: block; font-family: "Forum", serif; font-weight: 400; font-size: 19px; line-height: 1.2; }
+.dm-art-deco .ad-cabin small { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.dm-art-deco .ad-cabin strong { font-size: 14px; font-weight: 600; letter-spacing: .06em; color: var(--gold2); }
+.dm-art-deco .ad-cabin.is-on .ad-diamond { box-shadow: 0 0 0 3px var(--emerald), 0 0 0 4px var(--gold); }
+.dm-art-deco .ad-cabin:not(.is-on) .ad-diamond { background: transparent; border: 1px solid var(--gold); }
+.dm-art-deco .ad-cta { margin: 18px 20px 0; }
+.dm-art-deco .ad-cta .ad-btn { display: flex; width: 100%; height: 54px; font-size: 12px; }
+.dm-art-deco .ad-tabbar { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); padding: 12px 8px 24px; border-top: 1px solid var(--line); background: var(--black); }
+.dm-art-deco .ad-tabbar span { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-tabbar svg { color: var(--muted); }
+.dm-art-deco .ad-tabbar .is-active { color: var(--gold2); }
+.dm-art-deco .ad-tabbar .is-active svg { color: var(--gold); }
+
+/* ----- Веб-платформа ----- */
+.dm-art-deco.dm--platform { display: grid; grid-template-columns: 236px 1fr; background: var(--ivory); color: var(--ink); }
+.dm-art-deco .ad-side { position: relative; display: flex; flex-direction: column; background: var(--black); color: var(--ivory); padding: 28px 0 24px; border-right: 4px double var(--gold); }
+.dm-art-deco .ad-side__brand { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 20px 22px; margin: 0 20px; border-bottom: 1px solid var(--line); }
+.dm-art-deco .ad-side__brand b { font-family: "Poiret One", sans-serif; font-weight: 400; font-size: 20px; letter-spacing: .42em; margin-right: -.42em; color: var(--gold2); }
+.dm-art-deco .ad-side__brand span { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-side__nav { margin-top: 22px; display: grid; gap: 2px; }
+.dm-art-deco .ad-side__nav li { display: flex; align-items: center; gap: 14px; padding: 11px 28px; font-size: 12px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.dm-art-deco .ad-side__nav li .ad-diamond { width: 6px; height: 6px; background: transparent; border: 1px solid var(--line); }
+.dm-art-deco .ad-side__nav .is-active { color: var(--black); background: var(--gold); clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); margin-right: 14px; font-weight: 600; }
+.dm-art-deco .ad-side__nav .is-active .ad-diamond { background: var(--black); border-color: var(--black); }
+.dm-art-deco .ad-captain { margin: auto 20px 0; padding: 14px; text-align: center; border: 1px solid var(--line); box-shadow: inset 0 0 0 3px var(--black), inset 0 0 0 4px rgba(201, 164, 92, .3); }
+.dm-art-deco .ad-captain b { display: block; font-family: "Forum", serif; font-weight: 400; font-size: 18px; color: var(--ivory); }
+.dm-art-deco .ad-captain span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+.dm-art-deco .ad-work { padding: 26px 40px 0; }
+.dm-art-deco .ad-head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 26px; }
+.dm-art-deco .ad-head__l, .dm-art-deco .ad-head__r { display: flex; align-items: center; gap: 10px; }
+.dm-art-deco .ad-head__r { justify-content: flex-end; }
+.dm-art-deco .ad-head__title { text-align: center; }
+.dm-art-deco .ad-head__title h1 { font-family: "Poiret One", sans-serif; font-weight: 400; font-size: 34px; line-height: 1.1; letter-spacing: .24em; margin-right: -.24em; text-transform: uppercase; color: var(--ink); }
+.dm-art-deco .ad-head__title p { margin-top: 4px; font-size: 11px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--bronze); }
+.dm-art-deco .ad-chip { padding: 7px 14px; font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); border: 1px solid #c9b994; }
+.dm-art-deco .ad-chip.is-on { background: var(--ink); color: var(--gold2); border-color: var(--ink); }
+.dm-art-deco.dm--platform .ad-btn { height: 40px; padding: 0 24px; font-size: 11px; background: var(--emerald); color: var(--gold2); }
+.dm-art-deco.dm--platform .ad-rule { margin: 18px 0 20px; color: var(--bronze); }
+.dm-art-deco.dm--platform .ad-rule i { border-color: #b89a5a; }
+
+.dm-art-deco .ad-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.dm-art-deco .ad-kpi { background: var(--bronze); clip-path: var(--octa); padding: 1px; }
+.dm-art-deco .ad-kpi__in { clip-path: var(--octa); background: var(--ivory); padding: 16px 18px 14px; text-align: center; box-shadow: inset 0 0 0 4px var(--ivory), inset 0 0 0 5px #d9c9a6; }
+.dm-art-deco .ad-kpi span { font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--stone); }
+.dm-art-deco .ad-kpi b { display: block; margin: 4px 0 2px; font-family: "Forum", serif; font-weight: 400; font-size: 40px; line-height: 1.05; color: var(--ink); }
+.dm-art-deco .ad-kpi small { font-size: 12px; color: var(--emerald3); font-weight: 500; }
+.dm-art-deco .ad-kpi--dark { background: var(--gold); }
+.dm-art-deco .ad-kpi--dark .ad-kpi__in { background: var(--emerald); box-shadow: inset 0 0 0 4px var(--emerald), inset 0 0 0 5px var(--line); }
+.dm-art-deco .ad-kpi--dark span, .dm-art-deco .ad-kpi--dark small { color: var(--muted); }
+.dm-art-deco .ad-kpi--dark b { color: var(--gold2); }
+
+.dm-art-deco .ad-grid { display: grid; grid-template-columns: 1fr 300px; gap: 22px; margin-top: 22px; }
+.dm-art-deco .ad-panel { border: 1px solid #c9b994; box-shadow: inset 0 0 0 4px var(--ivory), inset 0 0 0 5px #e1d4b7; padding: 16px 20px; background: var(--ivory); }
+.dm-art-deco .ad-panel__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.dm-art-deco .ad-panel__head h2 { font-family: "Forum", serif; font-weight: 400; font-size: 22px; }
+.dm-art-deco .ad-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dm-art-deco .ad-table th { padding: 8px 8px 8px 0; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--bronze); border-bottom: 3px double #b89a5a; }
+.dm-art-deco .ad-table td { padding: 10px 8px 10px 0; border-bottom: 1px solid #ddcfb1; color: var(--ink); white-space: nowrap; }
+.dm-art-deco .ad-table td:first-child { font-family: "Forum", serif; font-size: 17px; }
+.dm-art-deco .ad-table td small { color: var(--stone); font-size: 12px; }
+.dm-art-deco .ad-bar { display: inline-block; width: 78px; height: 6px; background: #e1d4b7; vertical-align: middle; margin-right: 8px; }
+.dm-art-deco .ad-bar i { display: block; height: 100%; background: var(--emerald); }
+.dm-art-deco .ad-st { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.dm-art-deco .ad-st::before { content: ""; width: 6px; height: 6px; transform: rotate(45deg); background: currentColor; }
+.dm-art-deco .ad-st--go { color: #1d5b48; }
+.dm-art-deco .ad-st--wait { color: var(--bronze); }
+.dm-art-deco .ad-st--full { color: #8e2a22; }
+
+.dm-art-deco .ad-gauge { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.dm-art-deco .ad-gauge__fan {
+  position: relative; width: 236px; height: 118px; margin-top: 8px; border-radius: 118px 118px 0 0; overflow: hidden;
+  background: conic-gradient(from 270deg at 50% 100%, var(--emerald) 0deg 166deg, #e1d4b7 166deg 180deg, transparent 180deg);
+}
+.dm-art-deco .ad-gauge__fan::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-conic-gradient(from 270deg at 50% 100%, transparent 0deg 10deg, var(--ivory) 10deg 12deg);
+}
+.dm-art-deco .ad-gauge__fan::after {
+  content: ""; position: absolute; left: 50%; bottom: 0; width: 112px; height: 56px; transform: translateX(-50%);
+  border-radius: 56px 56px 0 0; background: var(--ivory); box-shadow: 0 0 0 1px var(--gold);
+}
+.dm-art-deco .ad-gauge b { font-family: "Forum", serif; font-weight: 400; font-size: 38px; line-height: 1; margin-top: -40px; position: relative; color: var(--ink); }
+.dm-art-deco .ad-gauge > span { margin-top: 8px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--stone); }
+.dm-art-deco .ad-legend { width: 100%; margin-top: 14px; display: grid; gap: 7px; font-size: 13px; }
+.dm-art-deco .ad-legend li { display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px solid #ddcfb1; }
+.dm-art-deco .ad-legend li b { font-family: "Forum", serif; font-size: 17px; font-weight: 400; margin: 0; }
+
+.dm-art-deco .ad-frieze { display: flex; align-items: center; gap: 18px; margin-top: 18px; height: 42px; padding: 0 20px; background: var(--emerald); color: var(--gold2); }
+.dm-art-deco .ad-frieze__pattern { flex: 1; height: 14px;
+  background: linear-gradient(135deg, var(--emerald) 0 35%, transparent 35% 65%, var(--emerald) 65%) 0 0 / 14px 14px,
+              linear-gradient(225deg, var(--emerald) 0 35%, transparent 35% 65%, var(--emerald) 65%) 0 0 / 14px 14px, var(--gold); }
+.dm-art-deco .ad-frieze span { font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; }
+.dm-art-deco .ad-frieze b { font-family: "Forum", serif; font-weight: 400; font-size: 19px; letter-spacing: .04em; }

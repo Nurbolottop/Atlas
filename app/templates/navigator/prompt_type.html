@@ -19,8 +19,7 @@
   <div class="flow">
     <header class="page-head">
       <span class="eyebrow">Шаг 2 из 2</span>
-      <h1>Получить промпт для ИИ</h1>
-      <p class="lead">Выберите тип продукта — промпт будет адаптирован под его особенности. Больше ничего указывать не нужно: задачу проекта вы передадите ИИ сами.</p>
+      <h1>Тип продукта</h1>
     </header>
 
     {% include 'navigator/includes/flow_summary.html' %}
@@ -28,8 +27,7 @@
     <form action="{% url 'navigator:prompt_type' style.slug %}" method="get" novalidate>
       {% if error %}<div class="alert alert--error" role="alert" id="product-error">{{ error }}</div>{% endif %}
       <fieldset class="choice-group"{% if error %} aria-describedby="product-error"{% endif %}>
-        <legend>Тип продукта</legend>
-        <p class="choice-group__hint">Можно выбрать один вариант.</p>
+        <legend class="visually-hidden">Тип продукта</legend>
         <div class="choices">
           {% for product in products %}
           <div class="choice">
@@ -44,7 +42,7 @@
                 <span class="choice__radio" aria-hidden="true"></span>
               </span>
               <span class="choice__title">{{ product.title }}</span>
-              <span class="choice__desc">{{ product.description }}</span>
+              <span class="choice__desc">{{ product.short }}</span>
             </label>
           </div>
           {% endfor %}
