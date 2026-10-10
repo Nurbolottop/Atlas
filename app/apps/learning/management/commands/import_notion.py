@@ -5,7 +5,7 @@
         --course python-backend
 
 Перезаписывает уроки курса и `course.json` (кроме полей, заданных вручную:
-названия, описаний и порядка курса, описаний тем, а также исправленных
+названия, описаний и порядка курса, описаний и отметок важных тем, а также исправленных
 названий тем и уроков) и скачивает вложения в
 `static/learning/<course>/`. Ручные правки уроков после повторного импорта
 пропадут — запускайте его, только пока основной текст живёт в Notion.
@@ -111,6 +111,7 @@ class Command(BaseCommand):
                     'title': section.title,
                     'icon': section.icon,
                     'summary': '',
+                    'key': False,
                     'lessons': [{'slug': p.slug, 'title': p.title} for p in lessons],
                 }
                 for section, lessons in sections
@@ -121,6 +122,7 @@ class Command(BaseCommand):
                 fresh[key] = manifest[key]
         # Описания тем и названия, исправленные вручную, сохраняем по slug.
         summaries = {section['slug']: section.get('summary', '') for section in manifest.get('sections', [])}
+        key_sections = {section['slug'] for section in manifest.get('sections', []) if section.get('key')}
         titles = {
             (kind, item['slug']): item['title']
             for section in manifest.get('sections', [])
@@ -129,6 +131,7 @@ class Command(BaseCommand):
         for section in fresh['sections']:
             section['title'] = titles.get(('section', section['slug']), section['title'])
             section['summary'] = summaries.get(section['slug'], '')
+            section['key'] = section['slug'] in key_sections
             for lesson in section['lessons']:
                 lesson['title'] = titles.get(('lesson', lesson['slug']), lesson['title'])
         manifest_path.write_text(json.dumps(fresh, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

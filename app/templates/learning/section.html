@@ -16,7 +16,7 @@
   </nav>
 
   <header class="topic-hero">
-    <p class="eyebrow"><span aria-hidden="true">{{ section.icon }}</span> Тема {{ section.number }} из {{ course.sections|length }}</p>
+    <p class="eyebrow"><span aria-hidden="true">{{ section.icon }}</span> Тема {{ section.number }} из {{ course.sections|length }}{% if section.key %} <b class="topic-card__badge">Важная тема</b>{% endif %}</p>
     <h1>{{ section.title }}</h1>
     {% if section.summary %}<p class="lead">{{ section.summary }}</p>{% endif %}
     {% with n=section.lessons|length %}

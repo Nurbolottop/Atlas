@@ -83,9 +83,10 @@
     {% else %}
     <ol class="topic-grid" role="list">
       {% for section in course.sections %}
-      <li class="topic-card" data-topic="{{ section.lesson_slugs }}">
+      <li class="topic-card{% if section.key %} topic-card--key{% endif %}" data-topic="{{ section.lesson_slugs }}">
         <div class="topic-card__top">
           <span class="topic-card__icon" aria-hidden="true">{{ section.icon|default:"•" }}</span>
+          {% if section.key %}<span class="topic-card__badge">Важная тема</span>{% endif %}
           <span class="topic-card__num">Тема {{ section.number }}</span>
         </div>
         <h3><a href="{{ section.url }}">{{ section.title }}</a></h3>

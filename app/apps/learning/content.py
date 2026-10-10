@@ -102,6 +102,7 @@ class Section:
         self.title = data['title']
         self.icon = data.get('icon', '')
         self.summary = data.get('summary', '')
+        self.key = bool(data.get('key'))  # важная тема — выделяется в программе
         self.lessons = []
         self.prev = None
         self.next = None

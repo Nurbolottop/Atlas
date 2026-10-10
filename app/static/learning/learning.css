@@ -94,6 +94,28 @@
 .topic-card__top { display: flex; align-items: center; justify-content: space-between; }
 .topic-card__icon { font-size: 26px; line-height: 1; }
 .topic-card__num { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.topic-card__icon + .topic-card__badge { margin-right: auto; margin-left: 12px; }
+.topic-card__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  vertical-align: middle;
+}
+
+/* Важная тема: зелёная рамка и мягкая подсветка */
+.topic-card--key {
+  border-color: rgba(200, 240, 49, .45);
+  background: linear-gradient(180deg, var(--accent-soft), transparent 55%), var(--surface);
+}
+.topic-card--key:hover { border-color: var(--accent); }
+.topic-card--key .topic-card__num { color: var(--accent); }
 .topic-card h3 { font-family: var(--display); font-size: 21px; font-weight: 600; letter-spacing: -.02em; }
 .topic-card h3 a { color: var(--text); text-decoration: none; }
 .topic-card h3 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
