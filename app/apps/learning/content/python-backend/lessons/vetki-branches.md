@@ -8,7 +8,7 @@
 
 Если мы напишем
 
-```text
+```bash
 git branch
 ```
 
@@ -16,13 +16,13 @@ git branch
 
 Давайте создадим новую ветку
 
-```text
+```bash
 git branch implement-new-logic
 ```
 
 Если мы еще раз напишем git branch, то увидим у нас 2 ветки, но мы все еще находимся на ветке мастер. Чтобы перейти на ветку, которую мы только что создали нужно написать
 
-```text
+```bash
 git checkout implement-new-logic
 ```
 
@@ -30,7 +30,7 @@ git checkout implement-new-logic
 
 Давайте добавим функцию getPerson в файл 2.js. Просто создадим функцию getPerson, которая будет склеивать имя и фамилию.
 
-```text
+```python
 function getPerson(name, surname) {
   return name + " " + surname;
 }
@@ -38,7 +38,7 @@ function getPerson(name, surname) {
 
 сохраним и запушим наши изменения.
 
-```text
+```bash
 git add .
 git commit -m "Added getPerson function"
 git push
@@ -48,7 +48,7 @@ git push
 
 Если же мы перейдем обратно на мастер, для этого мы можем написать
 
-```text
+```bash
 git checkout master
 ```
 
@@ -58,25 +58,25 @@ git checkout master
 
 Давайте напишем
 
-```text
+```bash
 git merge implement-new-logic
 ```
 
 Как мы видим, у нас написало, что ветка обновилась и добавился файл 2.js. Теперь у нас ветки стали идентичные и добавленный нами функционал находится в мастер ветке. Если мы напишем
 
-```text
+```bash
 git log
 ```
 
 то увидим наш коммит, который мы добавляли на другой ветке. Так как мы ветку уже смерджили и она нам не нужна больше, давайте ее удалим.
 
-```text
+```bash
 git branch -d implement-new-logic
 ```
 
 Теперь написав git branch мы опять видим только мастер. Давайте запушим эти изменения.
 
-```text
+```bash
 git add .
 git commit -m "Merged implementing new logic to master"
 git push

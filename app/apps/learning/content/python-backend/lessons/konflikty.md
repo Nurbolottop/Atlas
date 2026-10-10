@@ -10,7 +10,7 @@
 
 Давайте предположим что вашей команде поручили писать поэмы в отведённом для этих целей репозитории. (Какой кошмар!) А вам доверили самое главное — делать слияния последних фиксов из ветки master в ветку beta. Итак, вы переключаетесь в ветку beta и выполняете следующую команду:
 
-```text
+```bash
 $ git merge master
 Auto-merging roses.txt
 CONFLICT (content): Mergeconflictin roses.txt
@@ -19,7 +19,7 @@ Automatic merge failed; fix conflictsandthencommit the result.
 
 Ого, это конфликт. Вы решаете просмотреть файл на который ссылается git:
 
-```text
+```bash
 $ cat roses.txt
 <<<<<<< HEAD
 roses are #ff0000
@@ -56,13 +56,13 @@ Are belong to you.
 
 Для того чтобы найти изменения внесённые в каждую ветку, необходимо знать как выглядит база слияния, состояние (A). Самый простой механизм получения информации о базе слияния, это установка опции merge.conflictstyle в значение diff3
 
-```text
+```bash
 $ git config merge.conflictstyle diff3
 ```
 
 После включения этой опции, попробуйте заново сделать слияние (git reset --hard; git merge master) и проинспектируйте конфликтующий файл ещё раз:
 
-```text
+```bash
 $ cat roses.txt
 <<<<<<< HEAD
 roses are #ff0000
@@ -94,7 +94,7 @@ Are belongto you.
 
 Для использования графического инструмента (он должен быть установлен), после того как git пожаловался что есть конфликт, введите следующую команду:
 
-```text
+```bash
 $ git mergetool
 ```
 
@@ -106,7 +106,7 @@ $ git mergetool
 
 Правда отсутствует? Давайте проверим, в старом добром терминале:
 
-```text
+```bash
 $ ls -1
 roses.txt
 roses.txt.BACKUP.2760.txt
@@ -117,7 +117,7 @@ roses.txt.REMOTE.2760.txt
 
 Видим интересующий нас файл: roses.txt.BASE.2760.txt. Это и есть файл базы слияния. Теперь нам осталось всего лишь найти изменения внесённые в ветки master и beta, по отношению к базе. Мы можем сделать это двумя отдельными вызовами meld:
 
-```text
+```bash
 $ meld roses.txt.LOCAL.2760.txt roses.txt.BASE.2760 &
 $ meld roses.txt.BASE.2760 roses.txt.REMOTE.2760.txt &
 ```

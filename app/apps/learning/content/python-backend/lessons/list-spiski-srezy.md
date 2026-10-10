@@ -269,7 +269,7 @@ print(list\_2)
 
 Можно развернуть порядок элементов в списке с помощью метода `reverse`:
 
-```text
+```python
 my_list = [1, 2, 3, 4, 5]
 my_list.reverse()
 print(my_list)
@@ -285,7 +285,7 @@ print(my_list)
 
 Метод `index` можно использовать для получения индекса элемента:
 
-```text
+```python
 my_list = ['один', 'два', 'три', 'четыре', 'пять']
 print(my_list.index('два'))
 ```
@@ -298,7 +298,7 @@ print(my_list.index('два'))
 
 Удалить элемент можно, написав его индекс в методе `pop`:
 
-```text
+```python
 my_list = ['один', 'два', 'три', 'четыре', 'пять']
 removed = my_list.pop(2)
 print(my_list)
@@ -873,7 +873,7 @@ list_2 = my_list
 
 Следующий пример показывает, как меняются изменяемые списки:
 
-```text
+```python
 my_list = ['Monty', 'Python']
 list_2 = my_list
 list_2[1] = 'Java:)'

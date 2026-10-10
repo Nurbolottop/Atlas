@@ -238,7 +238,7 @@ html:not(.js) .lesson-nav__bar, html:not(.js) .lesson-nav__stat { display: none;
 .lesson-prose hr { border: 0; border-top: 1px solid var(--border); margin: 36px 0; }
 .lesson-prose img { display: block; max-width: 100%; height: auto; border-radius: var(--radius-s); background: #fff; }
 .lesson-prose p > img:only-child { margin: 0 auto; }
-.lesson-prose p > em:only-child { display: block; font-size: 14px; color: var(--muted); }
+.lesson-prose .caption { margin-top: 8px; font-size: 14px; color: var(--muted); }
 
 .lesson-prose :not(pre) > code {
   padding: .12em .4em;

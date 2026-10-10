@@ -144,7 +144,7 @@ GIL был представлен, чтобы сделать обработку 
 
 **threading** раньше. Давайте просто пойдем и изменим предыдущий пример. Теперь модифицированная версия использует **Процесс** вместо **Потока**.
 
-```text
+```python
 import multiprocessing
 import time
 import random
@@ -167,7 +167,7 @@ print("All Processes are queued, let's see when they finish!")
 
 С помощью класса Pool мы также можем распределить выполнение одной функции между несколькими процессами для разных входных значений. Пример из официальных документов:
 
-```text
+```python
 from multiprocessingimport Pool
 
 deff(x):
@@ -190,7 +190,7 @@ if __name__ == '__main__':
 
 А вот пример ThreadPoolExecutor:
 
-```text
+```python
 from concurrent.futuresimport ThreadPoolExecutor
 from timeimport sleep
 
@@ -254,7 +254,7 @@ Asyncio использует генераторы и корутины для о�
 
 Прежде чем мы начнём, давайте взглянем на пример:
 
-```text
+```python
 import asyncio
 import datetime
 import random
@@ -293,7 +293,7 @@ loop.run_forever()
 
 Только что мы прошлись по самым популярным формам конкурентности. Но остаётся вопрос — что следует выбрать? Это зависит от вариантов использования. Из моего опыта я склонен следовать этому псевдо-коду:
 
-```text
+```python
 if io_bound:
 if io_very_slow:
         print("Use Asyncio")

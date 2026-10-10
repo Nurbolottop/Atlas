@@ -14,7 +14,7 @@
 
 **КОПИРОВАТЬ**
 
-```text
+```python
 def factorial_recursive(n):
     if n == 1:
         return n
@@ -34,7 +34,7 @@ def factorial_recursive(n):
 
 **КОПИРОВАТЬ**
 
-```text
+```python
 
 num = 3
 print(f"Факториал {num} это {factorial_recursive(num)}")
@@ -42,7 +42,7 @@ print(f"Факториал {num} это {factorial_recursive(num)}")
 
 Эта функция выведет: «Факториал 3 это 6». Еще раз рассмотрим эту рекурсивную функцию:
 
-```text
+```python
 def factorial_recursive(n):
 
     ...
@@ -50,7 +50,7 @@ def factorial_recursive(n):
 
 По аналогии с обычной функцией имя рекурсивной указывается после `def`, а в скобках обозначается параметр `n`:
 
-```text
+```python
 def factorial_recursive(n):
 if n == 1:return n
     else:
@@ -59,7 +59,7 @@ if n == 1:return n
 
 Благодаря условной конструкции переменная `n` вернется только в том случае, если ее значение будет равно 1. Это еще называют условием завершения. Рекурсия останавливается в момент удовлетворения условиям.
 
-```text
+```python
 def factorial_recursive(n):
     if n == 1:    return n
 else:
@@ -82,7 +82,7 @@ else:
 
 **КОПИРОВАТЬ**
 
-```text
+```python
 # Первый вызов
 factorial_recursive(3):
     if 3 == 1:
@@ -128,7 +128,7 @@ factorial_recursive(1):
 
 **КОПИРОВАТЬ**
 
-```text
+```python
 >>> import sys
 >>> sys.getrecursionlimit()
 3000
@@ -148,7 +148,7 @@ factorial_recursive(1):
 
 **КОПИРОВАТЬ**
 
-```text
+```python
 def factorial_iterative(num):
     factorial = 1
     if num < 0:

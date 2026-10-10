@@ -330,6 +330,26 @@ def hard_breaks(text):
     return '  \n'.join(line.rstrip() for line in text.split('\n'))
 
 
+def _caption(text):
+    return f'<p class="caption" markdown="1">{text}</p>'
+
+
+_PYTHON = re.compile(r'^\s*(>>>|def |class |import |from \S+ import|print\(|for .+ in .+:|while .+:|if .+:|return\b|@\w+)', re.M)
+_SQL = re.compile(r'^\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|BEGIN|COMMIT|\w+=[#>]) ', re.M)
+_SHELL = re.compile(r'^\s*(\$ |sudo |pip3? |git |python3? |cd |mkdir |source |django-admin )', re.M)
+
+
+def guess_language(code):
+    """Язык для блоков, помеченных в Notion как простой текст."""
+    if _SQL.search(code):
+        return 'sql'
+    if _SHELL.search(code):
+        return 'bash'
+    if _PYTHON.search(code):
+        return 'python'
+    return 'text'
+
+
 # ---------- блоки ----------
 
 class MarkdownWriter:
@@ -441,8 +461,10 @@ class MarkdownWriter:
         while fence in code:
             fence += '`'
         caption = self.inline(props.get('caption'))
+        if language in ('text', ''):
+            language = guess_language(code)
         out = f'{fence}{language}\n{code}\n{fence}'
-        return out + (f'\n\n*{caption}*' if caption.strip() else '')
+        return out + (f'\n\n{_caption(caption)}' if caption.strip() else '')
 
     def _divider(self, block):
         return '---'
@@ -461,7 +483,7 @@ class MarkdownWriter:
         if image:
             alt = re.sub(r'[\[\]*_`]', '', rich_plain(props.get('caption'))).strip()
             out = f'![{alt}](asset:{name})'
-            return out + (f'\n\n*{caption}*' if caption else '')
+            return out + (f'\n\n{_caption(caption)}' if caption else '')
         title = escape(rich_plain(props.get('title')) or name)
         size = rich_plain(props.get('size'))
         return f'[📎 {title}](asset:{name})' + (f' — {size}' if size else '')
