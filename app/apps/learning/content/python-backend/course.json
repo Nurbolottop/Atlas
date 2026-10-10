@@ -1,7 +1,7 @@
 {
   "slug": "python-backend",
   "title": "Backend-разработка на Python",
-  "summary": "От установки Python до первого проекта на Django: основы языка, ООП, Git, базы данных и парсинг.",
+  "summary": "От установки Python до первого проекта на Django: основы языка, ООП, Git, базы данных, парсинг и Telegram-боты.",
   "description": [
     "Курс проводит от первых строк на Python до устройства веб-проекта. Каждая тема — отдельный урок с объяснением и примерами кода, которые можно повторить у себя.",
     "Уроки идут по порядку, но к любому можно вернуться через программу или поиск."
@@ -13,6 +13,7 @@
     "Проектировать код в стиле ООП: наследование, миксины, магические методы",
     "Вести проект в Git и работать с ветками и конфликтами",
     "Проектировать базы данных PostgreSQL и писать SQL-запросы",
+    "Писать Telegram-ботов на aiogram: кнопки, анкеты, база данных и запуск на сервере",
     "Собирать данные с сайтов и начать проект на Django"
   ],
   "source": "https://geeksbackend.notion.site/Geeks-Backend-2b37c7cbcfe240198c1d522b045a69c3",
@@ -373,6 +374,44 @@
         {
           "slug": "parsing",
           "title": "Парсинг"
+        }
+      ]
+    },
+    {
+      "slug": "telegram-bot",
+      "title": "Telegram-бот на aiogram",
+      "icon": "🤖",
+      "summary": "Пишем Telegram-бота на aiogram 3: команды, кнопки, анкеты, база данных и запуск на сервере.",
+      "key": false,
+      "manual": true,
+      "lessons": [
+        {
+          "slug": "aiogram-vvedenie",
+          "title": "Введение: как устроен бот"
+        },
+        {
+          "slug": "aiogram-pervyy-bot",
+          "title": "Первый бот: команды и ответы"
+        },
+        {
+          "slug": "aiogram-filtry-i-routery",
+          "title": "Фильтры и роутеры"
+        },
+        {
+          "slug": "aiogram-klaviatury",
+          "title": "Клавиатуры и кнопки"
+        },
+        {
+          "slug": "aiogram-fsm",
+          "title": "FSM: анкеты и диалоги"
+        },
+        {
+          "slug": "aiogram-middleware-i-baza-dannyh",
+          "title": "Middleware и база данных"
+        },
+        {
+          "slug": "aiogram-deploy",
+          "title": "Запуск на сервере"
         }
       ]
     },
