@@ -1,0 +1,46 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+{% block title %}Обучение — {{ platform_name }}{% endblock %}
+{% block description %}Курсы по разработке цифровых продуктов: уроки с примерами кода, программа по разделам и поиск по материалам.{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'learning/learning.css' %}">{% endblock %}
+
+{% block content %}
+<div class="container">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li aria-current="page">Обучение</li>
+    </ol>
+  </nav>
+
+  <header class="page-head page-head--compact">
+    <h1>Обучение</h1>
+    <p class="lead">Курсы по разработке: теория, примеры кода и практика по шагам.</p>
+  </header>
+
+  <ul class="course-list" role="list">
+    {% for course in courses %}
+    <li class="course-card">
+      <div class="course-card__body">
+        {% if course.level %}<span class="badge">{{ course.level }}</span>{% endif %}
+        <h2><a href="{% url 'learning:course' course.slug %}">{{ course.title }}</a></h2>
+        <p>{{ course.summary }}</p>
+        <p class="course-card__meta">{{ course.lesson_count }} уроков · {{ course.sections|length }} разделов</p>
+        <span class="btn btn--primary" aria-hidden="true">Открыть курс</span>
+      </div>
+      <ol class="course-card__sections" aria-label="Разделы курса">
+        {% for section in course.sections %}
+        <li><span class="course-card__icon" aria-hidden="true">{{ section.icon|default:"•" }}</span>{{ section.title }}<span class="course-card__count">{{ section.lessons|length }}</span></li>
+        {% endfor %}
+      </ol>
+    </li>
+    {% empty %}
+    <li class="empty-state">
+      <h2>Курсы скоро появятся</h2>
+      <p>Мы переносим материалы. Загляните чуть позже.</p>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

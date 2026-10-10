@@ -1,0 +1,96 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+{% block title %}{{ lesson.title }} — {{ course.title }} — {{ platform_name }}{% endblock %}
+{% block description %}Урок {{ lesson.number }} курса «{{ course.title }}», раздел «{{ lesson.section.title }}».{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'learning/learning.css' %}">{% endblock %}
+
+{% block content %}
+<div class="container lesson-layout" data-course="{{ course.slug }}" data-lesson-page="{{ lesson.slug }}">
+  <aside class="lesson-nav" aria-label="Программа курса">
+    <details class="lesson-nav__toggle" data-lesson-nav>
+      <summary>Программа курса <span>{{ lesson.number }} / {{ course.lesson_count }}</span></summary>
+      <div class="lesson-nav__body">
+        <a class="lesson-nav__course" href="{% url 'learning:course' course.slug %}">{{ course.title }}</a>
+        <div class="lesson-nav__bar" aria-hidden="true"><span data-progress-bar style="width: 0%"></span></div>
+        <p class="lesson-nav__stat" data-progress-text>Пройдено: 0 из {{ course.lesson_count }}</p>
+        {% for section in course.sections %}
+        <details class="lesson-nav__section"{% if section == lesson.section %} open{% endif %}>
+          <summary>{{ section.title }}</summary>
+          <ol role="list">
+            {% for item in section.lessons %}
+            <li data-lesson="{{ item.slug }}">
+              <a href="{% url 'learning:lesson' course.slug item.slug %}"{% if item == lesson %} aria-current="page"{% endif %}>
+                <span class="lesson-list__done" aria-hidden="true"></span>{{ item.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ol>
+        </details>
+        {% endfor %}
+      </div>
+    </details>
+  </aside>
+
+  <article class="lesson">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <ol>
+        <li><a href="{% url 'learning:index' %}">Обучение</a></li>
+        <li><a href="{% url 'learning:course' course.slug %}">{{ course.title }}</a></li>
+        <li aria-current="page">{{ lesson.section.title }}</li>
+      </ol>
+    </nav>
+
+    <header class="lesson__head">
+      <p class="eyebrow">Урок {{ lesson.number }} из {{ course.lesson_count }} · {{ lesson.section.title }}</p>
+      <h1>{{ lesson.title }}</h1>
+    </header>
+
+    {% if toc|length > 2 %}
+    <details class="lesson-toc lesson-toc--inline">
+      <summary>Содержание урока</summary>
+      <ul>
+        {% for item in toc %}<li class="lesson-toc__l{{ item.level }}"><a href="#{{ item.id }}">{{ item.title|striptags }}</a></li>{% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+
+    <div class="lesson-prose">
+      {{ content|safe }}
+    </div>
+
+    <div class="lesson-done">
+      <button class="btn" type="button" data-mark-done hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        <span data-label>Отметить как пройденный</span>
+      </button>
+    </div>
+
+    <nav class="lesson-pager" aria-label="Соседние уроки">
+      {% if lesson.prev %}
+      <a class="lesson-pager__link" href="{% url 'learning:lesson' course.slug lesson.prev.slug %}" rel="prev">
+        <span>← Предыдущий</span><b>{{ lesson.prev.title }}</b>
+      </a>
+      {% else %}<span></span>{% endif %}
+      {% if lesson.next %}
+      <a class="lesson-pager__link lesson-pager__link--next" href="{% url 'learning:lesson' course.slug lesson.next.slug %}" rel="next">
+        <span>Следующий →</span><b>{{ lesson.next.title }}</b>
+      </a>
+      {% else %}
+      <a class="lesson-pager__link lesson-pager__link--next" href="{% url 'learning:course' course.slug %}">
+        <span>Курс пройден</span><b>Вернуться к программе</b>
+      </a>
+      {% endif %}
+    </nav>
+  </article>
+
+  {% if toc|length > 2 %}
+  <nav class="lesson-toc lesson-toc--side" aria-label="Содержание урока">
+    <p>На этой странице</p>
+    <ul>
+      {% for item in toc %}<li class="lesson-toc__l{{ item.level }}"><a href="#{{ item.id }}">{{ item.title|striptags }}</a></li>{% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

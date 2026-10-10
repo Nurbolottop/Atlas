@@ -1,0 +1,14 @@
+{% load learning_tags %}{% first_course as course %}{% if course %}
+<div class="learn-preview" aria-hidden="true">
+  <ol>
+    {% for section in course.sections|slice:"2:6" %}
+    <li><span>{{ section.icon|default:"•" }}</span>{{ section.title }}<em>{{ section.lessons|length }}</em></li>
+    {% endfor %}
+  </ol>
+  <div class="learn-preview__code">
+    <b>{{ course.lesson_count }} уроков</b>
+    <pre><code><i>def</i> greet(name):
+    <i>return</i> <s>f"Привет, {name}"</s></code></pre>
+  </div>
+</div>
+{% endif %}

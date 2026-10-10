@@ -1,0 +1,385 @@
+{
+  "slug": "python-backend",
+  "title": "Backend-разработка на Python",
+  "summary": "От установки Python до первого проекта на Django: основы языка, ООП, Git, базы данных и парсинг.",
+  "description": [
+    "Курс проводит от первых строк на Python до устройства веб-проекта. Каждая тема — отдельный урок с объяснением и примерами кода, которые можно повторить у себя.",
+    "Уроки идут по порядку, но к любому можно вернуться через программу или поиск."
+  ],
+  "level": "С нуля",
+  "order": 10,
+  "outcomes": [
+    "Писать программы на Python: типы данных, функции, исключения, работа с файлами",
+    "Проектировать код в стиле ООП: наследование, миксины, магические методы",
+    "Вести проект в Git и работать с ветками и конфликтами",
+    "Проектировать базы данных PostgreSQL и писать SQL-запросы",
+    "Собирать данные с сайтов и начать проект на Django"
+  ],
+  "source": "https://geeksbackend.notion.site/Geeks-Backend-2b37c7cbcfe240198c1d522b045a69c3",
+  "sections": [
+    {
+      "slug": "resursy-i-knigi",
+      "title": "Ресурсы и книги",
+      "icon": "🎟️",
+      "lessons": [
+        {
+          "slug": "resursy-i-knigi",
+          "title": "Ресурсы и книги"
+        }
+      ]
+    },
+    {
+      "slug": "ustanovka",
+      "title": "Установка",
+      "icon": "⚙️",
+      "lessons": [
+        {
+          "slug": "linux",
+          "title": "Linux"
+        },
+        {
+          "slug": "windows",
+          "title": "Windows"
+        }
+      ]
+    },
+    {
+      "slug": "osnovy-python",
+      "title": "Основы Python",
+      "icon": "♟️",
+      "lessons": [
+        {
+          "slug": "arifmeticheskie-operacii-peremennye",
+          "title": "Арифметические операции. Переменные"
+        },
+        {
+          "slug": "stroki-i-metody-strok",
+          "title": "Строки и методы строк"
+        },
+        {
+          "slug": "tipy-dannyh",
+          "title": "Типы данных"
+        },
+        {
+          "slug": "usloviya-vetvleniya-v-python",
+          "title": "Условия. Ветвления в Python"
+        },
+        {
+          "slug": "list-spiski-srezy",
+          "title": "Списки (list) и срезы"
+        },
+        {
+          "slug": "tuple-kortezhi",
+          "title": "Кортежи (tuple)"
+        },
+        {
+          "slug": "cikly",
+          "title": "Циклы"
+        },
+        {
+          "slug": "cikl-for-v-python",
+          "title": "Цикл for"
+        },
+        {
+          "slug": "cikl-while-v-python",
+          "title": "Цикл while"
+        },
+        {
+          "slug": "isklyucheniya",
+          "title": "Исключения"
+        },
+        {
+          "slug": "mnozhestva-v-python-set-frozenset",
+          "title": "Множества (set, frozenset)"
+        },
+        {
+          "slug": "dict-slovari",
+          "title": "Словари (dict)"
+        },
+        {
+          "slug": "ternarnyy-operator",
+          "title": "Тернарный оператор"
+        },
+        {
+          "slug": "list-comprehension",
+          "title": "List comprehension"
+        },
+        {
+          "slug": "dict-comprehension",
+          "title": "Dict comprehension"
+        },
+        {
+          "slug": "funkcii",
+          "title": "Функции"
+        },
+        {
+          "slug": "vstroennye-funkcii",
+          "title": "Встроенные функции"
+        },
+        {
+          "slug": "args-kwargs",
+          "title": "*args, **kwargs"
+        },
+        {
+          "slug": "lyambda-anonimnye-funkcii",
+          "title": "Лямбда-функции"
+        },
+        {
+          "slug": "dekoratory",
+          "title": "Декораторы"
+        },
+        {
+          "slug": "rekursiya",
+          "title": "Рекурсия"
+        },
+        {
+          "slug": "moduli",
+          "title": "Модули"
+        },
+        {
+          "slug": "rabota-s-faylami",
+          "title": "Работа с файлами"
+        }
+      ]
+    },
+    {
+      "slug": "git-github",
+      "title": "Git и GitHub",
+      "icon": "🥌",
+      "lessons": [
+        {
+          "slug": "git-github",
+          "title": "Введение в Git"
+        },
+        {
+          "slug": "github",
+          "title": "GitHub"
+        },
+        {
+          "slug": "dlya-vindy",
+          "title": "Git для Windows"
+        },
+        {
+          "slug": "gitignore",
+          "title": ".gitignore"
+        },
+        {
+          "slug": "vetki-branches",
+          "title": "Ветки (Branches)"
+        },
+        {
+          "slug": "konflikty",
+          "title": "Конфликты"
+        }
+      ]
+    },
+    {
+      "slug": "oop",
+      "title": "ООП",
+      "icon": "🪐",
+      "lessons": [
+        {
+          "slug": "oop-vvedenie",
+          "title": "Введение в ООП"
+        },
+        {
+          "slug": "koncepcii-oop",
+          "title": "Концепции ООП"
+        },
+        {
+          "slug": "nasledovanie",
+          "title": "Наследование"
+        },
+        {
+          "slug": "polimorfizm",
+          "title": "Полиморфизм"
+        },
+        {
+          "slug": "inkapsulyaciya",
+          "title": "Инкапсуляция"
+        },
+        {
+          "slug": "mnozhestvennoe-nasledovanie-i-miksiny",
+          "title": "Множественное наследование и миксины"
+        },
+        {
+          "slug": "miksiny",
+          "title": "Миксины"
+        },
+        {
+          "slug": "abstraktnye-klass-modul-abc",
+          "title": "Абстрактные классы. Модуль abc"
+        },
+        {
+          "slug": "magicheskie-metody",
+          "title": "Магические методы"
+        },
+        {
+          "slug": "svoystva-getter-setter-deleter",
+          "title": "Свойства: getter, setter, deleter"
+        },
+        {
+          "slug": "sinhronnost-i-asinhronnost-processov",
+          "title": "Синхронность и асинхронность процессов"
+        },
+        {
+          "slug": "metaklassy",
+          "title": "Метаклассы"
+        },
+        {
+          "slug": "iteratory-i-generatory",
+          "title": "Итераторы и генераторы"
+        },
+        {
+          "slug": "regulyarnye-vyrazheniya",
+          "title": "Регулярные выражения"
+        },
+        {
+          "slug": "asinhronnyy-python-razlichnye-formy-konkurentnosti",
+          "title": "Асинхронный Python: различные формы конкурентности"
+        },
+        {
+          "slug": "kak-rabotaet-pamyat-v-python",
+          "title": "Как работает память в Python"
+        }
+      ]
+    },
+    {
+      "slug": "bazy-dannyh",
+      "title": "Базы данных",
+      "icon": "🗄️",
+      "lessons": [
+        {
+          "slug": "vvedenie-v-bazu-dannyh",
+          "title": "Введение в базу данных"
+        },
+        {
+          "slug": "ustanovka-i-nastroyka-postgresql",
+          "title": "Установка и настройка PostgreSQL"
+        },
+        {
+          "slug": "arhitektura-subd",
+          "title": "Архитектура СУБД"
+        },
+        {
+          "slug": "podgotovka-k-rabote",
+          "title": "Подготовка к работе"
+        },
+        {
+          "slug": "struktura-relyacionnoy-bazy-dannyh",
+          "title": "Структура реляционной базы данных"
+        },
+        {
+          "slug": "sozdanie-tablic",
+          "title": "Создание таблиц"
+        },
+        {
+          "slug": "vstavka-i-modifikaciya-dannyh",
+          "title": "Вставка и модификация данных"
+        },
+        {
+          "slug": "vyborka-dannyh",
+          "title": "Выборка данных"
+        },
+        {
+          "slug": "relyacionnaya-model-dannyh",
+          "title": "Реляционная модель данных"
+        },
+        {
+          "slug": "pervaya-normalnaya-forma",
+          "title": "Первая нормальная форма"
+        },
+        {
+          "slug": "vtoraya-normalnaya-forma",
+          "title": "Вторая нормальная форма"
+        },
+        {
+          "slug": "tretya-normalnaya-forma",
+          "title": "Третья нормальная форма"
+        },
+        {
+          "slug": "avtoinkrement",
+          "title": "Автоинкремент"
+        },
+        {
+          "slug": "ontologiya",
+          "title": "Онтология"
+        },
+        {
+          "slug": "ogranicheniya",
+          "title": "Ограничения"
+        },
+        {
+          "slug": "izmenenie-struktury-tablicy-alter",
+          "title": "Изменение структуры таблицы (ALTER)"
+        },
+        {
+          "slug": "sortirovka-order",
+          "title": "Сортировка (ORDER)"
+        },
+        {
+          "slug": "usloviya-where",
+          "title": "Условия (WHERE)"
+        },
+        {
+          "slug": "limit-limit",
+          "title": "Лимит (LIMIT)"
+        },
+        {
+          "slug": "distinct",
+          "title": "DISTINCT"
+        },
+        {
+          "slug": "funkcii-bazy-dannyh",
+          "title": "Функции в SQL"
+        },
+        {
+          "slug": "gruppirovka-group",
+          "title": "Группировка (GROUP)"
+        },
+        {
+          "slug": "soedineniya-joins",
+          "title": "Соединения (JOINS)"
+        },
+        {
+          "slug": "tranzakcionnost",
+          "title": "Транзакционность"
+        },
+        {
+          "slug": "proizvoditelnost",
+          "title": "Производительность"
+        }
+      ]
+    },
+    {
+      "slug": "parsing",
+      "title": "Парсинг",
+      "icon": "📄",
+      "lessons": [
+        {
+          "slug": "parsing",
+          "title": "Парсинг"
+        }
+      ]
+    },
+    {
+      "slug": "django",
+      "title": "Django",
+      "icon": "🦈",
+      "lessons": [
+        {
+          "slug": "chto-takoe-django",
+          "title": "Что такое Django?"
+        },
+        {
+          "slug": "ustanovka-django",
+          "title": "Установка Django"
+        },
+        {
+          "slug": "struktura-proekta",
+          "title": "Структура проекта"
+        }
+      ]
+    }
+  ]
+}

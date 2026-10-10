@@ -133,13 +133,13 @@ a:hover { color: var(--accent-hover); }
 }
 .brand:hover { color: var(--text); }
 
-.brand__mark {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  background:
-    radial-gradient(circle at 70% 30%, var(--accent) 0 34%, transparent 35%),
-    #7c5cff;
-  flex: none;
+.brand__logo { display: block; height: 40px; width: auto; }
+.brand__name {
+  padding-left: 12px;
+  border-left: 1px solid var(--border-strong);
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .main-nav ul {
@@ -290,6 +290,7 @@ a:hover { color: var(--accent-hover); }
   line-height: 1.05;
   letter-spacing: -.025em;
   margin: 14px 0 20px;
+  hyphens: manual;
 }
 .hero h1 em { font-style: normal; color: var(--accent); }
 
@@ -384,6 +385,23 @@ a:hover { color: var(--accent-hover); }
 }
 .service-card__preview .stage { border-radius: var(--radius-s); }
 .service-card__preview .stage:first-child { grid-row: 1 / 3; align-self: stretch; height: 100%; aspect-ratio: auto; }
+
+/* Превью «Обучения»: разделы курса и кусочек кода; пропорции как у превью Навигатора */
+.learn-preview {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 8px;
+  aspect-ratio: 2.19;
+  font-size: 12px;
+}
+.learn-preview ol { list-style: none; display: grid; gap: 6px; padding: 10px; border-radius: var(--radius-s); background: var(--surface-2); }
+.learn-preview li { display: flex; align-items: center; gap: 8px; padding: 0 8px; border-radius: 6px; background: var(--surface-3); white-space: nowrap; overflow: hidden; }
+.learn-preview li em { margin-left: auto; font-style: normal; font-family: var(--mono); color: var(--muted); }
+.learn-preview__code { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: var(--radius-s); background: #111114; overflow: hidden; }
+.learn-preview__code b { font-family: var(--mono); font-weight: 400; color: var(--accent); }
+.learn-preview pre { margin: auto 0 0; font: 11px/1.6 var(--mono); white-space: pre-wrap; }
+.learn-preview i { font-style: normal; color: var(--accent); }
+.learn-preview s { text-decoration: none; color: #f5c26b; }
 
 .steps {
   display: grid;

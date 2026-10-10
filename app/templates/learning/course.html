@@ -1,0 +1,107 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+{% block title %}{% if query %}«{{ query }}» — {% endif %}{{ course.title }} — Обучение — {{ platform_name }}{% endblock %}
+{% block description %}{{ course.summary }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'learning/learning.css' %}">{% endblock %}
+
+{% block content %}
+<div class="container" data-course="{{ course.slug }}">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'home' %}">Главная</a></li>
+      <li><a href="{% url 'learning:index' %}">Обучение</a></li>
+      <li aria-current="page">{{ course.title }}</li>
+    </ol>
+  </nav>
+
+  <header class="course-hero">
+    {% if course.level %}<span class="badge">{{ course.level }}</span>{% endif %}
+    <h1>{{ course.title }}</h1>
+    <p class="lead">{{ course.summary }}</p>
+    <div class="course-hero__actions">
+      {% with first=course.first_lesson %}
+      <a class="btn btn--primary btn--lg" href="{% url 'learning:lesson' course.slug first.slug %}" data-continue>Начать с первого урока</a>
+      {% endwith %}
+      <a class="btn btn--ghost btn--lg" href="#program">Программа курса</a>
+    </div>
+    <p class="course-hero__progress" data-course-progress hidden></p>
+  </header>
+
+  <ul class="stats" role="list">
+    {% for stat in stats %}
+    <li class="stat"><b>{{ stat.value }}</b><span>{{ stat.label }}</span></li>
+    {% endfor %}
+  </ul>
+
+  {% if course.description or course.outcomes %}
+  <div class="course-about">
+    {% if course.description %}
+    <div class="prose">
+      {% for paragraph in course.description %}<p>{{ paragraph }}</p>{% endfor %}
+    </div>
+    {% endif %}
+    {% if course.outcomes %}
+    <div class="panel">
+      <h2>Чему вы научитесь</h2>
+      <ul class="list list--good">
+        {% for item in course.outcomes %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <section class="section section--tight course-program" id="program" aria-labelledby="program-title">
+    <div class="course-program__head">
+      <h2 id="program-title">Программа</h2>
+      <form class="search" action="#program" method="get" role="search">
+        <label for="lesson-search" class="visually-hidden">Поиск по урокам курса</label>
+        <div class="search__field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="lesson-search" type="search" name="q" value="{{ query }}" placeholder="Поиск по урокам: декораторы, JOIN, ветки…" autocomplete="off">
+        </div>
+      </form>
+    </div>
+
+    {% if results is not None %}
+      <p class="search-status" role="status">
+        {% if results %}Найдено уроков: {{ results|length }} по запросу «{{ query }}».{% else %}По запросу «{{ query }}» ничего не нашлось.{% endif %}
+        <a href="{% url 'learning:course' course.slug %}#program">Показать всю программу</a>
+      </p>
+      {% if results %}
+      <ol class="lesson-list lesson-list--results" role="list">
+        {% for lesson in results %}
+        <li data-lesson="{{ lesson.slug }}">
+          <a href="{% url 'learning:lesson' course.slug lesson.slug %}">
+            <span class="lesson-list__num">{{ lesson.number|stringformat:"02d" }}</span>
+            <span class="lesson-list__title">{{ lesson.title }}<small>{{ lesson.section.title }}</small></span>
+            <span class="lesson-list__done" aria-hidden="true"></span>
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+    {% else %}
+    <ol class="program" role="list">
+      {% for section in course.sections %}
+      <li class="program__section">
+        <h3><span class="program__icon" aria-hidden="true">{{ section.icon|default:"•" }}</span>{{ section.title }}<span class="program__count">{{ section.lessons|length }}</span></h3>
+        <ol class="lesson-list" role="list">
+          {% for lesson in section.lessons %}
+          <li data-lesson="{{ lesson.slug }}">
+            <a href="{% url 'learning:lesson' course.slug lesson.slug %}">
+              <span class="lesson-list__num">{{ lesson.number|stringformat:"02d" }}</span>
+              <span class="lesson-list__title">{{ lesson.title }}</span>
+              <span class="lesson-list__done" aria-hidden="true"></span>
+            </a>
+          </li>
+          {% endfor %}
+        </ol>
+      </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

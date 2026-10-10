@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0c0c0e">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'platform/brand/icon-32.png' %}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{% static 'platform/brand/icon-512.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'platform/brand/icon-180.png' %}">
   <title>{% block title %}{{ platform_name }}{% endblock %}</title>
   <meta name="description" content="{% block description %}{{ platform_name }} — {{ platform_tagline|lower }}.{% endblock %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +22,8 @@
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="brand" href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>
-        <span class="brand__mark" aria-hidden="true"></span>
-        <span>{{ platform_name }}</span>
+        <img class="brand__logo" src="{% static 'platform/brand/zea-hub.png' %}" width="412" height="194" alt="ZEA HUB">
+        <span class="brand__name">{{ platform_name }}</span>
       </a>
       <nav class="main-nav" aria-label="Основная навигация">
         <ul>
@@ -43,7 +46,7 @@
   <footer class="site-footer">
     <div class="container site-footer__inner">
       <div>
-        <a class="brand" href="{% url 'home' %}"><span class="brand__mark" aria-hidden="true"></span><span>{{ platform_name }}</span></a>
+        <a class="brand" href="{% url 'home' %}"><img class="brand__logo" src="{% static 'platform/brand/zea-hub.png' %}" width="412" height="194" alt="ZEA HUB"><span class="brand__name">{{ platform_name }}</span></a>
         <p class="site-footer__about">Примеры — учебные демонстрации.</p>
       </div>
       <nav aria-label="Сервисы">

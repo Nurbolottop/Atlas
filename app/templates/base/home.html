@@ -6,18 +6,19 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero__grid">
     <div>
-      <h1 id="hero-title">Инструменты для <em>цифровых продуктов</em></h1>
-      <p class="lead">Одна задача — готовый результат.</p>
-      {% with first=platform_services.0 %}{% if first %}
+      <h1 id="hero-title">Учитесь и создавайте <em>цифровые продукты</em></h1>
+      <p class="lead">Курсы по разработке и инструменты для дизайна — в одном месте.</p>
+      {% if platform_services %}
       <div class="hero__actions">
-        <a class="btn btn--primary btn--lg" href="{{ first.url }}">Открыть «{{ first.title }}»</a>
-        <a class="btn btn--ghost btn--lg" href="#services">Все сервисы</a>
+        {% for service in platform_services %}
+        <a class="btn {% if forloop.first %}btn--primary{% else %}btn--ghost{% endif %} btn--lg" href="{{ service.url }}">{{ service.title }}</a>
+        {% endfor %}
       </div>
-      {% endif %}{% endwith %}
+      {% endif %}
       <ul class="facts" role="list">
         <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/><path d="M3 3l18 18"/></svg><span>Без регистрации</span></li>
         <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16M4 12h10M4 19h7"/></svg><span>На русском</span></li>
-        <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Копировать или скачать</span></li>
+        <li class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Код и промпты — в один клик</span></li>
       </ul>
     </div>
     {% if hero_service %}
@@ -50,7 +51,7 @@
 <section class="section section--tight"{% if forloop.first %} id="how"{% endif %} aria-labelledby="how-{{ service.slug }}">
   <div class="container">
     <div class="section__head">
-      <h2 id="how-{{ service.slug }}">Как это работает</h2>
+      <h2 id="how-{{ service.slug }}">Как устроено «{{ service.title }}»</h2>
     </div>
     <ol class="steps">
       {% for title, text in service.steps %}
