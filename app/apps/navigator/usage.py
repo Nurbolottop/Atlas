@@ -25,7 +25,7 @@ USAGE_METHODS = (
     UsageMethod(
         slug='ai-prompt',
         title='Получить промпт для ИИ',
-        description='Инструкция по стилю под ваш тип продукта — для любого ИИ-разработчика.',
+        description='Инструкция под ваш тип продукта.',
         action_label='Выбрать тип продукта',
         url_name='navigator:prompt_type',
     ),

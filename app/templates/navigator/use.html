@@ -15,28 +15,36 @@
     </ol>
   </nav>
 
-  <div class="flow">
-    <header class="page-head">
+  <div class="use-layout">
+    <a class="use-style" href="{% url 'navigator:style' style.slug %}">
+      {% demo_stage style 'site' preview=True %}
+      <span class="use-style__body">
+        <span class="badge badge--{{ style.kind }}">{{ style.kind_info.short }}</span>
+        <span class="use-style__name">{{ style.name_ru }}</span>
+        <span class="use-style__en" lang="en">{{ style.name_en }}</span>
+      </span>
+    </a>
+
+    <div class="use-methods">
       <span class="eyebrow">Шаг 1 из 2</span>
       <h1>Использовать</h1>
-    </header>
-
-    {% include 'navigator/includes/flow_summary.html' %}
-
-    <ul class="method-list" role="list">
-      {% for item in methods %}
-      <li class="method">
-        <span class="method__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
-        </span>
-        <div>
-          <h2>{{ item.method.title }}</h2>
-          <p>{{ item.method.description }}</p>
-        </div>
-        <a class="btn btn--primary btn--lg" href="{{ item.url }}">{{ item.method.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
+      <ul class="method-tiles" role="list">
+        {% for item in methods %}
+        <li>
+          <a class="method-tile" href="{{ item.url }}">
+            <span class="method-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>
+            </span>
+            <span class="method-tile__text">
+              <span class="method-tile__title">{{ item.method.title }}</span>
+              <span class="method-tile__desc">{{ item.method.description }}</span>
+            </span>
+            <svg class="method-tile__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </div>
 {% endblock %}
