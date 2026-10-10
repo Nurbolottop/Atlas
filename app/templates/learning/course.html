@@ -1,5 +1,5 @@
 {% extends 'base/layout.html' %}
-{% load static %}
+{% load static learning_tags %}
 
 {% block title %}{% if query %}«{{ query }}» — {% endif %}{{ course.title }} — Обучение — {{ platform_name }}{% endblock %}
 {% block description %}{{ course.summary }}{% endblock %}
@@ -20,10 +20,8 @@
     <h1>{{ course.title }}</h1>
     <p class="lead">{{ course.summary }}</p>
     <div class="course-hero__actions">
-      {% with first=course.first_lesson %}
-      <a class="btn btn--primary btn--lg" href="{% url 'learning:lesson' course.slug first.slug %}" data-continue>Начать с первого урока</a>
-      {% endwith %}
-      <a class="btn btn--ghost btn--lg" href="#program">Программа курса</a>
+      <a class="btn btn--primary btn--lg" href="{{ course.first_lesson.url }}" data-continue>Начать с первого урока</a>
+      <a class="btn btn--ghost btn--lg" href="#program">Темы курса</a>
     </div>
     <p class="course-hero__progress" data-course-progress hidden></p>
   </header>
@@ -54,7 +52,7 @@
 
   <section class="section section--tight course-program" id="program" aria-labelledby="program-title">
     <div class="course-program__head">
-      <h2 id="program-title">Программа</h2>
+      <h2 id="program-title">Темы курса</h2>
       <form class="search" action="#program" method="get" role="search">
         <label for="lesson-search" class="visually-hidden">Поиск по урокам курса</label>
         <div class="search__field">
@@ -67,13 +65,13 @@
     {% if results is not None %}
       <p class="search-status" role="status">
         {% if results %}Найдено уроков: {{ results|length }} по запросу «{{ query }}».{% else %}По запросу «{{ query }}» ничего не нашлось.{% endif %}
-        <a href="{% url 'learning:course' course.slug %}#program">Показать всю программу</a>
+        <a href="{% url 'learning:course' course.slug %}#program">Показать все темы</a>
       </p>
       {% if results %}
       <ol class="lesson-list lesson-list--results" role="list">
         {% for lesson in results %}
         <li data-lesson="{{ lesson.slug }}">
-          <a href="{% url 'learning:lesson' course.slug lesson.slug %}">
+          <a href="{{ lesson.url }}">
             <span class="lesson-list__num">{{ lesson.number|stringformat:"02d" }}</span>
             <span class="lesson-list__title">{{ lesson.title }}<small>{{ lesson.section.title }}</small></span>
             <span class="lesson-list__done" aria-hidden="true"></span>
@@ -83,25 +81,29 @@
       </ol>
       {% endif %}
     {% else %}
-    <ol class="program" role="list">
+    <ol class="topic-grid" role="list">
       {% for section in course.sections %}
-      <li class="program__section">
-        <h3><span class="program__icon" aria-hidden="true">{{ section.icon|default:"•" }}</span>{{ section.title }}<span class="program__count">{{ section.lessons|length }}</span></h3>
-        <ol class="lesson-list" role="list">
-          {% for lesson in section.lessons %}
-          <li data-lesson="{{ lesson.slug }}">
-            <a href="{% url 'learning:lesson' course.slug lesson.slug %}">
-              <span class="lesson-list__num">{{ lesson.number|stringformat:"02d" }}</span>
-              <span class="lesson-list__title">{{ lesson.title }}</span>
-              <span class="lesson-list__done" aria-hidden="true"></span>
-            </a>
-          </li>
-          {% endfor %}
-        </ol>
+      <li class="topic-card" data-topic="{{ section.lesson_slugs }}">
+        <div class="topic-card__top">
+          <span class="topic-card__icon" aria-hidden="true">{{ section.icon|default:"•" }}</span>
+          <span class="topic-card__num">Тема {{ section.number }}</span>
+        </div>
+        <h3><a href="{{ section.url }}">{{ section.title }}</a></h3>
+        {% if section.summary %}<p>{{ section.summary }}</p>{% endif %}
+        <ul class="topic-card__lessons" role="list">
+          {% for lesson in section.lessons|slice:":3" %}<li>{{ lesson.title }}</li>{% endfor %}
+          {% if section.lessons|length > 3 %}<li class="topic-card__more">и ещё {{ section.lessons|length|add:"-3" }}</li>{% endif %}
+        </ul>
+        <div class="topic-card__meta">
+          <span>{% with n=section.lessons|length %}{{ n }} {{ n|ru_plural:"урок,урока,уроков" }}{% endwith %} · ≈{{ section.minutes }} мин</span>
+          <span class="topic-card__progress" data-topic-progress hidden></span>
+        </div>
+        <div class="topic-card__bar" aria-hidden="true"><span data-topic-bar></span></div>
       </li>
       {% endfor %}
     </ol>
     {% endif %}
   </section>
+  {{ lessons_json|json_script:"course-lessons" }}
 </div>
 {% endblock %}

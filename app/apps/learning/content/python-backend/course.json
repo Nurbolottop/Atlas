@@ -21,6 +21,7 @@
       "slug": "resursy-i-knigi",
       "title": "Ресурсы и книги",
       "icon": "🎟️",
+      "summary": "Книги и сайты, с которыми удобно учиться параллельно с курсом.",
       "lessons": [
         {
           "slug": "resursy-i-knigi",
@@ -32,6 +33,7 @@
       "slug": "ustanovka",
       "title": "Установка",
       "icon": "⚙️",
+      "summary": "Ставим Python и всё нужное для работы на Linux и Windows.",
       "lessons": [
         {
           "slug": "linux",
@@ -47,6 +49,7 @@
       "slug": "osnovy-python",
       "title": "Основы Python",
       "icon": "♟️",
+      "summary": "Переменные, строки, списки, словари, циклы, функции и работа с файлами — фундамент языка.",
       "lessons": [
         {
           "slug": "arifmeticheskie-operacii-peremennye",
@@ -146,6 +149,7 @@
       "slug": "git-github",
       "title": "Git и GitHub",
       "icon": "🥌",
+      "summary": "Контроль версий: коммиты, ветки, конфликты и работа с GitHub.",
       "lessons": [
         {
           "slug": "git-github",
@@ -177,6 +181,7 @@
       "slug": "oop",
       "title": "ООП",
       "icon": "🪐",
+      "summary": "Классы и объекты: наследование, инкапсуляция, магические методы, итераторы и асинхронность.",
       "lessons": [
         {
           "slug": "oop-vvedenie",
@@ -248,6 +253,7 @@
       "slug": "bazy-dannyh",
       "title": "Базы данных",
       "icon": "🗄️",
+      "summary": "Реляционные базы данных и PostgreSQL: проектирование, нормальные формы и SQL-запросы.",
       "lessons": [
         {
           "slug": "vvedenie-v-bazu-dannyh",
@@ -355,6 +361,7 @@
       "slug": "parsing",
       "title": "Парсинг",
       "icon": "📄",
+      "summary": "Как собирать данные с сайтов с помощью Python.",
       "lessons": [
         {
           "slug": "parsing",
@@ -366,6 +373,7 @@
       "slug": "django",
       "title": "Django",
       "icon": "🦈",
+      "summary": "Первое знакомство с Django: установка и устройство проекта.",
       "lessons": [
         {
           "slug": "chto-takoe-django",

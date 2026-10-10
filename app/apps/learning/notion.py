@@ -63,7 +63,11 @@ class NotionClient:
     def download(self, source, block_id):
         """Скачивает вложение блока. Возвращает (bytes, content-type)."""
         if not ('secure.notion-static.com' in source or 'prod-files-secure' in source or source.startswith('attachment:')):
-            return self._request(source)
+            try:
+                return self._request(source)
+            except NotionError:
+                # Внешний сайт мог закрыться — берём копию из веб-архива.
+                return self._request(f'https://web.archive.org/web/2020id_/{source}')
         try:
             return self._request(f'{self.site}/image/{urllib.parse.quote(source, safe="")}?table=block&id={block_id}')
         except NotionError:

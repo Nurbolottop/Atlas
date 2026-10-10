@@ -1,0 +1,57 @@
+{% extends 'base/layout.html' %}
+{% load static learning_tags %}
+
+{% block title %}{{ section.title }} — {{ course.title }} — {{ platform_name }}{% endblock %}
+{% block description %}{% if section.summary %}{{ section.summary }}{% else %}Тема «{{ section.title }}» курса «{{ course.title }}»: {{ section.lessons|length }} {{ section.lessons|length|ru_plural:"урок,урока,уроков" }}.{% endif %}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'learning/learning.css' %}">{% endblock %}
+
+{% block content %}
+<div class="container" data-course="{{ course.slug }}" data-section-page>
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
+    <ol>
+      <li><a href="{% url 'learning:index' %}">Обучение</a></li>
+      <li><a href="{% url 'learning:course' course.slug %}">{{ course.title }}</a></li>
+      <li aria-current="page">{{ section.title }}</li>
+    </ol>
+  </nav>
+
+  <header class="topic-hero">
+    <p class="eyebrow"><span aria-hidden="true">{{ section.icon }}</span> Тема {{ section.number }} из {{ course.sections|length }}</p>
+    <h1>{{ section.title }}</h1>
+    {% if section.summary %}<p class="lead">{{ section.summary }}</p>{% endif %}
+    {% with n=section.lessons|length %}
+    <p class="topic-hero__meta">{{ n }} {{ n|ru_plural:"урок,урока,уроков" }} · ≈{{ section.minutes }} мин чтения<span data-topic-progress hidden></span></p>
+    {% endwith %}
+    <div class="course-hero__actions">
+      <a class="btn btn--primary btn--lg" href="{{ section.lessons.0.url }}" data-topic-continue data-topic="{{ section.lesson_slugs }}">Начать тему</a>
+      <a class="btn btn--ghost btn--lg" href="{% url 'learning:course' course.slug %}#program">Все темы</a>
+    </div>
+  </header>
+
+  <ol class="topic-lessons" role="list">
+    {% for lesson in section.lessons %}
+    <li data-lesson="{{ lesson.slug }}">
+      <a class="topic-lesson" href="{{ lesson.url }}">
+        <span class="topic-lesson__num">{{ forloop.counter|stringformat:"02d" }}</span>
+        <span class="topic-lesson__body">
+          <b>{{ lesson.title }}</b>
+          {% if lesson.excerpt %}<span>{{ lesson.excerpt }}</span>{% endif %}
+          <small>≈{{ lesson.minutes }} мин</small>
+        </span>
+        <span class="lesson-list__done" aria-hidden="true"></span>
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+
+  <nav class="lesson-pager topic-pager" aria-label="Соседние темы">
+    {% if section.prev %}
+    <a class="lesson-pager__link" href="{{ section.prev.url }}" rel="prev"><span>← Предыдущая тема</span><b>{{ section.prev.title }}</b></a>
+    {% else %}<span></span>{% endif %}
+    {% if section.next %}
+    <a class="lesson-pager__link lesson-pager__link--next" href="{{ section.next.url }}" rel="next"><span>Следующая тема →</span><b>{{ section.next.title }}</b></a>
+    {% endif %}
+  </nav>
+  {{ lessons_json|json_script:"course-lessons" }}
+</div>
+{% endblock %}

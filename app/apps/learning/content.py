@@ -19,6 +19,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from django.conf import settings
+from django.urls import reverse
 
 from .text import normalize
 
@@ -30,6 +31,8 @@ LESSON_RE = re.compile(r'lesson:([a-z0-9-]+)')
 SLUG_RE = re.compile(r'^[a-z0-9][a-z0-9-]*$')
 
 COURSE_FIELDS = {'slug': str, 'title': str, 'summary': str, 'description': list, 'sections': list}
+
+READING_SPEED = 1300  # символов в минуту
 
 
 class ContentError(Exception):
@@ -62,17 +65,61 @@ class Lesson:
         return normalize(f'{self.title} {self.section.title} {_plain(self.source)}')
 
     @property
+    def url(self):
+        return reverse('learning:lesson', args=[self.course.slug, self.section.slug, self.slug])
+
+    @property
+    def minutes(self):
+        return max(1, round(len(self.source) / READING_SPEED))
+
+    @property
+    def excerpt(self):
+        """Первый абзац урока — анонс для страницы темы."""
+        for block in re.split(r'\n\s*\n', self.source):
+            block = block.strip()
+            if not block or block[0] in '#`|<>!-*0123456789' or block.startswith('['):
+                continue
+            text = ' '.join(_plain(block).split())
+            if len(text) < 40:
+                continue
+            if len(text) > 180:
+                text = text[:180].rsplit(' ', 1)[0].rstrip('.,;:—-') + '…'
+            return text
+        return ''
+
+    @property
     def title_text(self):
         return normalize(f'{self.title} {self.section.title}')
 
 
 class Section:
-    def __init__(self, course, data):
+    """Тема курса: группа уроков со своей страницей."""
+
+    def __init__(self, course, data, number):
         self.course = course
+        self.number = number
         self.slug = data['slug']
         self.title = data['title']
         self.icon = data.get('icon', '')
+        self.summary = data.get('summary', '')
         self.lessons = []
+        self.prev = None
+        self.next = None
+
+    def __repr__(self):
+        return f'<Section {self.course.slug}/{self.slug}>'
+
+    @property
+    def url(self):
+        return reverse('learning:section', args=[self.course.slug, self.slug])
+
+    @property
+    def minutes(self):
+        return sum(lesson.minutes for lesson in self.lessons)
+
+    @property
+    def lesson_slugs(self):
+        return ' '.join(lesson.slug for lesson in self.lessons)
 
 
 class Course:
@@ -91,8 +138,11 @@ class Course:
 
         number = 0
         previous = None
-        for section_data in data['sections']:
-            section = Section(self, section_data)
+        for index, section_data in enumerate(data['sections'], 1):
+            section = Section(self, section_data, index)
+            if self.sections:
+                section.prev = self.sections[-1]
+                self.sections[-1].next = section
             for lesson_data in section_data.get('lessons', []):
                 number += 1
                 lesson = Lesson(self, section, lesson_data, number)
@@ -105,6 +155,9 @@ class Course:
                 section.lessons.append(lesson)
                 self.lessons[lesson.slug] = lesson
             self.sections.append(section)
+
+    def get_section(self, slug):
+        return next((s for s in self.sections if s.slug == slug), None)
 
     @property
     def first_lesson(self):

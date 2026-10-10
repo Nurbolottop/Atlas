@@ -20,7 +20,7 @@
           <ol role="list">
             {% for item in section.lessons %}
             <li data-lesson="{{ item.slug }}">
-              <a href="{% url 'learning:lesson' course.slug item.slug %}"{% if item == lesson %} aria-current="page"{% endif %}>
+              <a href="{{ item.url }}"{% if item == lesson %} aria-current="page"{% endif %}>
                 <span class="lesson-list__done" aria-hidden="true"></span>{{ item.title }}
               </a>
             </li>
@@ -37,12 +37,12 @@
       <ol>
         <li><a href="{% url 'learning:index' %}">Обучение</a></li>
         <li><a href="{% url 'learning:course' course.slug %}">{{ course.title }}</a></li>
-        <li aria-current="page">{{ lesson.section.title }}</li>
+        <li><a href="{{ lesson.section.url }}">{{ lesson.section.title }}</a></li>
       </ol>
     </nav>
 
     <header class="lesson__head">
-      <p class="eyebrow">Урок {{ lesson.number }} из {{ course.lesson_count }} · {{ lesson.section.title }}</p>
+      <p class="eyebrow">Урок {{ lesson.number }} из {{ course.lesson_count }} · <a href="{{ lesson.section.url }}">{{ lesson.section.title }}</a></p>
       <h1>{{ lesson.title }}</h1>
     </header>
 
@@ -68,12 +68,12 @@
 
     <nav class="lesson-pager" aria-label="Соседние уроки">
       {% if lesson.prev %}
-      <a class="lesson-pager__link" href="{% url 'learning:lesson' course.slug lesson.prev.slug %}" rel="prev">
+      <a class="lesson-pager__link" href="{{ lesson.prev.url }}" rel="prev">
         <span>← Предыдущий</span><b>{{ lesson.prev.title }}</b>
       </a>
       {% else %}<span></span>{% endif %}
       {% if lesson.next %}
-      <a class="lesson-pager__link lesson-pager__link--next" href="{% url 'learning:lesson' course.slug lesson.next.slug %}" rel="next">
+      <a class="lesson-pager__link lesson-pager__link--next" href="{{ lesson.next.url }}" rel="next">
         <span>Следующий →</span><b>{{ lesson.next.title }}</b>
       </a>
       {% else %}

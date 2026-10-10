@@ -306,22 +306,55 @@
     }
   }
 
+  // Страницы курса и темы: отметки, прогресс по темам и кнопка «Продолжить».
   function initCourseProgress() {
     var root = document.querySelector('[data-course]:not([data-lesson-page])');
-    if (!root) return;
+    var source = document.getElementById('course-lessons');
+    if (!root || !source) return;
+    var lessons = JSON.parse(source.textContent);
+    var slugs = Object.keys(lessons);
     var data = readProgress(root.getAttribute('data-course'));
-    paintDone(root, data.done);
-    var total = root.querySelectorAll('.program [data-lesson]').length;
+    var done = data.done.filter(function (s) { return lessons[s]; });
+    paintDone(root, done);
+
+    function countDone(list) {
+      return list.filter(function (s) { return done.indexOf(s) !== -1; }).length;
+    }
+
     var status = root.querySelector('[data-course-progress]');
-    if (status && data.done.length && total) {
-      status.textContent = 'Пройдено ' + data.done.length + ' из ' + total + ' уроков';
+    if (status && done.length) {
+      status.textContent = 'Пройдено ' + done.length + ' из ' + slugs.length + ' уроков';
       status.hidden = false;
     }
-    var link = root.querySelector('[data-lesson="' + data.last + '"] a');
+
+    root.querySelectorAll('.topic-card[data-topic]').forEach(function (card) {
+      var list = card.getAttribute('data-topic').split(' ');
+      var n = countDone(list);
+      if (!n) return;
+      var label = card.querySelector('[data-topic-progress]');
+      label.textContent = n === list.length ? 'Пройдена' : n + ' из ' + list.length;
+      label.hidden = false;
+      card.querySelector('[data-topic-bar]').style.width = Math.round(n / list.length * 100) + '%';
+    });
+
+    // На курсе — последний открытый урок; в теме — последний урок этой темы или первый непройденный.
     var cta = root.querySelector('[data-continue]');
-    if (cta && link && data.last) {
-      cta.href = link.getAttribute('href');
-      cta.textContent = 'Продолжить: ' + link.querySelector('.lesson-list__title').firstChild.textContent.trim();
+    if (cta && data.last && lessons[data.last]) {
+      cta.href = lessons[data.last].url;
+      cta.textContent = 'Продолжить: ' + lessons[data.last].title;
+    }
+    var topicCta = root.querySelector('[data-topic-continue]');
+    if (topicCta) {
+      var list = topicCta.getAttribute('data-topic').split(' ');
+      var n = countDone(list);
+      var label = root.querySelector('[data-topic-progress]');
+      if (label && n) { label.textContent = 'пройдено ' + n + ' из ' + list.length; label.hidden = false; }
+      var target = list.indexOf(data.last) !== -1 ? data.last :
+        list.filter(function (s) { return done.indexOf(s) === -1; })[0];
+      if (n && target && lessons[target]) {
+        topicCta.href = lessons[target].url;
+        topicCta.textContent = 'Продолжить: ' + lessons[target].title;
+      }
     }
   }
 
@@ -329,22 +362,34 @@
 
   function initLessonToc() {
     var links = document.querySelectorAll('.lesson-toc--side a');
-    if (!links.length || !('IntersectionObserver' in window)) return;
+    if (!links.length) return;
     var byId = {};
     links.forEach(function (a) { byId[decodeURIComponent(a.hash.slice(1))] = a; });
     var headings = Array.prototype.filter.call(
       document.querySelectorAll('.lesson-prose h2[id], .lesson-prose h3[id]'),
       function (h) { return byId[h.id]; }
     );
-    var visible = {};
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
-      var active = headings.filter(function (h) { return visible[h.id]; })[0];
-      if (!active) return;
-      links.forEach(function (a) { a.classList.remove('is-active'); });
-      byId[active.id].classList.add('is-active');
-    }, { rootMargin: '-64px 0px -60% 0px' });
-    headings.forEach(function (h) { io.observe(h); });
+    var current = null;
+    var ticking = false;
+
+    // Активен последний заголовок, который уже ушёл под шапку (+ небольшой запас).
+    function update() {
+      ticking = false;
+      var offset = 120;
+      var active = null;
+      headings.forEach(function (h) {
+        if (h.getBoundingClientRect().top <= offset) active = h;
+      });
+      if (active === current) return;
+      if (current) byId[current.id].classList.remove('is-active');
+      if (active) byId[active.id].classList.add('is-active');
+      current = active;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
   }
 
   document.addEventListener('DOMContentLoaded', function () {

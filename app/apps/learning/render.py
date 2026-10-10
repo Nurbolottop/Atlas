@@ -4,10 +4,9 @@ from functools import lru_cache
 
 import markdown
 from django.templatetags.static import static
-from django.urls import reverse
 from markdown.extensions.toc import slugify_unicode
 
-from .content import ASSET_RE, LESSON_RE
+from .content import ASSET_RE, LESSON_RE, get_course
 
 EXTENSIONS = ['fenced_code', 'codehilite', 'tables', 'md_in_html', 'sane_lists', 'toc', 'attr_list']
 EXTENSION_CONFIGS = {
@@ -29,12 +28,17 @@ def _toc(tokens):
     return items
 
 
+def _lesson_url(course_slug, slug):
+    lesson = get_course(course_slug).lessons.get(slug)
+    return lesson.url if lesson else '#'
+
+
 @lru_cache(maxsize=256)
 def _render(course_slug, source):
     md = markdown.Markdown(extensions=EXTENSIONS, extension_configs=EXTENSION_CONFIGS)
     html = md.convert(source)
     html = ASSET_RE.sub(lambda m: static(f'learning/{course_slug}/{m.group(1)}'), html)
-    html = LESSON_RE.sub(lambda m: reverse('learning:lesson', args=[course_slug, m.group(1)]), html)
+    html = LESSON_RE.sub(lambda m: _lesson_url(course_slug, m.group(1)), html)
     html = _EXTERNAL_LINK.sub(r'<a href="\1" target="_blank" rel="noopener"', html)
     html = _IMAGE.sub('<img loading="lazy" decoding="async" ', html)
     html = _TABLE.sub(r'<div class="table-scroll" tabindex="0"><table>\1</table></div>', html)

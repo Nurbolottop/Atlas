@@ -5,8 +5,8 @@
         --course python-backend
 
 Перезаписывает уроки курса и `course.json` (кроме полей, заданных вручную:
-названия, описаний и порядка курса, а также исправленных названий разделов
-и уроков) и скачивает вложения в
+названия, описаний и порядка курса, описаний тем, а также исправленных
+названий тем и уроков) и скачивает вложения в
 `static/learning/<course>/`. Ручные правки уроков после повторного импорта
 пропадут — запускайте его, только пока основной текст живёт в Notion.
 """
@@ -43,6 +43,8 @@ def parse_url(url):
 
 class Command(BaseCommand):
     help = 'Переносит курс из опубликованной страницы Notion в apps/learning/content/'
+    # Импорт сам чинит контент, поэтому ошибки в нём не должны его блокировать.
+    requires_system_checks = []
 
     def add_arguments(self, parser):
         parser.add_argument('url', help='Ссылка на корневую страницу курса в Notion')
@@ -108,6 +110,7 @@ class Command(BaseCommand):
                     'slug': section.slug,
                     'title': section.title,
                     'icon': section.icon,
+                    'summary': '',
                     'lessons': [{'slug': p.slug, 'title': p.title} for p in lessons],
                 }
                 for section, lessons in sections
@@ -116,7 +119,8 @@ class Command(BaseCommand):
         for key in MANUAL_FIELDS:
             if manifest.get(key):
                 fresh[key] = manifest[key]
-        # Названия разделов и уроков, исправленные вручную, сохраняем по slug.
+        # Описания тем и названия, исправленные вручную, сохраняем по slug.
+        summaries = {section['slug']: section.get('summary', '') for section in manifest.get('sections', [])}
         titles = {
             (kind, item['slug']): item['title']
             for section in manifest.get('sections', [])
@@ -124,6 +128,7 @@ class Command(BaseCommand):
         }
         for section in fresh['sections']:
             section['title'] = titles.get(('section', section['slug']), section['title'])
+            section['summary'] = summaries.get(section['slug'], '')
             for lesson in section['lessons']:
                 lesson['title'] = titles.get(('lesson', lesson['slug']), lesson['title'])
         manifest_path.write_text(json.dumps(fresh, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
