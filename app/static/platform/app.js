@@ -392,8 +392,34 @@
     update();
   }
 
+  /* ---------- Тема ---------- */
+
+  function initTheme() {
+    var btn = document.querySelector('[data-theme-toggle]');
+    var root = document.documentElement;
+    var meta = document.querySelector('meta[name="theme-color"]');
+
+    function apply(theme) {
+      root.setAttribute('data-theme', theme);
+      if (meta) meta.setAttribute('content', theme === 'light' ? '#f4f4f1' : '#0c0c0e');
+      if (btn) {
+        btn.setAttribute('aria-label', theme === 'light' ? 'Включить тёмную тему' : 'Включить светлую тему');
+        btn.setAttribute('title', btn.getAttribute('aria-label'));
+      }
+    }
+
+    apply(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     document.documentElement.classList.add('js');
+    initTheme();
     initStages();
     initTabs();
     initSearch();

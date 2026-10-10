@@ -6,13 +6,12 @@
 
 Перезаписывает уроки курса и `course.json` (кроме полей, заданных вручную:
 названия, описаний и порядка курса, описаний и отметок важных тем, а также исправленных
-названий тем и уроков) и скачивает вложения в
+названий тем и уроков; темы с "manual": true сохраняются целиком) и скачивает вложения в
 `static/learning/<course>/`. Ручные правки уроков после повторного импорта
 пропадут — запускайте его, только пока основной текст живёт в Notion.
 """
 import json
 import re
-import shutil
 from pathlib import Path
 
 from django.conf import settings
@@ -86,16 +85,21 @@ class Command(BaseCommand):
 
         course_dir = CONTENT_DIR / course
         lessons_dir = course_dir / 'lessons'
-        if lessons_dir.exists():
-            shutil.rmtree(lessons_dir)
-        lessons_dir.mkdir(parents=True)
+        manifest_path = course_dir / 'course.json'
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else {}
+
+        # Темы с "manual": true написаны прямо в репозитории, а не в Notion: их уроки не трогаем.
+        manual_sections = [s for s in manifest.get('sections', []) if s.get('manual')]
+        manual_files = {f'{l["slug"]}.md' for s in manual_sections for l in s.get('lessons', [])}
+        lessons_dir.mkdir(parents=True, exist_ok=True)
+        for path in lessons_dir.glob('*.md'):
+            if path.name not in manual_files:
+                path.unlink()
 
         writer = MarkdownWriter(notion, link_for_page, asset_name)
         for page in pages.values():
             (lessons_dir / f'{page.slug}.md').write_text(writer.page(page), encoding='utf-8')
 
-        manifest_path = course_dir / 'course.json'
-        manifest = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else {}
         fresh = {
             'slug': course,
             'title': root.title,
@@ -134,6 +138,14 @@ class Command(BaseCommand):
             section['key'] = section['slug'] in key_sections
             for lesson in section['lessons']:
                 lesson['title'] = titles.get(('lesson', lesson['slug']), lesson['title'])
+        # Ручные темы возвращаем на прежнее место — после той же темы, что и раньше.
+        old_order = [section['slug'] for section in manifest.get('sections', [])]
+        for manual in manual_sections:
+            index = old_order.index(manual['slug'])
+            before = next((slug for slug in reversed(old_order[:index]) if any(
+                s['slug'] == slug for s in fresh['sections'])), None)
+            position = next((i + 1 for i, s in enumerate(fresh['sections']) if s['slug'] == before), 0)
+            fresh['sections'].insert(position, manual)
         manifest_path.write_text(json.dumps(fresh, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         log(f'Записано уроков: {len(pages)} в {len(sections)} разделах → {course_dir}')
 
