@@ -232,69 +232,21 @@
     });
   }
 
-  /* ---------- Обучение: прогресс в браузере ---------- */
+  /* ---------- Обучение: последний открытый урок ---------- */
 
-  // Прогресс хранится только в этом браузере: { done: [slug, …], last: slug }.
-  function readProgress(course) {
-    try {
-      var data = JSON.parse(localStorage.getItem('learning:' + course) || '{}');
-      return { done: Array.isArray(data.done) ? data.done : [], last: data.last || '' };
-    } catch (e) {
-      return { done: [], last: '' };
-    }
+  // Хранится только в этом браузере — для кнопки «Продолжить».
+  function readLast(course) {
+    try { return localStorage.getItem('learning:last:' + course) || ''; } catch (e) { return ''; }
   }
 
-  function saveProgress(course, data) {
-    try { localStorage.setItem('learning:' + course, JSON.stringify(data)); } catch (e) { /* приватный режим */ }
+  function saveLast(course, lesson) {
+    try { localStorage.setItem('learning:last:' + course, lesson); } catch (e) { /* приватный режим */ }
   }
 
-  function paintDone(root, done) {
-    var items = root.querySelectorAll('[data-lesson]');
-    items.forEach(function (li) {
-      li.classList.toggle('is-done', done.indexOf(li.getAttribute('data-lesson')) !== -1);
-    });
-  }
-
-  function initLessonProgress() {
+  function initLessonPage() {
     var page = document.querySelector('[data-lesson-page]');
     if (!page) return;
-    var course = page.getAttribute('data-course');
-    var lesson = page.getAttribute('data-lesson-page');
-    var data = readProgress(course);
-    var btn = page.querySelector('[data-mark-done]');
-    var bar = page.querySelector('[data-progress-bar]');
-    var text = page.querySelector('[data-progress-text]');
-    var total = page.querySelectorAll('.lesson-nav [data-lesson]').length;
-
-    function update() {
-      var isDone = data.done.indexOf(lesson) !== -1;
-      paintDone(page, data.done);
-      if (btn) {
-        btn.hidden = false;
-        btn.setAttribute('aria-pressed', isDone ? 'true' : 'false');
-        btn.querySelector('[data-label]').textContent = isDone ? 'Урок пройден' : 'Отметить как пройденный';
-      }
-      var count = data.done.length;
-      if (bar) bar.style.width = (total ? Math.round(count / total * 100) : 0) + '%';
-      if (text) text.textContent = 'Пройдено: ' + count + ' из ' + total;
-    }
-
-    function setDone(value) {
-      var i = data.done.indexOf(lesson);
-      if (value && i === -1) data.done.push(lesson);
-      if (!value && i !== -1) data.done.splice(i, 1);
-      saveProgress(course, data);
-      update();
-    }
-
-    data.last = lesson;
-    saveProgress(course, data);
-    update();
-
-    if (btn) btn.addEventListener('click', function () { setDone(data.done.indexOf(lesson) === -1); });
-    // Переход к следующему уроку считаем завершением текущего.
-    var next = page.querySelector('.lesson-pager [rel="next"]');
-    if (next) next.addEventListener('click', function () { setDone(true); });
+    saveLast(page.getAttribute('data-course'), page.getAttribute('data-lesson-page'));
 
     // На десктопе программа всегда раскрыта; текущий урок — в зоне видимости.
     var nav = page.querySelector('[data-lesson-nav]');
@@ -306,56 +258,23 @@
     }
   }
 
-  // Страницы курса и темы: отметки, прогресс по темам и кнопка «Продолжить».
-  function initCourseProgress() {
+  // Страницы курса и темы: кнопка «Продолжить» ведёт к последнему открытому уроку.
+  function initContinue() {
     var root = document.querySelector('[data-course]:not([data-lesson-page])');
     var source = document.getElementById('course-lessons');
     if (!root || !source) return;
     var lessons = JSON.parse(source.textContent);
-    var slugs = Object.keys(lessons);
-    var data = readProgress(root.getAttribute('data-course'));
-    var done = data.done.filter(function (s) { return lessons[s]; });
-    paintDone(root, done);
+    var last = readLast(root.getAttribute('data-course'));
+    if (!lessons[last]) return;
 
-    function countDone(list) {
-      return list.filter(function (s) { return done.indexOf(s) !== -1; }).length;
-    }
-
-    var status = root.querySelector('[data-course-progress]');
-    if (status && done.length) {
-      status.textContent = 'Пройдено ' + done.length + ' из ' + slugs.length + ' уроков';
-      status.hidden = false;
-    }
-
-    root.querySelectorAll('.topic-card[data-topic]').forEach(function (card) {
-      var list = card.getAttribute('data-topic').split(' ');
-      var n = countDone(list);
-      if (!n) return;
-      var label = card.querySelector('[data-topic-progress]');
-      label.textContent = n === list.length ? 'Пройдена' : n + ' из ' + list.length;
-      label.hidden = false;
-      card.querySelector('[data-topic-bar]').style.width = Math.round(n / list.length * 100) + '%';
-    });
-
-    // На курсе — последний открытый урок; в теме — последний урок этой темы или первый непройденный.
     var cta = root.querySelector('[data-continue]');
-    if (cta && data.last && lessons[data.last]) {
-      cta.href = lessons[data.last].url;
-      cta.textContent = 'Продолжить: ' + lessons[data.last].title;
-    }
     var topicCta = root.querySelector('[data-topic-continue]');
-    if (topicCta) {
-      var list = topicCta.getAttribute('data-topic').split(' ');
-      var n = countDone(list);
-      var label = root.querySelector('[data-topic-progress]');
-      if (label && n) { label.textContent = 'пройдено ' + n + ' из ' + list.length; label.hidden = false; }
-      var target = list.indexOf(data.last) !== -1 ? data.last :
-        list.filter(function (s) { return done.indexOf(s) === -1; })[0];
-      if (n && target && lessons[target]) {
-        topicCta.href = lessons[target].url;
-        topicCta.textContent = 'Продолжить: ' + lessons[target].title;
-      }
-    }
+    if (topicCta && topicCta.getAttribute('data-topic').split(' ').indexOf(last) === -1) topicCta = null;
+    [cta, topicCta].forEach(function (btn) {
+      if (!btn) return;
+      btn.href = lessons[last].url;
+      btn.textContent = 'Продолжить: ' + lessons[last].title;
+    });
   }
 
   /* ---------- Обучение: активный пункт содержания ---------- */
@@ -426,8 +345,8 @@
     initSwatches();
     initPrompt();
     initCodeCopy();
-    initLessonProgress();
-    initCourseProgress();
+    initLessonPage();
+    initContinue();
     initLessonToc();
   });
 })();

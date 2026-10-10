@@ -23,7 +23,6 @@
       <a class="btn btn--primary btn--lg" href="{{ course.first_lesson.url }}" data-continue>Начать с первого урока</a>
       <a class="btn btn--ghost btn--lg" href="#program">Темы курса</a>
     </div>
-    <p class="course-hero__progress" data-course-progress hidden></p>
   </header>
 
   <ul class="stats" role="list">
@@ -74,7 +73,6 @@
           <a href="{{ lesson.url }}">
             <span class="lesson-list__num">{{ lesson.number|stringformat:"02d" }}</span>
             <span class="lesson-list__title">{{ lesson.title }}<small>{{ lesson.section.title }}</small></span>
-            <span class="lesson-list__done" aria-hidden="true"></span>
           </a>
         </li>
         {% endfor %}
@@ -97,9 +95,7 @@
         </ul>
         <div class="topic-card__meta">
           <span>{% with n=section.lessons|length %}{{ n }} {{ n|ru_plural:"урок,урока,уроков" }}{% endwith %} · ≈{{ section.minutes }} мин</span>
-          <span class="topic-card__progress" data-topic-progress hidden></span>
         </div>
-        <div class="topic-card__bar" aria-hidden="true"><span data-topic-bar></span></div>
       </li>
       {% endfor %}
     </ol>

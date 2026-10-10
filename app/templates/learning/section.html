@@ -20,7 +20,7 @@
     <h1>{{ section.title }}</h1>
     {% if section.summary %}<p class="lead">{{ section.summary }}</p>{% endif %}
     {% with n=section.lessons|length %}
-    <p class="topic-hero__meta">{{ n }} {{ n|ru_plural:"урок,урока,уроков" }} · ≈{{ section.minutes }} мин чтения<span data-topic-progress hidden></span></p>
+    <p class="topic-hero__meta">{{ n }} {{ n|ru_plural:"урок,урока,уроков" }} · ≈{{ section.minutes }} мин чтения</p>
     {% endwith %}
     <div class="course-hero__actions">
       <a class="btn btn--primary btn--lg" href="{{ section.lessons.0.url }}" data-topic-continue data-topic="{{ section.lesson_slugs }}">Начать тему</a>
@@ -38,7 +38,6 @@
           {% if lesson.excerpt %}<span>{{ lesson.excerpt }}</span>{% endif %}
           <small>≈{{ lesson.minutes }} мин</small>
         </span>
-        <span class="lesson-list__done" aria-hidden="true"></span>
       </a>
     </li>
     {% endfor %}

@@ -56,7 +56,6 @@
 .course-hero { padding: 16px 0 32px; }
 .course-hero h1 { font-size: clamp(30px, 5.5vw, 56px); margin: 14px 0 14px; max-width: 18ch; }
 .course-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-.course-hero__progress { margin-top: 14px; font-size: 14px; color: var(--muted); }
 
 .course-about { display: grid; gap: 24px; margin-bottom: 56px; }
 @media (min-width: 900px) { .course-about { grid-template-columns: 1fr 1fr; align-items: start; gap: 40px; } }
@@ -82,7 +81,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 22px 22px 0;
+  padding: 22px 22px 8px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
@@ -126,17 +125,12 @@
 .topic-card__lessons li::before { content: ""; position: absolute; left: 0; top: .6em; width: 5px; height: 5px; border-radius: 50%; background: var(--border-strong); }
 .topic-card__more { color: var(--text); }
 .topic-card__meta { display: flex; justify-content: space-between; gap: 8px; margin-top: auto; padding: 12px 0 14px; font-size: 13px; color: var(--muted); }
-.topic-card__progress { color: var(--accent-text); }
-.topic-card__bar { height: 3px; margin: 0 -22px; background: var(--surface-3); }
-.topic-card__bar span { display: block; height: 100%; width: 0; background: var(--accent); }
 
 /* Страница темы */
 .topic-hero { padding: 16px 0 32px; }
 .topic-hero .eyebrow span { font-size: 16px; letter-spacing: 0; }
 .topic-hero h1 { font-size: clamp(30px, 5.5vw, 52px); margin: 12px 0 14px; }
 .topic-hero__meta { margin-top: 12px; font-size: 14px; color: var(--muted); }
-.topic-hero__meta span { color: var(--accent-text); }
-.topic-hero__meta span::before { content: " · "; color: var(--muted); }
 
 .topic-lessons { list-style: none; display: grid; gap: 10px; max-width: 880px; }
 .topic-lesson {
@@ -157,7 +151,6 @@
 .topic-lesson__body b { font-size: 18px; font-weight: 600; line-height: 1.35; }
 .topic-lesson__body span { color: var(--muted); font-size: 15px; line-height: 1.55; }
 .topic-lesson__body small { font-size: 13px; color: var(--muted); }
-.topic-lesson .lesson-list__done { margin-top: 3px; }
 .topic-pager { max-width: 880px; margin: 32px 0 72px; }
 
 .lesson-list { list-style: none; display: grid; gap: 2px; }
@@ -177,21 +170,6 @@
 .lesson-list__title small { font-size: 13px; color: var(--muted); }
 .lesson-list--results { padding-bottom: 72px; }
 .lesson-list--results a { padding: 12px 14px; border: 1px solid var(--border); background: var(--surface); }
-
-/* Отметка «пройдено» (ставит app.js) */
-.lesson-list__done {
-  flex: none;
-  width: 18px;
-  height: 18px;
-  margin-left: auto;
-  border-radius: 50%;
-  border: 1.5px solid var(--border-strong);
-}
-.is-done .lesson-list__done {
-  border-color: var(--accent-text);
-  background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230c0c0e' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat;
-}
-html:not(.js) .lesson-list__done { display: none; }
 
 /* ---------- Страница урока ---------- */
 
@@ -232,12 +210,8 @@ html:not(.js) .lesson-list__done { display: none; }
   .lesson-nav__toggle > summary { display: none; }
   .lesson-nav__body { padding: 0; }
 }
-.lesson-nav__course { display: block; font-family: var(--display); font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; line-height: 1.3; }
+.lesson-nav__course { display: block; font-family: var(--display); font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; line-height: 1.3; margin-bottom: 12px; }
 .lesson-nav__course:hover { color: var(--accent-text); }
-.lesson-nav__bar { height: 4px; margin: 14px 0 6px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
-.lesson-nav__bar span { display: block; height: 100%; background: var(--accent); transition: width .3s var(--ease); }
-.lesson-nav__stat { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
-html:not(.js) .lesson-nav__bar, html:not(.js) .lesson-nav__stat { display: none; }
 
 .lesson-nav__section { border-top: 1px solid var(--border); }
 .lesson-nav__section > summary {
@@ -267,8 +241,6 @@ html:not(.js) .lesson-nav__bar, html:not(.js) .lesson-nav__stat { display: none;
 }
 .lesson-nav__section a:hover { color: var(--text); background: var(--surface-2); }
 .lesson-nav__section a[aria-current="page"] { color: var(--text); background: var(--surface-2); box-shadow: inset 2px 0 0 var(--accent); }
-.lesson-nav__section .lesson-list__done { order: -1; margin: 1px 0 0; width: 16px; height: 16px; }
-.lesson-nav__section .is-done .lesson-list__done { background-size: 10px; }
 
 .lesson__head { padding: 12px 0 28px; }
 .lesson__head h1 { font-size: clamp(28px, 4.5vw, 44px); margin-top: 10px; }
@@ -420,12 +392,9 @@ html:not(.js) .lesson-nav__bar, html:not(.js) .lesson-nav__stat { display: none;
 .code .gh, .code .gu { color: var(--code-function); font-weight: 600; }
 .code .err { color: inherit; border: 0; }
 
-/* ---------- Отметка и навигация ---------- */
+/* ---------- Навигация между уроками ---------- */
 
-.lesson-done { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
-.lesson-done .btn[aria-pressed="true"] { --btn-bg: var(--accent-soft); --btn-border: var(--accent); color: var(--accent); }
-
-.lesson-pager { display: grid; gap: 12px; margin-top: 24px; }
+.lesson-pager { display: grid; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
 @media (min-width: 640px) { .lesson-pager { grid-template-columns: 1fr 1fr; } }
 .lesson-pager__link {
   display: grid;
