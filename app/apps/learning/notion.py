@@ -306,10 +306,13 @@ class InlineRenderer:
             if target:
                 _, url = self.link_for_page(target)
                 href = url or href
-            if out.strip():
+            if out.strip() and _SAFE_HREF.match(href):
                 out = f'[{out}]({href.replace(" ", "%20").replace(")", "%29")})'
         return out
 
+
+# Ссылки из Notion попадают в HTML урока как есть: javascript: и прочие схемы не пускаем.
+_SAFE_HREF = re.compile(r'^(https?://|mailto:|lesson:|/|#)', re.I)
 
 _NOTION_ID = re.compile(r'([0-9a-f]{32})(?:[?#].*)?$')
 

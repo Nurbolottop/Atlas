@@ -39,11 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party
-    'ckeditor',
-    'ckeditor_uploader',
-    'django_resized',
-
     # Local apps
     'apps.base',
     'apps.cms',
@@ -172,18 +167,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# =============================================================================
-# CKEDITOR (РЕДАКТОР CKEDITOR)
-# =============================================================================
-
-CKEDITOR_UPLOAD_PATH = 'uploads/'
-CKEDITOR_IMAGE_BACKEND = "pillow"
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 300,
-        'width': '100%',
-    },
-}

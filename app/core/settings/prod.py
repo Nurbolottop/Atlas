@@ -9,17 +9,16 @@ CSRF_COOKIE_SECURE = True
 # Приложение работает за nginx, который терминирует HTTPS.
 # Без этого Django считает запрос http-запросом и ломает CSRF/редиректы.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = True
+# USE_X_FORWARDED_HOST не включаем: nginx передаёт настоящий Host, а
+# X-Forwarded-Host пришёл бы от клиента как есть.
 
 # Прочие security-заголовки
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# HSTS включай только когда HTTPS точно настроен и работает,
-# иначе браузеры запомнят домен и http перестанет открываться.
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+# HSTS: браузер год ходит на сайт только по HTTPS. Поддомены и preload
+# не включаем — на домене zeastudio.su живут и другие проекты.
+SECURE_HSTS_SECONDS = 31536000
 
 # =============================================================================
 # LOGGING — при DEBUG=False ошибки иначе уходят в никуда

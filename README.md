@@ -329,10 +329,10 @@ docker compose down -v
 ### prod.py
 
 - `DEBUG = False`, `SESSION_COOKIE_SECURE` и `CSRF_COOKIE_SECURE` включены
-- `SECURE_PROXY_SSL_HEADER` + `USE_X_FORWARDED_HOST` — Django работает за nginx, который терминирует HTTPS. Без этого он считает запрос http-запросом и ломает CSRF и редиректы
+- `SECURE_PROXY_SSL_HEADER` — Django работает за nginx, который терминирует HTTPS. Без этого он считает запрос http-запросом и ломает CSRF и редиректы. `USE_X_FORWARDED_HOST` не включён: nginx передаёт настоящий `Host`, а `X-Forwarded-Host` клиент может подставить сам
 - `SECURE_CONTENT_TYPE_NOSNIFF`, `X_FRAME_OPTIONS = 'DENY'`
 - `LOGGING` в stdout — при `DEBUG=False` ошибки иначе никуда не пишутся, а так они видны в `docker compose logs`
-- HSTS закомментирован намеренно: включай только когда HTTPS точно работает, иначе браузеры запомнят домен и http перестанет открываться
+- HSTS включён на год (`SECURE_HSTS_SECONDS`), без поддоменов и preload: на домене живут и другие проекты
 
 ---
 
@@ -438,6 +438,5 @@ docker compose -f docker-compose.prod.yml --profile bot up -d   # prod
 - **DRF.** Если проект на API — в `requirements.txt` нет `djangorestframework`, `django-cors-headers`, `drf-spectacular`, `django-filter`. Плюс понадобится блок `REST_FRAMEWORK` в `base.py`.
 - **Абстрактные модели в `apps/base`.** Приложение пустое, а напрашиваются `TimeStampedModel` (created_at / updated_at), `SEOModel`, общие менеджеры.
 - **Redis.** Контейнер поднимается и `REDIS_URL` есть в `.env`, но `CACHES` в настройках не сконфигурирован — сейчас Redis работает вхолостую.
-- **`django-ckeditor`.** Django выдаёт предупреждение при каждом старте: пакет несёт CKEditor 4.22.1 с неисправленными уязвимостями. Стоит перейти на `django-ckeditor-5` или TinyMCE.
 - **Приложения `cms` и `contacts`** — пустые заготовки. Удали ненужные (из `INSTALLED_APPS` и `core/urls.py` тоже) или наполни.
 - **Тесты и CI.** Есть только пустые `tests.py` от `startapp`.
