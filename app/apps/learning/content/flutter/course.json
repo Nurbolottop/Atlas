@@ -1,0 +1,146 @@
+{
+  "slug": "flutter",
+  "title": "Мобильная разработка на Flutter",
+  "order": 30,
+  "level": "Продолжающий",
+  "summary": "Продвинутая часть курса Flutter: управление состоянием, Bloc, сеть, Firebase, Clean Architecture, чат и публикация приложений.",
+  "description": [
+    "Эта часть курса для тех, кто уже знает Dart и базовые виджеты Flutter. Здесь собираются настоящие приложения: прогноз погоды, интернет-магазин и чат.",
+    "Каждый урок объясняет тему простыми словами и показывает её на коде, а в конце месяца получается готовое приложение."
+  ],
+  "outcomes": [
+    "Управлять состоянием через ChangeNotifier, Bloc и Riverpod",
+    "Работать с сетью через Dio и разбирать JSON в модели",
+    "Подключать Firebase: авторизацию, push-уведомления, Realtime Database",
+    "Строить приложения на Clean Architecture с DI через GetIt",
+    "Собирать и публиковать приложения в App Store и Google Play"
+  ],
+  "sections": [
+    {
+      "slug": "sostoyanie-set-firebase",
+      "title": "Месяц 4. Состояние, сеть и Firebase — WeatherApp",
+      "icon": "🌦️",
+      "key": true,
+      "summary": "ChangeNotifier, Bloc, JSON и Dio, темы, Firebase и итоговое приложение прогноза погоды.",
+      "lessons": [
+        {
+          "slug": "changenotifier-futurebuilder",
+          "title": "ChangeNotifier, ValueNotifier, FutureBuilder и Builder"
+        },
+        {
+          "slug": "bloc-event-state",
+          "title": "Bloc: Event и State, BlocBuilder и BlocListener"
+        },
+        {
+          "slug": "json-modeli-dio-get",
+          "title": "Парсинг JSON: Equatable, json_serializable, модели и Dio GET"
+        },
+        {
+          "slug": "dio-post-put-delete-sostoyaniya",
+          "title": "Dio: POST, PUT, DELETE, ошибки и состояния загрузки"
+        },
+        {
+          "slug": "blocprovider-temy-weatherapp",
+          "title": "BlocProvider, светлая и тёмная тема, WeatherApp на API"
+        },
+        {
+          "slug": "firebase-auth",
+          "title": "Firebase: подключение, авторизация и токен"
+        },
+        {
+          "slug": "firebase-push-deeplinks",
+          "title": "Firebase: push-уведомления и deep links"
+        },
+        {
+          "slug": "networkimage",
+          "title": "Изображения из сети: NetworkImage и errorBuilder"
+        },
+        {
+          "slug": "itog-weatherapp",
+          "title": "Итоговый проект: готовое приложение WeatherApp"
+        }
+      ]
+    },
+    {
+      "slug": "clean-architecture",
+      "title": "Месяц 5. Clean Architecture и MVVM — интернет-магазин",
+      "icon": "🛒",
+      "key": true,
+      "summary": "GetIt и DI, слои Clean Architecture, токены, пагинация, Riverpod и Flutter DevTools.",
+      "lessons": [
+        {
+          "slug": "getit-di-clean-1",
+          "title": "GetIt, DI и Clean Architecture: UseCase и Bloc, часть 1"
+        },
+        {
+          "slug": "getit-di-clean-2",
+          "title": "GetIt, DI и Clean Architecture: UseCase и Bloc, часть 2"
+        },
+        {
+          "slug": "generics-enum-screenutil",
+          "title": "Generics, базовые классы, enum, ScreenUtil и extensions"
+        },
+        {
+          "slug": "avtorizaciya-secure-storage",
+          "title": "Логика авторизации, токен и FlutterSecureStorage"
+        },
+        {
+          "slug": "paginaciya",
+          "title": "Пагинация в архитектуре приложения"
+        },
+        {
+          "slug": "blocselector-blocconsumer",
+          "title": "BlocSelector и BlocConsumer"
+        },
+        {
+          "slug": "riverpod-i-animacii",
+          "title": "Riverpod на примерах и анимации"
+        },
+        {
+          "slug": "flutter-devtools",
+          "title": "Flutter Inspector, DevTools и ошибки отрисовки"
+        }
+      ]
+    },
+    {
+      "slug": "chat-i-publikaciya",
+      "title": "Месяц 6. Чат и публикация приложений",
+      "icon": "💬",
+      "summary": "Чат на Firebase Realtime Database и сокетах, сборки для Android и iOS, публикация, аналитика и собеседование.",
+      "lessons": [
+        {
+          "slug": "chat-firebase-1",
+          "title": "Чат на Firebase Realtime Database, Stream и сокеты, часть 1"
+        },
+        {
+          "slug": "chat-firebase-2",
+          "title": "Чат на Firebase Realtime Database, Stream и сокеты, часть 2"
+        },
+        {
+          "slug": "chat-firebase-3",
+          "title": "Чат на Firebase Realtime Database, Stream и сокеты, часть 3"
+        },
+        {
+          "slug": "build-types-jit-aot",
+          "title": "Сборки для Android и iOS, build types, JIT и AOT"
+        },
+        {
+          "slug": "publikaciya-v-store",
+          "title": "Публикация в App Store и Google Play, README и Makefile"
+        },
+        {
+          "slug": "analitika-talker",
+          "title": "Аналитика приложения и TalkerFlutter"
+        },
+        {
+          "slug": "mock-interview-code-review",
+          "title": "Мок-интервью и code review"
+        },
+        {
+          "slug": "testovoe-zadanie",
+          "title": "Тестовое задание для отбора в Geeks Pro"
+        }
+      ]
+    }
+  ]
+}

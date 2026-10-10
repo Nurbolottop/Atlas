@@ -3,6 +3,7 @@
 
 :root {
   --code-bg: #111114;
+  --code-text: #e8e8e3;
   --code-keyword: #c8f031;
   --code-string: #f5c26b;
   --code-number: #ff9e64;
@@ -346,6 +347,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-s);
   background: var(--code-bg);
+  color: var(--code-text);
+  /* блок кода всегда тёмный, независимо от темы сайта */
+  color-scheme: dark;
 }
 .lesson-prose .code pre {
   margin: 0;
@@ -386,9 +390,9 @@
 .code .nf, .code .fm { color: var(--code-function); }
 .code .nc, .code .ne, .code .no { color: var(--code-class); }
 .code .nd, .code .nt, .code .na { color: var(--code-builtin); }
-.code .gp, .code .go { color: var(--muted); }
-.code .gd { color: var(--danger); }
-.code .gi { color: var(--success); }
+.code .gp, .code .go { color: #9a9aa3; }
+.code .gd { color: #ff7b72; }
+.code .gi { color: #7ee2a8; }
 .code .gh, .code .gu { color: var(--code-function); font-weight: 600; }
 .code .err { color: inherit; border: 0; }
 

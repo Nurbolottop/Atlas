@@ -1,0 +1,268 @@
+{
+  "slug": "frontend",
+  "title": "Frontend-разработка",
+  "order": 20,
+  "level": "С нуля",
+  "summary": "От первых HTML-тегов до React, TypeScript и готового проекта: вёрстка, JavaScript, работа с API и современные инструменты.",
+  "description": [
+    "Курс ведёт от компьютерной грамотности и HTML к полноценным веб-приложениям на React и TypeScript. Каждый урок объясняет тему простым языком и сразу показывает её на примерах кода.",
+    "Шесть месяцев: вёрстка на HTML и CSS, основы и продвинутый JavaScript, React, управление состоянием и запросы к серверу, TypeScript, архитектура и подготовка к работе."
+  ],
+  "outcomes": [
+    "Верстать адаптивные страницы на HTML, CSS и Tailwind CSS",
+    "Писать на JavaScript: DOM, события, асинхронность, запросы к API",
+    "Собирать приложения на React с роутингом, формами и React Query",
+    "Использовать TypeScript, Git, npm и инструменты разработчика",
+    "Организовывать архитектуру проекта и готовиться к собеседованию"
+  ],
+  "sections": [
+    {
+      "slug": "html-css",
+      "title": "Месяц 1. HTML5 и CSS3",
+      "icon": "🧱",
+      "key": true,
+      "summary": "Вёрстка с нуля: теги, стили, позиционирование, Flexbox, картинки и медиазапросы.",
+      "lessons": [
+        {
+          "slug": "znakomstvo-i-podgotovka",
+          "title": "Знакомство с курсом и компьютерная грамотность"
+        },
+        {
+          "slug": "html-osnovnye-tegi",
+          "title": "HTML5: основные теги"
+        },
+        {
+          "slug": "css-podklyuchenie-i-svoystva",
+          "title": "CSS3: способы подключения, color, font, width, text-align и каскад"
+        },
+        {
+          "slug": "position-edinicy-blochnaya-model",
+          "title": "Позиционирование, единицы измерения и блочная модель"
+        },
+        {
+          "slug": "flexbox-i-hover",
+          "title": "Flexbox и псевдокласс :hover"
+        },
+        {
+          "slug": "shrifty-i-kartinki",
+          "title": "Планирование вёрстки, шрифты и картинки (PNG, JPG, SVG)"
+        },
+        {
+          "slug": "img-i-background-image",
+          "title": "Практика: все стили вместе, img и background-image"
+        },
+        {
+          "slug": "css-peremennye-i-media",
+          "title": "CSS-переменные и медиазапросы"
+        },
+        {
+          "slug": "script-vozmozhnosti-js",
+          "title": "Тег script и возможности JavaScript. Итоговая работа месяца"
+        }
+      ]
+    },
+    {
+      "slug": "git-i-js-1",
+      "title": "Месяц 2. Git и введение в JavaScript",
+      "icon": "🌱",
+      "summary": "Git и GitHub, типы данных, условия, циклы, объекты, DOM, функции и методы массивов.",
+      "lessons": [
+        {
+          "slug": "git-i-osnovy-js",
+          "title": "Git, Git Bash и первый проект. Основы JavaScript и типы данных"
+        },
+        {
+          "slug": "usloviya-operatory-let-const",
+          "title": "Условные конструкции, операторы и let/const"
+        },
+        {
+          "slug": "cikly-massivy-obekty",
+          "title": "Циклы, массивы и объекты"
+        },
+        {
+          "slug": "vvedenie-v-dom",
+          "title": "Введение в DOM и обработка событий"
+        },
+        {
+          "slug": "funkcii-zamykaniya-kolbeki",
+          "title": "Функции, анонимные функции, замыкания и колбэки"
+        },
+        {
+          "slug": "metody-perebora-massiva",
+          "title": "Методы перебора массива: map, forEach, filter, find"
+        },
+        {
+          "slug": "destrukturizaciya-spread-rest",
+          "title": "Деструктуризация, spread, rest, ?. и ??"
+        },
+        {
+          "slug": "json-storage-devtools",
+          "title": "JSON, localStorage, sessionStorage и DevTools"
+        }
+      ]
+    },
+    {
+      "slug": "js-2",
+      "title": "Месяц 3. JavaScript, часть 2",
+      "icon": "⚡",
+      "key": true,
+      "summary": "Регулярные выражения, асинхронность, Promise, fetch, формы, REST API и npm.",
+      "lessons": [
+        {
+          "slug": "regulyarnye-vyrazheniya-rekursiya",
+          "title": "Регулярные выражения и рекурсия"
+        },
+        {
+          "slug": "event-loop-i-promise",
+          "title": "Асинхронность: Event Loop, Promise и Promise.all"
+        },
+        {
+          "slug": "try-catch-finally",
+          "title": "Асинхронность, часть 2: try, catch, finally"
+        },
+        {
+          "slug": "fetch-async-await-get",
+          "title": "Запросы на сервер: fetch, async/await и метод GET"
+        },
+        {
+          "slug": "formy-i-post",
+          "title": "Работа с формами и метод POST"
+        },
+        {
+          "slug": "rest-api-put-delete",
+          "title": "REST API, HTTP и HTTPS, методы PUT и DELETE"
+        },
+        {
+          "slug": "npm-i-package-json",
+          "title": "Пакетный менеджер npm и package.json"
+        },
+        {
+          "slug": "prezentaciya-proektov-js",
+          "title": "Презентация проектов. Итоговая работа месяца"
+        }
+      ]
+    },
+    {
+      "slug": "react",
+      "title": "Месяц 4. React",
+      "icon": "⚛️",
+      "key": true,
+      "summary": "Компоненты, JSX, пропсы, состояние, хуки, формы, запросы и React Router.",
+      "lessons": [
+        {
+          "slug": "znakomstvo-s-react-jsx",
+          "title": "Знакомство с React, установка и JSX"
+        },
+        {
+          "slug": "komponenty-i-propsy",
+          "title": "Компоненты, пропсы, импорт и экспорт, Ant Design"
+        },
+        {
+          "slug": "spiski-klyuchi-css-modules",
+          "title": "Списки и ключи, CSS Modules и обработчики событий"
+        },
+        {
+          "slug": "usestate-i-useeffect",
+          "title": "Состояние и жизненный цикл: useState и useEffect"
+        },
+        {
+          "slug": "useref-usememo-usecallback",
+          "title": "Хуки useRef, useMemo и useCallback"
+        },
+        {
+          "slug": "react-hook-form-yup",
+          "title": "Формы: react-hook-form, валидация yup и react-toastify"
+        },
+        {
+          "slug": "todolist-axios-json-server",
+          "title": "ToDoList: axios, json-server и Postman"
+        },
+        {
+          "slug": "react-router",
+          "title": "React Router: маршруты, useParams, useNavigate и lazy"
+        }
+      ]
+    },
+    {
+      "slug": "react-zustand",
+      "title": "Месяц 5. React и Zustand",
+      "icon": "🗂️",
+      "summary": "SPA на React Router, менеджеры состояния, Zustand, React Query и JWT-авторизация.",
+      "lessons": [
+        {
+          "slug": "spa-na-react-router",
+          "title": "SPA на React Router: данные между страницами и useLoaderData"
+        },
+        {
+          "slug": "obzor-state-manager",
+          "title": "Обзор менеджеров состояния в React"
+        },
+        {
+          "slug": "zustand",
+          "title": "Знакомство с Zustand"
+        },
+        {
+          "slug": "react-query-get",
+          "title": "Запросы через React Query: GET"
+        },
+        {
+          "slug": "filtraciya-sortirovka-kesh",
+          "title": "Фильтрация, сортировка, query-параметры и кэш"
+        },
+        {
+          "slug": "usemutation",
+          "title": "useMutation: POST, PUT и PATCH"
+        },
+        {
+          "slug": "jwt-avtorizaciya-swagger",
+          "title": "JWT-авторизация, регистрация и Swagger"
+        },
+        {
+          "slug": "povtorenie-react",
+          "title": "Повторение материала. Итоговая работа месяца"
+        }
+      ]
+    },
+    {
+      "slug": "typescript",
+      "title": "Месяц 6. TypeScript и выход на работу",
+      "icon": "🚀",
+      "key": true,
+      "summary": "TypeScript, архитектура проектов, Tailwind, UI-kit, генерация типов, SEO, ИИ и собеседование.",
+      "lessons": [
+        {
+          "slug": "typescript-osnovy",
+          "title": "TypeScript: установка, type, interface и generics"
+        },
+        {
+          "slug": "arhitektura-proektov-fsd",
+          "title": "Архитектура проектов: компонентная, модульная и FSD"
+        },
+        {
+          "slug": "tailwind-css",
+          "title": "Tailwind CSS и адаптивная вёрстка"
+        },
+        {
+          "slug": "ui-kit-storybook",
+          "title": "Работа с дизайном: компоненты и UI-kit в Storybook"
+        },
+        {
+          "slug": "swagger-generaciya-tipov",
+          "title": "Swagger и автоматическая генерация типов"
+        },
+        {
+          "slug": "seo-osnovy",
+          "title": "Основы SEO-оптимизации"
+        },
+        {
+          "slug": "ai-v-razrabotke",
+          "title": "ИИ в разработке: агенты и скиллы"
+        },
+        {
+          "slug": "podgotovka-k-sobesedovaniyu",
+          "title": "Завершение проекта и подготовка к собеседованию"
+        }
+      ]
+    }
+  ]
+}
